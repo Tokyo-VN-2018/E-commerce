@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -204,97 +204,18 @@
             <!-- Left nav -->
             <ul class="nav navbar-nav">
               <li><a href="index.html">Home</a></li>
-              <li><a href="#">Men <span class="caret"></span></a>
+              <li><a href="#">Mobile</a></li>
+              <li><a href="#">Laptop</a></li>
+              <li><a href="#">Television</a></li>
+             <li><a href="#">Accessories <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
-                  <li><a href="#">Casual</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Formal</a></li>
-                  <li><a href="#">Standard</a></li>                                                
-                  <li><a href="#">T-Shirts</a></li>
-                  <li><a href="#">Shirts</a></li>
-                  <li><a href="#">Jeans</a></li>
-                  <li><a href="#">Trousers</a></li>
-                  <li><a href="#">And more.. <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Sleep Wear</a></li>
-                      <li><a href="#">Sandals</a></li>
-                      <li><a href="#">Loafers</a></li>                                      
-                    </ul>
-                  </li>
+                  <li><a href="#">Headphone</a></li>
+                  <li><a href="#">Microphone</a></li>
+                  <li><a href="#">Mouse</a></li>
+                  <li><a href="#">Keyboard</a></li>                                                
+                  <li><a href="#">Game Console</a></li>                
                 </ul>
               </li>
-              <li><a href="#">Women <span class="caret"></span></a>
-                <ul class="dropdown-menu">  
-                  <li><a href="#">Kurta & Kurti</a></li>                                                                
-                  <li><a href="#">Trousers</a></li>              
-                  <li><a href="#">Casual</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Formal</a></li>                
-                  <li><a href="#">Sarees</a></li>
-                  <li><a href="#">Shoes</a></li>
-                  <li><a href="#">And more.. <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Sleep Wear</a></li>
-                      <li><a href="#">Sandals</a></li>
-                      <li><a href="#">Loafers</a></li>
-                      <li><a href="#">And more.. <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                          <li><a href="#">Rings</a></li>
-                          <li><a href="#">Earrings</a></li>
-                          <li><a href="#">Jewellery Sets</a></li>
-                          <li><a href="#">Lockets</a></li>
-                          <li class="disabled"><a class="disabled" href="#">Disabled item</a></li>                       
-                          <li><a href="#">Jeans</a></li>
-                          <li><a href="#">Polo T-Shirts</a></li>
-                          <li><a href="#">SKirts</a></li>
-                          <li><a href="#">Jackets</a></li>
-                          <li><a href="#">Tops</a></li>
-                          <li><a href="#">Make Up</a></li>
-                          <li><a href="#">Hair Care</a></li>
-                          <li><a href="#">Perfumes</a></li>
-                          <li><a href="#">Skin Care</a></li>
-                          <li><a href="#">Hand Bags</a></li>
-                          <li><a href="#">Single Bags</a></li>
-                          <li><a href="#">Travel Bags</a></li>
-                          <li><a href="#">Wallets & Belts</a></li>                        
-                          <li><a href="#">Sunglases</a></li>
-                          <li><a href="#">Nail</a></li>                       
-                        </ul>
-                      </li>                   
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="#">Kids <span class="caret"></span></a>
-                <ul class="dropdown-menu">                
-                  <li><a href="#">Casual</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Formal</a></li>
-                  <li><a href="#">Standard</a></li>                                                
-                  <li><a href="#">T-Shirts</a></li>
-                  <li><a href="#">Shirts</a></li>
-                  <li><a href="#">Jeans</a></li>
-                  <li><a href="#">Trousers</a></li>
-                  <li><a href="#">And more.. <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Sleep Wear</a></li>
-                      <li><a href="#">Sandals</a></li>
-                      <li><a href="#">Loafers</a></li>                                      
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="#">Sports</a></li>
-             <li><a href="#">Digital <span class="caret"></span></a>
-                <ul class="dropdown-menu">                
-                  <li><a href="#">Camera</a></li>
-                  <li><a href="#">Mobile</a></li>
-                  <li><a href="#">Tablet</a></li>
-                  <li><a href="#">Laptop</a></li>                                                
-                  <li><a href="#">Accesories</a></li>                
-                </ul>
-              </li>
-              <li><a href="#">Furniture</a></li>            
               <li><a href="blog-archive.html">Blog <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
                   <li><a href="blog-archive.html">Blog Style 1</a></li>
@@ -343,14 +264,14 @@
        <div class="col-md-12">
         <div class="aa-myaccount-area">         
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-6" th:classappend="${classActiveLogin}? 'in active'">
                 <div class="aa-myaccount-login">
                 <h4>Login</h4>
                  <form action="" class="aa-login-form">
-                  <label for="">Username or Email address<span>*</span></label>
-                   <input type="text" placeholder="Username or email">
-                   <label for="">Password<span>*</span></label>
-                    <input type="password" placeholder="Password">
+                  <label for="user">Username or Email address<span>*</span></label>
+                   <input type="text" placeholder="Username or email" id="user" name = "user">
+                   <label for="password">Password<span>*</span></label>
+                    <input type="password" placeholder="Password" id="password" name = "password">
                     <button type="submit" class="aa-browse-btn">Login</button>
                     <label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
                     <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
@@ -361,10 +282,10 @@
                 <div class="aa-myaccount-register">                 
                  <h4>Register</h4>
                  <form action="" class="aa-login-form">
-                    <label for="">Username or Email address<span>*</span></label>
-                    <input type="text" placeholder="Username or email">
-                    <label for="">Password<span>*</span></label>
-                    <input type="password" placeholder="Password">
+                    <label for="newUsername">Username or Email address<span>*</span></label>
+                    <input type="text" placeholder="Username or email" id="newUsername" name = "newUsername">
+                    <label for="newPassword">Password<span>*</span></label>
+                    <input type="text" placeholder="Password" id="newPassword" name = "newPassword">
                     <button type="submit" class="aa-browse-btn">Register</button>                    
                   </form>
                 </div>
@@ -478,10 +399,10 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           <h4>Login or Register</h4>
           <form class="aa-login-form" action="">
-            <label for="">Username or Email address<span>*</span></label>
-            <input type="text" placeholder="Username or email">
-            <label for="">Password<span>*</span></label>
-            <input type="password" placeholder="Password">
+            <label for="user">Username or Email address<span>*</span></label>
+            <input type="text" placeholder="Username or email" id="user" name = "user">
+            <label for="password">Password<span>*</span></label>
+            <input type="password" placeholder="Password" id="password" name = "password">
             <button class="aa-browse-btn" type="submit">Login</button>
             <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
             <p class="aa-lost-password"><a href="#">Lost your password?</a></p>

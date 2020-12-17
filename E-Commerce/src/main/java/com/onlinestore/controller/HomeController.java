@@ -13,10 +13,9 @@ public class HomeController {
 	@RequestMapping("/myAccount")
 	public String myAccount() {
 		return "account";
-	}/*
+	}
 	@RequestMapping("/login")
 	public String login(Model model) {
-		model.addAttribute("aa-myaccount-login",true);
 		return "account";
-	}*/
+	}
 }
