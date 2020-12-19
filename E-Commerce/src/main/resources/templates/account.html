@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -236,7 +236,6 @@
         </div>
       </div> 
       </div>
-    </div>
   </section>
   <!-- / menu -->  
  
@@ -264,7 +263,7 @@
        <div class="col-md-12">
         <div class="aa-myaccount-area">         
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-6" th:classappend="${classActiveLogin}? 'in active'">
                 <div class="aa-myaccount-login">
                 <h4>Login</h4>
                  <form action="" class="aa-login-form">
@@ -282,10 +281,10 @@
                 <div class="aa-myaccount-register">                 
                  <h4>Register</h4>
                  <form action="" class="aa-login-form">
-                    <label for="newUsername">Username or Email address<span>*</span></label>
+                    <label for="newUsername">Username<span>*</span></label>
                     <input type="text" placeholder="Username or email" id="newUsername" name = "newUsername">
-                    <label for="newPassword">Password<span>*</span></label>
-                    <input type="text" placeholder="Password" id="newPassword" name = "newPassword">
+                    <label for="email">Email<span>*</span></label>
+                    <input type="text" placeholder="Password" id="email" name = "email">
                     <button type="submit" class="aa-browse-btn">Register</button>                    
                   </form>
                 </div>
