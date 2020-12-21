@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.onlinestore.domain.User;
 
 @Entity
@@ -20,15 +22,19 @@ public class PasswordResetToken {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	/*@GeneratedValue(generator = "system-uuid")
+	@GenericGenerator(name="system-uuid", strategy = "uuid")*/
 	private Long id;
 	
 	private String token;
 	
 	@OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
-	@JoinColumn(nullable = false, name = "username")
+	@JoinColumn(nullable = false, name = "user_id")
 	private User user;
 	
 	private Date expiryDate;
+	
+	public PasswordResetToken() {}
 	
 	public PasswordResetToken(final String token, final User user) {
 		super();
@@ -91,7 +97,5 @@ public class PasswordResetToken {
 		return "PasswordResetToken [id=" + id + ", token=" + token + ", user=" + user + ", expiryDate=" + expiryDate
 				+ "]";
 	}
-	
-	
-	
+
 }
