@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -101,11 +101,12 @@
               <!-- / header top left -->
               <div class="aa-header-top-right">
                 <ul class="aa-head-top-nav-right">
-                  <li><a href="account.html">My Account</a></li>
-                  <li class="hidden-xs"><a href="wishlist.html">Wishlist</a></li>
+                  <li><a sec:authorize="isAnonymous()" th:href="@{/login}">My Account</a></li>
+                  <li><a sec:authorize="isAuthenticated()" th:href="@{/myprofile}">My Account</a></li>
                   <li class="hidden-xs"><a href="cart.html">My Cart</a></li>
                   <li class="hidden-xs"><a href="checkout.html">Checkout</a></li>
-                  <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
+                  <li><a href="" data-toggle="modal" data-target="#login-modal" sec:authorize="isAnonymous()">Login</a></li>
+                  <li><a sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
                 </ul>
               </div>
             </div>
@@ -203,7 +204,7 @@
           <div class="navbar-collapse collapse">
             <!-- Left nav -->
             <ul class="nav navbar-nav">
-              <li><a href="index.html">Home</a></li>
+              <li><a th:href="@{/}">Home</a></li>
               <li><a href="#">Mobile</a></li>
               <li><a href="#">Laptop</a></li>
               <li><a href="#">Television</a></li>
@@ -247,7 +248,7 @@
       <div class="aa-catg-head-banner-content">
         <h2>Account Page</h2>
         <ol class="breadcrumb">
-          <li><a href="index.html">Home</a></li>                   
+          <li><a th:href="@{/}">Home</a></li>                   
           <li class="active">Account</li>
         </ol>
       </div>
@@ -266,11 +267,11 @@
               <div class="col-md-6" th:classappend="${classActiveLogin}? 'in active'">
                 <div class="aa-myaccount-login">
                 <h4>Login</h4>
-                 <form action="" class="aa-login-form">
-                  <label for="user">Username or Email address<span>*</span></label>
-                   <input type="text" placeholder="Username or email" id="user" name = "user">
+                 <form th:action="@{/login}" class="aa-login-form" method="post">
+                  <label for="username">Username<span>*</span></label>
+                   <input required = "required" type="text" class="form-control" placeholder="Enter your username here" id="username" name = "username"/>
                    <label for="password">Password<span>*</span></label>
-                    <input type="password" placeholder="Password" id="password" name = "password">
+                   <input required = "required" type="password" class="form-control" placeholder="Enter the password that accompanies your username" id="password" name = "password"/>
                     <button type="submit" class="aa-browse-btn">Login</button>
                     <label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
                     <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
@@ -280,16 +281,19 @@
               <div class="col-md-6">
                 <div class="aa-myaccount-register">                 
                  <h4>Register</h4>
-                 <form action="" class="aa-login-form">
-                    <label for="newUsername">Username<span>*</span></label>
-                    <input type="text" placeholder="Username or email" id="newUsername" name = "newUsername">
-                    <label for="email">Email<span>*</span></label>
-                    <input type="text" placeholder="Password" id="email" name = "email">
+                 <form th:action="@{/newUser}" class="aa-login-form" method="post">
+                    <label for="username">Username<span>*</span>&nbsp<span th:if="${usernameExists}">Username already exists. Choose a different one.</span></label>
+                    <input type="text" placeholder="Username" id="username" name = "username">
+                    <label for="email">Email<span>*</span>&nbsp<span th:if="${emailExists}">Email already exists. Choose a different one.</span></label>
+                    <input type="text" placeholder="Email" id="email" name = "email">
                     <button type="submit" class="aa-browse-btn">Register</button>                    
                   </form>
                 </div>
               </div>
-            </div>          
+            </div> 
+            <div class="alert alert-info" th:if="${emailSent}">
+                  	An email has been sent to the email address you just registered. Please validate your email address and update your password information.
+            </div>         
          </div>
        </div>
      </div>
@@ -310,7 +314,7 @@
                 <div class="aa-footer-widget">
                   <h3>Main Menu</h3>
                   <ul class="aa-footer-nav">
-                    <li><a href="#">Home</a></li>
+                    <li><a th:href="@{/}">Home</a></li>
                     <li><a href="#">Our Services</a></li>
                     <li><a href="#">Our Products</a></li>
                     <li><a href="#">About Us</a></li>
