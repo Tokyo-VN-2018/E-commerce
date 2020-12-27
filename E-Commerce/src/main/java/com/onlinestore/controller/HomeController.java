@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.onlinestore.domain.Product;
 import com.onlinestore.domain.User;
 import com.onlinestore.domain.security.PasswordResetToken;
 import com.onlinestore.service.UserService;
@@ -80,6 +81,13 @@ public class HomeController {
     @RequestMapping("/adminPortal")
     public String adminPortal() {
     	return "adminPortal";
+    }
+    
+    @RequestMapping("/adminPortal/add")
+    public String addProduct(Model model) {
+    	Product product = new Product();
+    	model.addAttribute("product",product);
+    	return "addProduct";
     }
 	
 	@RequestMapping(value = "/newUser", method = RequestMethod.POST)

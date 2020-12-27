@@ -61,8 +61,85 @@
 
 	<div lang="en" th:insert="_adminheader::adminheader"></div>
 
+	<div class="container">
+		<div class="row">
+			<form class="form-horizontal" th:action="@{/product/add}"
+				method="post">
+				<fieldset>
+					<legend class="center-block">New Product Information</legend>
+					<span style="font-size: small"> * is required field</span>
 
-	
+					<!-- id -->
+					<div class="form-group">
+						<label for="product_id">Product name</label> <input type="text" name ="product_id"
+							class="form-control" id="product_id" th:value="${product.product_id}"
+							required="required" placeholder="Product ID" /> <span
+							class="help-block"> Name of the product</span>
+					</div>
+					
+					<!-- category id -->
+					<div class="form-group">
+						<label for="category_id">Product name</label> <input type="text" name ="category_id"
+							class="form-control" id="category_id" th:value="${product.category_id}"
+							required="required" placeholder="Product ID" /> <span
+							class="help-block"> Name of the product</span>
+					</div>
+
+					<!-- name -->
+					<div class="form-group">
+						<label for="product_name">Product name</label> <input type="text"
+							class="form-control" id="product_name" name="product_name"
+							th:value="${product.product_name}" required="required"
+							placeholder="Product Name" /> <span class="help-block">
+							Name of the product</span>
+					</div>
+					
+					
+					<div class="form-group">
+						<label for="brand">Brand</label> <input type="text" name ="brand"
+							class="form-control" id="brand" th:value="${product.brand}"
+							required="required" placeholder="Brand" /> <span
+							class="help-block"> Brand of the product</span>
+					</div>
+					
+					<!-- price -->
+					<div class="form-group">
+						<label for="price">Product name</label> <input type="number"
+							class="form-control" id="price" name="price"
+							th:value="${product.price}" required="required"
+							placeholder="Product Name" /> <span class="help-block">
+							Name of the product</span>
+					</div>
+					
+					<!-- quantity -->
+					<div class="form-group">
+						<label for="quantity">Product name</label> <input type="number"
+							class="form-control" id="quantity" name="quantity"
+							th:value="${product.quantity}" required="required"
+							placeholder="Product Name" /> <span class="help-block">
+							Name of the product</span>
+					</div>
+					
+					<!-- description -->
+					<div class="form-group">
+						<label for="description">Product name</label> <textarea
+							class="form-control" id="description" name="description" rows="5"
+							th:value="${product.description}" required="required"
+							placeholder="Product Name"></textarea> <span class="help-block">
+							Name of the product</span>
+					</div>
+					
+					
+					<div class="form-group">
+					<button type="submit" class="btn btn-success">Add Product</button>
+					<a class="btn btn-danger" th:href="@{/}">Cancel</a>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+
+
 
 	<div lang="en" th:insert="_footer::footer"></div>
 	<div lang="en" th:insert="_modal::modal"></div>
