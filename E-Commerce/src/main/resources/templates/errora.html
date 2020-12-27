@@ -53,8 +53,15 @@
   <!-- END SCROLL TOP BUTTON -->
 
 
-  <!-- Start header section -->
-  <div lang="en" th:include="_header::header"></div>
+  <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+    	<div lang="en" th:insert="_adminheader::adminheader"></div>
+	</div>
+	<div sec:authorize="hasAuthority('ROLE_USER')">
+    	<div lang="en" th:insert="_header::header"></div>
+	</div>
+	<div sec:authorize="isAnonymous()">
+    	<div lang="en" th:insert="_header::header"></div>
+	</div>
   <!-- 404 error section -->
   <section id="aa-error">
     <div class="container">
@@ -72,8 +79,8 @@
   </section>
   <!-- / 404 error section -->
   
-	<div lang="en" th:include="_footer::footer"></div>
-	<div lang="en" th:include="_modal::modal"></div>
+	<div lang="en" th:insert="_footer::footer"></div>
+	<div lang="en" th:insert="_modal::modal"></div>
 	
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

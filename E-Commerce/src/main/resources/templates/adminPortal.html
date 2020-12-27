@@ -52,12 +52,10 @@
   <!-- SCROLL TOP BUTTON -->
     <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
   <!-- END SCROLL TOP BUTTON -->
-  	<div th:if="${#strings.contains(#authentication.principal.authorities,'ADMIN')}">
-    	<div lang="en" th:insert="_adminheader::adminheader"></div>
-	</div>
-	<div th:if="${#strings.contains(#authentication.principal.authorities,'USER')}">
-    	<div lang="en" th:insert="_header::header"></div>
-	</div>
+
+
+ 	<div lang="en" th:insert="_adminheader::adminheader"></div>
+
   <!-- Start slider -->
   <section id="aa-slider">
     <div class="aa-slider-area">
