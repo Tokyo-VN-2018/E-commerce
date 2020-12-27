@@ -1,5 +1,6 @@
 package com.onlinestore.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.HashSet;
 import java.util.Locale;
@@ -8,10 +9,12 @@ import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -49,7 +52,7 @@ public class HomeController {
 	
 	@RequestMapping({"/","/index","/home"})
 	public String index(Model model) {
-		return "index";
+		return "errora";
 	}
 	@RequestMapping("/login")
 	public String login(Model model) {
@@ -58,6 +61,26 @@ public class HomeController {
 		}
 		return "account";
 	}
+	
+    @RequestMapping("/success")
+    public String loginPageRedirect(HttpServletRequest request, Principal principal) throws IOException, ServletException {
+
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+    	boolean hasUserRole = authentication.getAuthorities().stream()
+    	          .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+        if(hasUserRole){
+        	return "redirect:/adminPortal";                            
+         }
+         else {
+             return "redirect:/";
+         }
+    }
+    
+    @RequestMapping("/adminPortal")
+    public String adminPortal() {
+    	return "adminPortal";
+    }
 	
 	@RequestMapping(value = "/newUser", method = RequestMethod.POST)
 	public String newUserPost(HttpServletRequest request,
@@ -85,8 +108,10 @@ public class HomeController {
 		user.setPassword(encryptedpassword);
 		
 		userService.createUser(user);
-
-		return "redirect:/login";
+		UserDetails userDetails = userSecurityService.loadUserByUsername(username);
+		Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		return "redirect:/myprofile";
 	}
 
 	@RequestMapping("/myprofile")
