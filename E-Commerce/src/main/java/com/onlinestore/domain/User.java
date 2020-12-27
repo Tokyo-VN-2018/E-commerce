@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,44 +16,41 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+import javax.persistence.Transient;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.onlinestore.domain.security.Authority;
-import com.onlinestore.domain.security.UserRole;
 
 
 @Entity
 @Table(name="users")
 public class User implements UserDetails{
-	
+
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	/*@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name="system-uuid", strategy = "uuid")*/
-	
-	private Long id;
+	@Column(name="username", nullable=false, length = 50)
 	private String username;
+	@Column(name="fullname")
 	private String fullname;
+	@Column(name="password", nullable=false)
 	private String password;
+	@Column(name="dateofbirth")
 	private Date dateofbirth;
+	@Column(name="phone")
 	private String phone;
+	@Column(name="email", nullable=false, unique=true)
 	private String email;
+	@Column(name="address")
 	private String address;
-	private int type;
+	@Column(name="type", nullable=false)
+	private boolean type;
+	@Transient
 	private boolean enabled = true;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonIgnore
-	private Set<UserRole> userRoles = new HashSet<>();
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public String getUsername() {
 		return username;
 	}
@@ -95,17 +93,12 @@ public class User implements UserDetails{
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public int getType() {
+	@Type(type = "numberic_boolean")
+	public boolean getType() {
 		return type;
 	}
-	public void setType(int type) {
+	public void setType(boolean type) {
 		this.type = type;
-	}
-	public Set<UserRole> getUserRoles() {
-		return userRoles;
-	}
-	public void setUserRoles(Set<UserRole> userRoles) {
-		this.userRoles = userRoles;
 	}
 	
 	public void setEnabled(boolean enabled) {
@@ -113,9 +106,11 @@ public class User implements UserDetails{
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Set<GrantedAuthority>authorities = new HashSet<>();
-		userRoles.forEach(ur -> authorities.add(new Authority(ur.getRole().getName())));
-		
+		Set<GrantedAuthority> authorities = new HashSet<>();
+			if(type)
+				authorities.add(new Authority("ROLE_ADMIN"));
+			else
+				authorities.add(new Authority("ROLE_USER"));
 		return authorities;
 	}
 	@Override

@@ -1,19 +1,22 @@
 package com.onlinestore.controller;
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,8 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.onlinestore.domain.User;
 import com.onlinestore.domain.security.PasswordResetToken;
-import com.onlinestore.domain.security.Role;
-import com.onlinestore.domain.security.UserRole;
 import com.onlinestore.service.UserService;
 import com.onlinestore.service.impl.UserSecurityService;
 import com.onlinestore.utility.MailConstructor;
@@ -42,19 +43,19 @@ public class HomeController {
 	@Autowired
 	private UserService userService;
 	
+	
 	@Autowired
 	private UserSecurityService userSecurityService;
 	
-	@RequestMapping("/")
-	public String index() {
+	@RequestMapping({"/","/index","/home"})
+	public String index(Model model) {
 		return "index";
-	}
-	@RequestMapping("/myAccount")
-	public String myAccount() {
-		return "account";
 	}
 	@RequestMapping("/login")
 	public String login(Model model) {
+		if(SecurityContextHolder.getContext().getAuthentication().getName()!="anonymousUser") {
+			return "redirect:/myprofile";
+		}
 		return "account";
 	}
 	
@@ -62,76 +63,38 @@ public class HomeController {
 	public String newUserPost(HttpServletRequest request,
 			@ModelAttribute("email") String userEmail,
 			@ModelAttribute("username") String username,
+			@ModelAttribute("password") String password,
 			Model model) throws Exception {
 		model.addAttribute("email", userEmail);
 		model.addAttribute("username", username);
 		
 		if (userService.findByUsername(username) != null) {
 			model.addAttribute("usernameExists", true);
-			
 			return "account";
 		}
 		
 		if (userService.findByEmail(userEmail) != null) {
 			model.addAttribute("emailExists", true);
-			
 			return "account";
 		}
 		
 		User user = new User();
 		user.setUsername(username);
 		user.setEmail(userEmail);
-		String password =  SecurityUtility.randomPassword();
 		String encryptedpassword = SecurityUtility.passwordEncoder().encode(password);
 		user.setPassword(encryptedpassword);
 		
-		Role role = new Role();
-		role.setRoleId(1);
-		role.setName("ROLE_USER");
-		Set<UserRole> userRoles = new HashSet<>();
-		userRoles.add(new UserRole(user, role));
-		userService.createUser(user, userRoles);
-		
-		String token = UUID.randomUUID().toString();
-		userService.createPasswordResetTokenForUser(user, token);
-		
-		String appUrl = "http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath();
-		SimpleMailMessage email = mailConstructor.constructResetTokenEmail(appUrl, request.getLocale(), token, user, password);
-		mailSender.send(email);
-		
-		model.addAttribute("emailSent","true");
-		
-		return "account";
-		
+		userService.createUser(user);
+
+		return "redirect:/login";
 	}
-	
-	@RequestMapping("/newUser")
-	public String newUser(Locale locale,
-			@RequestParam("token") String token,
-			Model model)	 {
-		
-		PasswordResetToken passToken = userService.getPasswordResetToken(token);
-		
-		if(passToken == null) {
-			String message = "Invalid Token.";
-			model.addAttribute("message", message);
-			return "redirect:/badRequest";
-		}
-		
-		User user = passToken.getUser();
-		String username = user.getUsername();
-		
-		UserDetails userDetails = userSecurityService.loadUserByUsername(username);
-		Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		
-		model.addAttribute("user",user);
-		
-		return "myProfile";
-	}
+
 	@RequestMapping("/myprofile")
-	public String myprofile() {
+	public String myprofile(Model model, Principal principal) {
+		User user = new User();
+        String username = principal.getName();
+        user = userService.findByUsername(username);
+        model.addAttribute(user);
 		return "myProfile";
 	}
-	
 }

@@ -9,8 +9,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.onlinestore.domain.User;
-import com.onlinestore.domain.security.Role;
-import com.onlinestore.domain.security.UserRole;
 import com.onlinestore.service.UserService;
 import com.onlinestore.utility.SecurityUtility;
 
@@ -33,14 +31,8 @@ public class ECommerceApplication implements CommandLineRunner {
 		user1.setPassword(SecurityUtility.passwordEncoder().encode("p"));
 		user1.setEmail("vana@gmail.com");
 		user1.setEnabled(true);
-		user1.setType(0);
-		Set<UserRole> userRoles = new HashSet<>();
-		Role role1= new Role();
-		role1.setRoleId(1);
-		role1.setName("ROLE_USER");
-		userRoles.add(new UserRole(user1, role1));
-		
-		userService.createUser(user1, userRoles);
+		user1.setType(true);
+		userService.createUser(user1);
 		
 	}
 

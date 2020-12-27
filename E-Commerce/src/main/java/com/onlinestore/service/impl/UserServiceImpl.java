@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.onlinestore.domain.User;
 import com.onlinestore.domain.security.PasswordResetToken;
-import com.onlinestore.domain.security.UserRole;
 import com.onlinestore.repository.PasswordResetTokenRepository;
-import com.onlinestore.repository.RoleRepository;
 import com.onlinestore.repository.UserRepository;
 import com.onlinestore.service.UserService;
 
@@ -22,9 +20,6 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserRepository userRepository;
-	
-	@Autowired
-	private RoleRepository roleRepository;
 	
 	@Autowired
 	private PasswordResetTokenRepository passwordResetTokenRepository;
@@ -51,19 +46,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User createUser(User user, Set<UserRole> userRoles) throws Exception {
+	public User createUser(User user) throws Exception {
 		
 		User localUser = userRepository.findByUsername(user.getUsername());
 		if (localUser != null) {
 			LOG.info("user {} already exists. Nothing will be done", user.getUsername());
 		} else {
-			for(UserRole ur:userRoles) {
-				roleRepository.save(ur.getRole());
-			}
-			user.getUserRoles().addAll(userRoles);
 			localUser = userRepository.save(user);
 		}
-		
 		return localUser;
 	}
 	

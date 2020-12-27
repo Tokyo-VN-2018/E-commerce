@@ -46,7 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 			.antMatchers(PUBLIC_MATCHERS)
-			.permitAll().anyRequest().authenticated();
+			.permitAll();
+		http.authorizeRequests().antMatchers("/myprofile").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
 		http
 			.csrf().disable().cors().disable()
 			.formLogin().failureUrl("/login?error").defaultSuccessUrl("/")
