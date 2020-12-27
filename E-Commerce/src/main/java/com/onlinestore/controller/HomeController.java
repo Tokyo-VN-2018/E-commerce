@@ -57,6 +57,14 @@ public class HomeController {
 	public String login(Model model) {
 		return "account";
 	}
+	@RequestMapping("/myprofile")
+	public String myprofile(Model model) {
+		
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute(user);
+		
+		return "myProfile";
+	}
 	
 	@RequestMapping(value = "/newUser", method = RequestMethod.POST)
 	public String newUserPost(HttpServletRequest request,
@@ -81,6 +89,8 @@ public class HomeController {
 		User user = new User();
 		user.setUsername(username);
 		user.setEmail(userEmail);
+		
+		
 		String password =  SecurityUtility.randomPassword();
 		String encryptedpassword = SecurityUtility.passwordEncoder().encode(password);
 		user.setPassword(encryptedpassword);
@@ -129,9 +139,36 @@ public class HomeController {
 		
 		return "myProfile";
 	}
-	@RequestMapping("/myprofile")
-	public String myprofile() {
-		return "myProfile";
+	
+	@RequestMapping("/forgetPassword")
+	public String forgetPassword(HttpServletRequest request,
+			@ModelAttribute("email") String email,
+			Model model) {
+		
+		User user = userService.findByEmail(email);
+		
+		if (user == null) {
+			model.addAttribute("emailNotExist", true);
+			
+			return "account";
+		}
+		
+		String password =  SecurityUtility.randomPassword();
+		String encryptedpassword = SecurityUtility.passwordEncoder().encode(password);
+		user.setPassword(encryptedpassword);
+		
+		userService.save(user);
+		
+		String token = UUID.randomUUID().toString();
+		userService.createPasswordResetTokenForUser(user, token);
+		
+		String appUrl = "http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath();
+		SimpleMailMessage newEmail = mailConstructor.constructResetTokenEmail(appUrl, request.getLocale(), token, user, password);
+		mailSender.send(newEmail);
+		
+		model.addAttribute("forgetPasswordEmailSent","true");
+		
+		return "account";
 	}
 	
 }
