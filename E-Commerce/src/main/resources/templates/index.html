@@ -52,10 +52,13 @@
   <!-- SCROLL TOP BUTTON -->
     <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
   <!-- END SCROLL TOP BUTTON -->
-  	<div th:if="${#strings.contains(#authentication.principal.authorities,'ADMIN')}">
+  	<div sec:authorize="hasAuthority('ROLE_ADMIN')">
     	<div lang="en" th:insert="_adminheader::adminheader"></div>
 	</div>
-	<div th:if="${#strings.contains(#authentication.principal.authorities,'USER')}">
+	<div sec:authorize="hasAuthority('ROLE_USER')">
+    	<div lang="en" th:insert="_header::header"></div>
+	</div>
+	<div sec:authorize="isAnonymous()">
     	<div lang="en" th:insert="_header::header"></div>
 	</div>
   <!-- Start slider -->
@@ -71,7 +74,7 @@
               </div>
               <div class="seq-title">
                <span data-seq>Save Up to 75% Off</span>                
-                <h2 data-seq>Men Collection</h2>                
+                <h2 data-seq>Smartphone Collection</h2>                
                 <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
                 <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
               </div>
@@ -83,7 +86,7 @@
               </div>
               <div class="seq-title">
                 <span data-seq>Save Up to 40% Off</span>                
-                <h2 data-seq>Wristwatch Collection</h2>                
+                <h2 data-seq>Laptop Collection</h2>                
                 <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
                 <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
               </div>
@@ -95,7 +98,7 @@
               </div>
               <div class="seq-title">
                 <span data-seq>Save Up to 75% Off</span>                
-                <h2 data-seq>Jeans Collection</h2>                
+                <h2 data-seq>Monitor Collection</h2>                
                 <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
                 <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
               </div>
@@ -107,23 +110,11 @@
               </div>
               <div class="seq-title">
                 <span data-seq>Save Up to 75% Off</span>                
-                <h2 data-seq>Exclusive Shoes</h2>                
+                <h2 data-seq>Camera Collection</h2>                
                 <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
                 <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
               </div>
             </li>
-            <!-- single slide item -->  
-             <li>
-              <div class="seq-model">
-                <img data-seq src="img/slider/5.jpg" alt="Male Female slide img" />
-              </div>
-              <div class="seq-title">
-                <span data-seq>Save Up to 50% Off</span>                
-                <h2 data-seq>Best Collection</h2>                
-                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
-                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
-              </div>
-            </li>                   
           </ul>
         </div>
         <!-- slider navigation btn -->
@@ -212,10 +203,10 @@
               <div class="aa-product-inner">
                 <!-- start prduct navigation -->
                  <ul class="nav nav-tabs aa-products-tab">
-                    <li class="active"><a href="#men" data-toggle="tab">Men</a></li>
-                    <li><a href="#women" data-toggle="tab">Women</a></li>
-                    <li><a href="#sports" data-toggle="tab">Sports</a></li>
-                    <li><a href="#electronics" data-toggle="tab">Electronics</a></li>
+                    <li class="active"><a href="#men" data-toggle="tab">Mobile Phones</a></li>
+                    <li><a href="#women" data-toggle="tab">Computers</a></li>
+                    <li><a href="#sports" data-toggle="tab">Accessories</a></li>
+                    <li><a href="#electronics" data-toggle="tab">Others</a></li>
                   </ul>
                   <!-- Tab panes -->
                   <div class="tab-content">
@@ -233,7 +224,7 @@
                             </figcaption>
                           </figure>                        
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
                           </div>
@@ -251,7 +242,7 @@
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -269,7 +260,7 @@
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -285,7 +276,7 @@
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -303,7 +294,7 @@
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content">
-                           <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                           <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -319,7 +310,7 @@
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -335,7 +326,7 @@
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -353,7 +344,7 @@
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -378,7 +369,7 @@
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
                           </div>
@@ -396,7 +387,7 @@
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -414,7 +405,7 @@
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -430,7 +421,7 @@
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -449,7 +440,7 @@
                           </figure>
                          
                           <div class="aa-product-hvr-content">
-                           <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                           <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -465,7 +456,7 @@
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -481,7 +472,7 @@
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -499,7 +490,7 @@
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -524,7 +515,7 @@
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
                           </div>
@@ -542,7 +533,7 @@
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -560,7 +551,7 @@
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -576,7 +567,7 @@
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -594,7 +585,7 @@
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content">
-                           <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                           <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -610,7 +601,7 @@
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -626,7 +617,7 @@
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -644,7 +635,7 @@
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -668,7 +659,7 @@
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
                           </div>
@@ -686,7 +677,7 @@
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -704,7 +695,7 @@
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -720,7 +711,7 @@
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -738,7 +729,7 @@
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content">
-                           <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                           <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -754,7 +745,7 @@
                             </figcaption>
                           </figure>                         
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -770,7 +761,7 @@
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -788,7 +779,7 @@
                             </figcaption>
                           </figure>                          
                           <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
@@ -932,7 +923,7 @@
                         </figcaption>
                       </figure>                     
                       <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                         <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
                       </div>
@@ -950,7 +941,7 @@
                         </figcaption>
                       </figure>                      
                       <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                         <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                       </div>
@@ -968,7 +959,7 @@
                         <span class="aa-product-price">$45.50</span>
                       </figcaption>
                       <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                         <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                       </div>
@@ -986,7 +977,7 @@
                         </figcaption>
                       </figure>                     
                       <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                         <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                       </div>
@@ -1002,7 +993,7 @@
                         </figcaption>
                       </figure>                      
                       <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                         <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                       </div>
@@ -1018,7 +1009,7 @@
                         </figcaption>
                       </figure>                     
                       <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                         <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                       </div>
@@ -1036,7 +1027,7 @@
                         </figcaption>
                       </figure>                     
                       <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                         <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                       </div>
@@ -1054,7 +1045,7 @@
                         </figcaption>
                       </figure>                     
                       <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                         <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
                       </div>
@@ -1080,7 +1071,7 @@
                         </figcaption>
                       </figure>                     
                       <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                         <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
                       </div>
@@ -1098,7 +1089,7 @@
                         </figcaption>
                       </figure>                      
                       <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                         <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                       </div>
@@ -1116,7 +1107,7 @@
                         <span class="aa-product-price">$45.50</span>
                       </figcaption>
                       <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                         <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                       </div>
@@ -1134,7 +1125,7 @@
                         </figcaption>
                       </figure>                     
                       <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                         <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                       </div>
@@ -1150,7 +1141,7 @@
                         </figcaption>
                       </figure>                      
                       <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Card"><span class="fa fa-heart-o"></span></a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                         <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                       </div>

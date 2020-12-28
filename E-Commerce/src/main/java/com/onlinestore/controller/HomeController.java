@@ -3,6 +3,7 @@ package com.onlinestore.controller;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.onlinestore.domain.Product;
 import com.onlinestore.domain.User;
 import com.onlinestore.domain.security.PasswordResetToken;
+import com.onlinestore.service.ProductService;
 import com.onlinestore.service.UserService;
 import com.onlinestore.service.impl.UserSecurityService;
 import com.onlinestore.utility.MailConstructor;
@@ -47,13 +49,15 @@ public class HomeController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private	ProductService productService;
 	
 	@Autowired
 	private UserSecurityService userSecurityService;
 	
 	@RequestMapping({"/","/index","/home"})
 	public String index(Model model) {
-		return "errora";
+		return "index";
 	}
 	@RequestMapping("/login")
 	public String login(Model model) {
@@ -83,13 +87,30 @@ public class HomeController {
     	return "adminPortal";
     }
     
-    @RequestMapping("/adminPortal/add")
+    @RequestMapping(value = "/addproduct", method = RequestMethod.GET)
     public String addProduct(Model model) {
     	Product product = new Product();
     	model.addAttribute("product",product);
     	return "addProduct";
     }
 	
+    @RequestMapping(value = "/addproduct", method = RequestMethod.POST)
+    public String addProductPost(
+    		@ModelAttribute("product") Product product, HttpServletRequest request
+    		) {
+    	productService.save(product);
+    	
+    	return "redirect:productList";
+    }
+    
+    @RequestMapping("/productList")
+    public String productList(Model model) {
+		List<Product> productList = productService.findAll();
+		model.addAttribute("productList", productList);
+    	
+    	return "productList";
+    }
+    
 	@RequestMapping(value = "/newUser", method = RequestMethod.POST)
 	public String newUserPost(HttpServletRequest request,
 			@ModelAttribute("email") String userEmail,
@@ -130,4 +151,13 @@ public class HomeController {
         model.addAttribute(user);
 		return "myProfile";
 	}
+	
+	@RequestMapping("/product")
+	public String product(Model model) {
+		List<Product> productList = productService.findAll();
+		model.addAttribute("productList", productList);
+		
+		return "product";
+	}
+	
 }

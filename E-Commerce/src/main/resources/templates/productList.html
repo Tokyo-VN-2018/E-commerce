@@ -60,9 +60,39 @@
 
 
 	<div lang="en" th:insert="_adminheader::adminheader"></div>
-	<br>
-	<h1>List of product</h1>
-	
+
+	<h1>Hello</h1>
+	<div class="container">
+		<div class="table-responsive">
+			<table id="productListTable" class="table table-bordered table-hover table-striped">
+				<thead>
+					<tr>
+						<th>Product ID</th>
+						<th>Product Name</th>
+						<th>Price</th>
+						<th>Quantity</th>
+						<th>Brand</th>
+						<th>Category ID</th>
+						<th>Operation</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-th-each="product : ${productList}">
+						<!-- <td><input hidden="hidden" name="product_id" th:value="${product.product_id}"/></td> -->
+						<td th:text="${product.product_id}">
+						<td th:text="${product.product_name}">
+						<td th:text="${product.price}">
+						<td th:text="${product.quantity}">
+						<td th:text="${product.brand}">
+						<td th:text="${product.category_id}">
+						<td>delete</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
 
 	<div lang="en" th:insert="_footer::footer"></div>
 	<div lang="en" th:insert="_modal::modal"></div>

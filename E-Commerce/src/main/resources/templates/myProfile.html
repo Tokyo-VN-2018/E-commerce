@@ -63,7 +63,15 @@
 
 
 	<!-- Start header section -->
-	<div lang="en" th:insert="_header::header"></div>
+	<div sec:authorize="hasAuthority('ROLE_ADMIN')">
+		<div lang="en" th:insert="_adminheader::adminheader"></div>
+	</div>
+	<div sec:authorize="hasAuthority('ROLE_USER')">
+		<div lang="en" th:insert="_header::header"></div>
+	</div>
+	<div sec:authorize="isAnonymous()">
+		<div lang="en" th:insert="_header::header"></div>
+	</div>
 
 
 	<!-- catg header banner section -->
