@@ -14,5 +14,5 @@ public interface UserService {
 	User findByEmail(String email);
 	
 	User createUser(User user) throws Exception;
-	
+	void updateInfo(User user, User userUpdate) throws Exception;
 }

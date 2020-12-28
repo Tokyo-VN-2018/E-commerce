@@ -19,6 +19,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
@@ -57,7 +58,7 @@ public class HomeController {
 	
 	@RequestMapping({"/","/index","/home"})
 	public String index(Model model) {
-		return "index";
+		return "home";
 	}
 	@RequestMapping("/login")
 	public String login(Model model) {
@@ -150,6 +151,31 @@ public class HomeController {
         user = userService.findByUsername(username);
         model.addAttribute(user);
 		return "myProfile";
+	}
+	
+	@RequestMapping(value = "/updateUserInfo", method = RequestMethod.POST)
+	public String newUserPost(HttpServletRequest request,
+			@ModelAttribute("user") User userUpdate,
+			@ModelAttribute("currentPassword") String curPass,
+			Model model, Principal principal) throws Exception {
+		User user = userService.findByUsername(principal.getName());
+		BCryptPasswordEncoder encoded = new BCryptPasswordEncoder();
+		boolean matches = encoded.matches(curPass, user.getPassword());
+		if(!matches) {
+			System.out.println("Wrong");
+			model.addAttribute("wrongPassword", true);
+			return "redirect:/myprofile";
+		}
+		if(user.getEmail().compareTo(userUpdate.getEmail()) != 0) {
+			System.out.println(user.getEmail().compareTo(userUpdate.getEmail()));
+			System.out.println("Khac nhau" + user.getEmail() + userUpdate.getEmail());
+			if (userService.findByEmail(userUpdate.getEmail()) != null) {
+				model.addAttribute("emailExists", true);
+				return "redirect:/myprofile";
+			}
+		}
+		userService.updateInfo(user, userUpdate);
+		return "redirect:/myprofile";
 	}
 	
 	@RequestMapping("/product")

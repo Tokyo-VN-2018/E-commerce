@@ -32,7 +32,7 @@ public class User implements UserDetails{
 
 	//@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Id
-	@Column(name="username", nullable=false, length = 50)
+	@Column(name="username", nullable=false)
 	private String username;
 	@Column(name="fullname")
 	private String fullname;

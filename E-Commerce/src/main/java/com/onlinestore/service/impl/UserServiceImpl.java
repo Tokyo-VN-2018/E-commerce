@@ -57,6 +57,15 @@ public class UserServiceImpl implements UserService {
 		return localUser;
 	}
 	
-	
+	@Override
+	public void updateInfo(User user, User userUpdate) throws Exception{
+		user.setAddress(userUpdate.getAddress());
+		user.setEmail(userUpdate.getEmail());
+		user.setDateofbirth(userUpdate.getDateofbirth());
+		user.setPhone(userUpdate.getPhone());
+		user.setFullname(userUpdate.getFullname());
+		userRepository.save(user);
+		//userRepository.updateUser(userUpdate.getFullname(), userUpdate.getAddress(), userUpdate.getDateofbirth(), userUpdate.getEmail(), userUpdate.getPhone(), user.getUsername());
+	};
 	
 }
