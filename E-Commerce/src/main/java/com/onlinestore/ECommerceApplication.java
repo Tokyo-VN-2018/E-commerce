@@ -32,8 +32,6 @@ public class ECommerceApplication implements CommandLineRunner {
 		user1.setEmail("vana@gmail.com");
 		user1.setEnabled(true);
 		user1.setType(true);
-		userService.createUser(user1);
-		
+		userService.createUser(user1);	
 	}
-
 }

@@ -69,11 +69,12 @@
 				<thead>
 					<tr>
 						<th>Product ID</th>
+						<th>Image</th>
 						<th>Product Name</th>
 						<th>Price</th>
 						<th>Quantity</th>
 						<th>Brand</th>
-						<th>Category ID</th>
+						<th>Category</th>
 						<th>Operation</th>
 					</tr>
 				</thead>
@@ -81,12 +82,18 @@
 					<tr data-th-each="product : ${productList}">
 						<!-- <td><input hidden="hidden" name="product_id" th:value="${product.product_id}"/></td> -->
 						<td th:text="${product.product_id}">
+						<td><img th:src="@{'upload/' + ${product.product_id}} + '.jpg'" width="50px" height="50px"></td>
 						<td th:text="${product.product_name}">
 						<td th:text="${product.price}">
 						<td th:text="${product.quantity}">
 						<td th:text="${product.brand}">
-						<td th:text="${product.category_id}">
-						<td>delete</td>
+						<td th:text="${product.category.name}">
+						<td><!--<a th:href="@{/editProduct/{id}(id=${product.product_id})}">-->
+							  <form method="post" th:action="@{/uploadFile/{id}(id=${product.product_id})}" enctype="multipart/form-data">
+    							<input type="file" name="file" /> <br />
+    							<input type="submit" value="Submit" />
+  							</form>
+ 						</td>
 					</tr>
 				</tbody>
 			</table>

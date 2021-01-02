@@ -15,14 +15,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import javax.persistence.Transient;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.onlinestore.domain.security.Authority;
 
 
@@ -32,21 +29,18 @@ public class User implements UserDetails{
 
 	//@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Id
-	@Column(name="username", nullable=false)
 	private String username;
-	@Column(name="fullname")
 	private String fullname;
-	@Column(name="password", nullable=false)
+	@Column(nullable=false)
 	private String password;
-	@Column(name="dateofbirth")
+	@Column()
 	private Date dateofbirth;
-	@Column(name="phone")
+	@Column()
 	private String phone;
-	@Column(name="email", nullable=false, unique=true)
+	@Column(nullable=false, unique=true)
 	private String email;
-	@Column(name="address")
 	private String address;
-	@Column(name="type", nullable=false)
+	@Column(nullable=false, columnDefinition = "bit default 0")
 	private boolean type;
 	@Transient
 	private boolean enabled = true;
