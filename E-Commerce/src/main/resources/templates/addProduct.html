@@ -60,9 +60,100 @@
 
 
 	<div lang="en" th:insert="_adminheader::adminheader"></div>
-	<br>
-	<h1>List of product</h1>
-	
+
+	<div class="container">
+		<div class="row">
+			<form class="form-horizontal" th:action="@{/addproduct}"
+				method="post">
+				<br>
+				<h3 class="center-block">
+					New Product Information<span style="font-size: small"> * is
+						required field</span>
+				</h3>
+				<!-- id -->
+
+				<!-- category id -->
+				<div class="form-group">
+					<label class="col-md-2 control-label" for="categoryID">Category
+						name</label>
+					<div class="col-md-8">
+						<select id="categoryID" name="categoryID" class="form-control">
+							<option data-th-each="category : ${categoryList}" th:value="${category.categoryID}" th:text="${category.name}"></option>
+						</select>
+						<span class="help-block"> Category of the product</span>
+					</div>
+				</div>
+
+				<!-- name -->
+				<div class="form-group">
+					<label class="col-md-2 control-label" for="product_name">Product
+						name</label>
+					<div class="col-md-8">
+						<input type="text" class="form-control" id="product_name"
+							name="product_name"
+							required="required" placeholder="Product Name" /> <span
+							class="help-block"> Name of the product</span>
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<label class="col-md-2 control-label" for="brand">Brand</label>
+					<div class="col-md-8">
+						<input type="text" name="brand" class="form-control" id="brand" required="required"
+							placeholder="Brand" /> <span class="help-block"> Brand of
+							the product</span>
+					</div>
+				</div>
+
+				<!-- price -->
+				<div class="form-group">
+					<label class="col-md-2 control-label" for="price">Product's
+						price</label>
+					<div class="col-md-8">
+						<input type="number" step="0.01" min="0" class="form-control" id="price" name="price" required="required"
+							placeholder="Product Name" /> <span class="help-block">
+							Price of the product</span>
+					</div>
+				</div>
+
+				<!-- quantity -->
+				<div class="form-group">
+					<label class="col-md-2 control-label" for="quantity">Quantity</label>
+					<div class="col-md-8">
+						<input type="number" class="form-control" id="quantity"
+							name="quantity"
+							required="required" placeholder="Product Name" /> <span
+							class="help-block"> Quantity of the product</span>
+					</div>
+				</div>
+
+				<!-- description -->
+				<div class="form-group">
+					<label class="col-md-2 control-label" for="description">Product's
+						description</label>
+					<div class="col-md-8">
+						<textarea class="form-control" id="description" name="description"
+							rows="5" required="required"
+							placeholder="Product Name"></textarea>
+						<span class="help-block"> Description of the product</span>
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<button type="submit" class="btn btn-success">Add
+								Product</button>
+							<a class="btn btn-danger" th:href="@{/}">Cancel</a>
+						</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
 
 	<div lang="en" th:insert="_footer::footer"></div>
 	<div lang="en" th:insert="_modal::modal"></div>

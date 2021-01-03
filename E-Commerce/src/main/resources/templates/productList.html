@@ -60,9 +60,47 @@
 
 
 	<div lang="en" th:insert="_adminheader::adminheader"></div>
-	<br>
-	<h1>List of product</h1>
-	
+
+	<!-- <h1>Hello</h1> -->
+	<section>
+		<div>
+			<div style="text-align:center;">Portal</div>
+			<table id="productListTable" class="table table-bordered table-hover table-striped" style="width:90%;margin-left: auto;margin-right: auto;">
+				<thead>
+					<tr>
+						<th>Product ID</th>
+						<th>Image</th>
+						<th>Product Name</th>
+						<th>Price</th>
+						<th>Quantity</th>
+						<th>Brand</th>
+						<th>Category</th>
+						<th>Operation</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-th-each="product : ${productList}">
+						<!-- <td><input hidden="hidden" name="product_id" th:value="${product.product_id}"/></td> -->
+						<td th:text="${product.product_id}">
+						<td><img th:src="@{'upload/' + ${product.product_id}} + '.jpg'" width="50px" height="50px"></td>
+						<td th:text="${product.product_name}">
+						<td th:text="${product.price}">
+						<td th:text="${product.quantity}">
+						<td th:text="${product.brand}">
+						<td th:text="${product.category.name}">
+						<td><!--<a th:href="@{/editProduct/{id}(id=${product.product_id})}">-->
+							  <form method="post" th:action="@{/uploadFile/{id}(id=${product.product_id})}" enctype="multipart/form-data">
+    							<input type="file" name="file" /> <br />
+    							<input type="submit" value="Submit" />
+  							</form>
+ 						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+
+
 
 	<div lang="en" th:insert="_footer::footer"></div>
 	<div lang="en" th:insert="_modal::modal"></div>

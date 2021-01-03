@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.onlinestore.domain.User;
-import com.onlinestore.domain.security.PasswordResetToken;
-import com.onlinestore.repository.PasswordResetTokenRepository;
 import com.onlinestore.repository.UserRepository;
 import com.onlinestore.service.UserService;
 
@@ -21,20 +19,6 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private PasswordResetTokenRepository passwordResetTokenRepository;
-	
-	@Override
-	public PasswordResetToken getPasswordResetToken(final String token) {
-		return passwordResetTokenRepository.findByToken(token);
-	}
-	
-	@Override
-	public void createPasswordResetTokenForUser(final User user, final String token) {
-		final PasswordResetToken myToken = new PasswordResetToken(token, user);
-		passwordResetTokenRepository.save(myToken);
-	}
-
 	@Override
 	public User findByUsername(String username) {
 		return userRepository.findByUsername(username);
@@ -57,6 +41,15 @@ public class UserServiceImpl implements UserService {
 		return localUser;
 	}
 	
-	
+	@Override
+	public void updateInfo(User user, User userUpdate) throws Exception{
+		user.setAddress(userUpdate.getAddress());
+		user.setEmail(userUpdate.getEmail());
+		user.setDateofbirth(userUpdate.getDateofbirth());
+		user.setPhone(userUpdate.getPhone());
+		user.setFullname(userUpdate.getFullname());
+		userRepository.save(user);
+		//userRepository.updateUser(userUpdate.getFullname(), userUpdate.getAddress(), userUpdate.getDateofbirth(), userUpdate.getEmail(), userUpdate.getPhone(), user.getUsername());
+	};
 	
 }

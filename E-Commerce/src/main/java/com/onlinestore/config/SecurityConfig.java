@@ -38,7 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/",
 			"/newUser",
 			"/forgetPassword",
-			"/login"
+			"/login",
+			"upload/**"
 	};
 	
 	@Override
@@ -47,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers(PUBLIC_MATCHERS)
 			.permitAll();
-		http.authorizeRequests().antMatchers("/myprofile").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+		http.authorizeRequests().antMatchers("/myprofile","/updateUserInfo").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
 		http.authorizeRequests().antMatchers("/adminPortal").access("hasAnyRole('ROLE_ADMIN')");
 		http
 			.csrf().disable().cors().disable()
