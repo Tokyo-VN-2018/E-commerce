@@ -5,7 +5,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Daily Shop</title>
-
 <!-- Font awesome -->
 <link href="css/font-awesome.css" rel="stylesheet">
 <!-- Bootstrap -->
@@ -110,8 +109,6 @@
                 <ul class="aa-head-top-nav-right">
                   <li><a sec:authorize="isAuthenticated()" th:href="@{/adminPortal}">Admin Portal</a></li>
                   <li><a sec:authorize="isAuthenticated()" th:href="@{/myprofile}" th:text="${#authentication.getPrincipal().getUsername()}"></a></li>
-                  <li sec:authorize="isAuthenticated()" class="hidden-xs"><a href="cart.html">My Cart</a></li>
-                  <li sec:authorize="isAuthenticated()" class="hidden-xs"><a href="checkout.html">Checkout</a></li>
                   <li><a  th:href="@{/login}" sec:authorize="isAnonymous()">Login</a></li>
                   <li><a sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
                 </ul>
@@ -166,31 +163,11 @@
 					<div class="navbar-collapse collapse">
 						<!-- Left nav -->
 						<ul class="nav navbar-nav">
-							<li><a href="index.html">Home</a></li>
-							<li><a href="#">Mobile</a></li>
-							<li><a href="#">Laptop</a></li>
+							<li><a href="index">Home</a></li>
+							<li><a href="productList">Product List</a></li>
+							<li><a href="addproduct">Add product</a></li>
 							<li><a href="#">Television</a></li>
-							<li><a href="#">Accessories <span class="caret"></span></a>
-								<ul class="dropdown-menu">
-									<li><a href="#">Headphone</a></li>
-									<li><a href="#">Microphone</a></li>
-									<li><a href="#">Mouse</a></li>
-									<li><a href="#">Keyboard</a></li>
-									<li><a href="#">Game Console</a></li>
-								</ul></li>
-							<li><a href="blog-archive.html">Blog <span class="caret"></span></a>
-								<ul class="dropdown-menu">
-									<li><a href="blog-archive.html">Blog Style 1</a></li>
-									<li><a href="blog-archive-2.html">Blog Style 2</a></li>
-									<li><a href="blog-single.html">Blog Single</a></li>
-								</ul></li>
-							<li><a href="contact.html">Contact</a></li>
-							<li><a href="#">Pages <span class="caret"></span></a>
-								<ul class="dropdown-menu">
-									<li><a href="product.html">Shop Page</a></li>
-									<li><a href="product-detail.html">Shop Single</a></li>
-									<li><a href="404.html">404 Page</a></li>
-								</ul></li>
+							<li><a href="#">Television</a></li>
 						</ul>
 					</div>
 					<!--/.nav-collapse -->
@@ -221,7 +198,5 @@
 	<script type="text/javascript" src="js/nouislider.js"></script>
 	<!-- Custom js -->
 	<script src="js/custom.js"></script>
-
-
 </body>
 </html>
