@@ -51,6 +51,7 @@ import com.onlinestore.utility.SecurityUtility;
 public class HomeController {
 	@Autowired
 	ServletContext context;
+	
 	@Autowired
 	private JavaMailSender mailSender;
 	
@@ -73,6 +74,7 @@ public class HomeController {
 	public String index(Model model) {
 		return "home";
 	}
+	
 	@RequestMapping("/login")
 	public String login(Model model) {
 		if(SecurityContextHolder.getContext().getAuthentication().getName()!="anonymousUser") {
