@@ -1,5 +1,7 @@
 package com.onlinestore.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,10 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="products")
@@ -35,6 +40,30 @@ public class Product {
 	private String description;
 	
 	//private MultipartFile productImage;
+	
+	@OneToMany(mappedBy = "product")
+	@JsonIgnore
+	private List<CartItem> cartItems;
+	
+	public List<CartItem> getCartItems() {
+		return cartItems;
+	}
+
+	public void setCartItems(List<CartItem> cartItems) {
+		this.cartItems = cartItems;
+	}
+
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
+
+	@OneToMany(mappedBy = "product")
+	@JsonIgnore
+	private List<OrderItem> orderItems;
 
 
 	public int getProduct_id() {

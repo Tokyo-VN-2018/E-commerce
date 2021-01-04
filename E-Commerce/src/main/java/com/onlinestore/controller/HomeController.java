@@ -72,7 +72,7 @@ public class HomeController {
 	
 	@RequestMapping({"/","/index","/home"})
 	public String index(Model model) {
-		return "home";
+		return "index";
 	}
 	
 	@RequestMapping("/login")
@@ -197,4 +197,6 @@ public class HomeController {
 		model.addAttribute("productList", productList);
 		return "product";
 	}
+	
+	
 }

@@ -1,8 +1,10 @@
 package com.onlinestore.domain;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -20,6 +22,7 @@ import javax.persistence.Transient;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.onlinestore.domain.security.Authority;
 
 
@@ -45,6 +48,24 @@ public class User implements UserDetails{
 	@Transient
 	private boolean enabled = true;
 	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<CartItem> cartItems;
+	
+	private BigDecimal GrandTotal;
+	
+	public BigDecimal getGrandTotal() {
+		return GrandTotal;
+	}
+	public void setGrandTotal(BigDecimal grandTotal) {
+		GrandTotal = grandTotal;
+	}
+	public List<CartItem> getCartItems() {
+		return cartItems;
+	}
+	public void setCartItems(List<CartItem> cartItems) {
+		this.cartItems = cartItems;
+	}
 	public String getUsername() {
 		return username;
 	}
