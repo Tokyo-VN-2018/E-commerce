@@ -42,6 +42,13 @@ public class User implements UserDetails{
 	private String address;
 	@Column(nullable=false, columnDefinition = "bit default 0")
 	private boolean type;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<CartItem> cartitems  = new HashSet<>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Order> orders  = new HashSet<>();
+	
 	@Transient
 	private boolean enabled = true;
 	
