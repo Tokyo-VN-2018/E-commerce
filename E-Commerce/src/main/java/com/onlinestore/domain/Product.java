@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -16,12 +18,18 @@ public class Product {
 	
 	
 	@Id
-	private String product_id;
-	private String category_id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int product_id;
+	
+	@ManyToOne
+	@JoinColumn(nullable = false, name = "categoryID")
+	private Category category;
 	private String product_name;
 	private String brand;
+	@Column(nullable=false)
 	private double price;
-	private int quantity;
+	@Column(nullable=false, columnDefinition = "int default 0")
+	private int quantity = 0;
 	
 	@Column(columnDefinition = "text")
 	private String description;
@@ -29,20 +37,20 @@ public class Product {
 	//private MultipartFile productImage;
 
 
-	public String getProduct_id() {
+	public int getProduct_id() {
 		return product_id;
 	}
 
-	public void setProduct_id(String product_id) {
+	public void setProduct_id(int product_id) {
 		this.product_id = product_id;
 	}
 
-	public String getCategory_id() {
-		return category_id;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setCategory_id(String category_id) {
-		this.category_id = category_id;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public String getProduct_name() {
