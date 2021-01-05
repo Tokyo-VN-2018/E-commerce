@@ -23,6 +23,8 @@ public class OrderItem {
 	private Order order;
 	@Column(nullable=false)
 	private int quantity;
+	@Column(nullable=false)
+	private double price;
 	
 	public void setOrderItemID (int orderitem_id) {
 		this.orderitem_id = orderitem_id;
@@ -47,5 +49,11 @@ public class OrderItem {
 	}
 	public Order getOrder() {
 		return order;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	public double getPrice() {
+		return price;
 	}
 }

@@ -1,5 +1,6 @@
 package com.onlinestore.domain;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.HashSet;
@@ -51,6 +52,15 @@ public class User implements UserDetails{
 	
 	@Transient
 	private boolean enabled = true;
+	@Transient
+	private BigDecimal GrandTotal;
+
+	public BigDecimal getGrandTotal() {
+		return GrandTotal;
+	}
+	public void setGrandTotal(BigDecimal grandTotal) {
+		GrandTotal = grandTotal;
+	}
 	
 	public String getUsername() {
 		return username;

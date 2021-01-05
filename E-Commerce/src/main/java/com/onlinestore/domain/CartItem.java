@@ -1,5 +1,7 @@
 package com.onlinestore.domain;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="cartitems")
@@ -24,6 +27,16 @@ public class CartItem {
 	@Column(nullable=false)
 	private int quantity;
 	
+	@Transient
+	private BigDecimal subtotal;
+
+	public BigDecimal getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(BigDecimal subtotal) {
+		this.subtotal = subtotal;
+	}
 	public void setCartItemID (int cartitem_id) {
 		this.cartitem_id = cartitem_id;
 	}

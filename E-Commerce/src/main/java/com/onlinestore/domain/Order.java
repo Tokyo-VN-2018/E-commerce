@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name="orders")
 public class Order {
@@ -56,11 +58,12 @@ public class Order {
 	public Date getOrderDate() {
 		return orderdate;
 	}
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
+	@Type(type = "numberic_boolean")
 	public boolean getStatus() {
 		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 	public void setAmount(double amount) {
 		this.amount = amount;
