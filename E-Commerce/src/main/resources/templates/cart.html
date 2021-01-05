@@ -85,6 +85,44 @@
        <div class="col-md-12">
          <div class="cart-view-area">
            <div class="cart-view-table">
+           
+           	 <div class="row">
+       					<div class="col-xs-8"><h4>Product</h4></div>
+       					<div class="col-xs-2"><h4>Price</h4></div>
+       					<div class="col-xs-2"><h4>Quantity</h4></div>
+       		</div>
+       		<div class="row" th:each="cartItem : ${cartItemList}">
+       				<form th:action="@{/shoppingCart/updateCartItem" method="post">
+       					<hr/>
+       					<div class="col-xs-2">
+       						<a th:href="@{/productDetail(id=${cartItem.product.product_id})}">
+       							<img/>
+       						</a>
+       						<p th:if="${cartItem.product.quantity&gt;10}" style="color:green;">In Stock</p>
+       						<p th:if="${cartItem.product.quantity&lt;10 and cartItem.product.quantity&gt;0}" style="color:green;">Only <span th:text="${cartItem.product.quantity}"></span> In Stock</p>
+       						<p th:if="${cartItem.product.quantity==0}" style="color:darkred;">Product unavailable</p>
+       					</div>
+       					
+       					<div class="col-xs-2">
+       						<h5 style="color:#db3208; font-size:large;">$<span th:text="${cartItem.product.price}" th:style="${cartItem.product.quantity}==0? 'text-decoration: line-through' : ''"></span></h5>
+       					</div>
+       					
+       					<div class="col-xs-2">
+       						<input hidden="hidden" name="cart_item_id" th:value="${cartItem.cart_item_id"/>
+       						<input th:id="${cartItem.cart_item_id" th:name="quantity" th:disabled="${cartItem.product.quantity==0}"
+       						class="form-control" th:value="${cartItem.quantity}">
+       						<button style="display:none;" th:id="'update-item-'+${cartItem.cart_item_id}" type="submit" class="btn btn-warning btn-xs">Update</button>
+       					</div>
+       					
+       				</form>
+       		</div>
+       		
+       		<div class="row">
+       			<hr>
+       			<h4 class="col-xs-12 text-right"><strong style="font-size:large;">Total Price(<span th:text="${#Lists.size(cartItemList)}"></span> items):</strong><span style="color:#db3208; font-size:large;">$<span th:text="${user.GrandTotal}"></span></span></h4>
+       		</div>
+       		
+       		
              <form action="">
                <div class="table-responsive">
                   <table class="table">
