@@ -73,6 +73,8 @@ public class HomeController {
 	
 	@RequestMapping({"/","/index","/home"})
 	public String index(Model model) {
+		List<Product> phones = productService.randomProduct("Phone", 8);
+		model.addAttribute("phones", phones);
 		return "home";
 	}
 	
