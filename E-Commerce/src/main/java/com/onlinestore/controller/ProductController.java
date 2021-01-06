@@ -1,5 +1,7 @@
 package com.onlinestore.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,5 +21,12 @@ public class ProductController {
 		Product product = productService.findByID(id);
 		model.addAttribute("product", product);
 		return "product-detail";
+	}
+	
+	@RequestMapping("/product")
+	public String product(Model model) {
+		List<Product> productList = productService.findAll();
+		model.addAttribute("productList", productList);
+		return "product";
 	}
 }

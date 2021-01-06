@@ -194,10 +194,4 @@ public class HomeController {
 		return "redirect:/myprofile";
 	}
 	
-	@RequestMapping("/product")
-	public String product(Model model) {
-		List<Product> productList = productService.findAll();
-		model.addAttribute("productList", productList);
-		return "product";
-	}
 }
