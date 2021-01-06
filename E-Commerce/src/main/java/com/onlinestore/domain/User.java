@@ -1,5 +1,6 @@
 package com.onlinestore.domain;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.HashSet;
@@ -42,8 +43,24 @@ public class User implements UserDetails{
 	private String address;
 	@Column(nullable=false, columnDefinition = "bit default 0")
 	private boolean type;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<CartItem> cartitems  = new HashSet<>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Order> orders  = new HashSet<>();
+	
 	@Transient
 	private boolean enabled = true;
+	@Transient
+	private BigDecimal GrandTotal;
+
+	public BigDecimal getGrandTotal() {
+		return GrandTotal;
+	}
+	public void setGrandTotal(BigDecimal grandTotal) {
+		GrandTotal = grandTotal;
+	}
 	
 	public String getUsername() {
 		return username;
