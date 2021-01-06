@@ -1,6 +1,7 @@
 package com.onlinestore.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,10 @@ public class ProductServiceImpl implements ProductService {
 	
 	public List<Product> findAll(){
 		return (List<Product>) productRepository.findAll();
+	}
+	
+	public Object findById(int product_id) {
+		return productRepository.findById((long) product_id);
 	}
 	
 }
