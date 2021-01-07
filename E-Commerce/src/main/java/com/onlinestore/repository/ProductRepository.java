@@ -14,4 +14,7 @@ public interface ProductRepository extends CrudRepository<Product,Long> {
 	Product findByProduct_id (String product_id);
 	@Query(value = "SELECT * FROM products p WHERE p.categoryid IN (select categoryid from categories where biggroup = ?1)", nativeQuery = true)
 	List<Product> findByBigGroup (String bigGroup);
+	
+	@Query(value = "SELECT * FROM products p WHERE p.product_name LIKE %?1%", nativeQuery = true)
+	List<Product> findByproduct_nameContaining(String keyword);
 }

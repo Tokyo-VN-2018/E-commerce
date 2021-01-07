@@ -113,6 +113,7 @@
 									id="list-catg" href="#"><span class="fa fa-list"></span></a>
 							</div>
 						</div>
+						<!-- <table id = "productList"> -->
 						<div class="aa-product-catg-body">
 							<ul class="aa-product-catg">
 								<!-- start single product item -->
@@ -161,7 +162,7 @@
 																		</div>
 																	</div>
 												<!-- Modal view content -->
-												<div class="col-md-6 col-sm-6 col-xs-12" id="productList">
+												<div class="col-md-6 col-sm-6 col-xs-12" id="">
 													<div class="aa-product-view-content">
 														<!-- <div th:if="${product != null}"> -->
 															<h3 th:text="${product.product_name}"></h3>
@@ -218,6 +219,7 @@
 							</ul>
 							
 						</div>
+						<!-- </table> -->
 						<div class="aa-product-catg-pagination">
 							<nav>
 								<ul class="pagination">
@@ -242,12 +244,14 @@
 						<!-- single sidebar -->
 						<div class="aa-sidebar-widget">
 							<h3>Category</h3>
-							<ul class="aa-catg-nav">
-								<li><a href="#">Men</a></li>
-								<li><a href="">Women</a></li>
-								<li><a href="">Kids</a></li>
-								<li><a href="">Electornics</a></li>
-								<li><a href="">Sports</a></li>
+							<!-- <ul class="aa-catg-nav"> -->
+							<ul class="aa-footer-nav">
+								<li><a th:href="@{/product(category='all')}" th:classappend="${activeAll}? 'active'" class="list-group-item">All</a></li>
+								<li><a th:href="@{/searchByCategory(category='Phone')}" th:classappend="${activePhone}? 'active'" class="list-group-item">Phone</a></li>
+								<li><a th:href="@{/searchByCategory(category='Computer')}" th:classappend="${activeComputer}? 'active'" class="list-group-item">Computer</a></li>
+								<li><a th:href="@{/searchByCategory(category='Accessories')}" th:classappend="${activeAccessories}? 'active'" class="list-group-item">Accessories</a></li>
+								<li><a th:href="@{/searchByCategory(category='Other')}" th:classappend="${activeOther}? 'active'" class="list-group-item">Others</a></li>
+								<!-- <li><a href="">Sports</a></li> -->
 							</ul>
 						</div>
 						<!-- single sidebar -->
@@ -274,21 +278,6 @@
 								</form>
 							</div>
 
-						</div>
-						<!-- single sidebar -->
-						<div class="aa-sidebar-widget">
-							<h3>Shop By Color</h3>
-							<div class="aa-color-tag">
-								<a class="aa-color-green" href="#"></a> <a
-									class="aa-color-yellow" href="#"></a> <a class="aa-color-pink"
-									href="#"></a> <a class="aa-color-purple" href="#"></a> <a
-									class="aa-color-blue" href="#"></a> <a class="aa-color-orange"
-									href="#"></a> <a class="aa-color-gray" href="#"></a> <a
-									class="aa-color-black" href="#"></a> <a class="aa-color-white"
-									href="#"></a> <a class="aa-color-cyan" href="#"></a> <a
-									class="aa-color-olive" href="#"></a> <a class="aa-color-orchid"
-									href="#"></a>
-							</div>
 						</div>
 						<!-- single sidebar -->
 						<div class="aa-sidebar-widget">
@@ -512,7 +501,22 @@
 		<!-- /.modal-dialog -->
 	</div>
 
-
+	<!-- <script>
+		/* $(document).ready(function(){
+			$('#productList').dataTable({
+				"lengthMenu":[[5,10,15,20,-1],[5,10,15,20,"All"]],
+				"ordering":false,
+				stateSave:true
+			}); */
+			/* $('#productList').on('page.dt', function(){
+				$('html, body').animate({
+					scrollTop: $('productList').offset().top
+				}, 200)
+				
+			}); */
+		/* }); */
+		
+	</script> -->
 
 
 	<!-- jQuery library -->

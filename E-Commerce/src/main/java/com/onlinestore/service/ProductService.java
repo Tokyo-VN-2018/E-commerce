@@ -16,4 +16,7 @@ public interface ProductService {
 	List<Product> randomProduct(int number);
 	List<Product> randomProduct(Category category, int number);
 	List<Product> randomProduct(String bigGroup, int number);
+	
+	List<Product> blurrySearch(String keyword);
+	
 }

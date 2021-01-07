@@ -1,6 +1,7 @@
 package com.onlinestore.service.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -24,6 +25,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	public List<Product> findAll(){
 		return (List<Product>) productRepository.findAll();
+		
 	}
 	
 	public Product findByID(String product_id) {
@@ -66,4 +68,10 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return newList;
 	}
+	
+	public List<Product> blurrySearch(String keyword){
+		return productRepository.findByproduct_nameContaining(keyword);
+		
+	}
+	
 }
