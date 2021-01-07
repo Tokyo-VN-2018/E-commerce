@@ -86,7 +86,12 @@
 											<li data-th-each="product : ${phones}">
 												<figure>
 													<a class="aa-product-img" th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><img width="250px" height="300px" th:src="@{'upload/' + ${product.product_id}} + '.jpg'" onerror="this.src='/img/man/t-shirt-1.png';"></a>
-													<a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+													<form class="aa-add-card-btn" action="/shoppingCart/addItem">
+                      									<input type="hidden" id="product" name="product" th:value="${product.product_id}">
+                        								<input type="hidden" id="quantity" name="quantity" value="10">
+                       	 								<button type="submit" style="border: 0;background: none;box-shadow: none;border-radius: 0px;">
+                          								<span class="fa fa-shopping-cart"></span>Add To Cart</button>
+                      								</form>
 													<figcaption>
 														<h4 class="aa-product-title">
 															<a th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><span th:text="${product.product_name}"></span></a>
@@ -130,8 +135,8 @@
 																					<span style="color: #ff6666;" th:text="${product.price}"></span>
 																					<span class="fa fa-usd"></span>
 																				</p>
-																				<p class="aa-product-avilability">Avilability: <span th:if="${product.quantity > 0}" th:text="${product.quantity}"></span>
-																					<span th:if="${product.quantity == 0}" th:text="Sold out!"></span>
+																				<p class="aa-product-avilability">Avilability: <span style="color: #2eb82e;" th:if="${product.quantity > 0}">In stock</span>
+																				<span style="color: #ff6666;" th:if="${product.quantity == 0}">Sold out!</span>
 																				</p>
 																			</div>
 																			<p class="aa-prod-category">Brand: <span style="color: #ff6666;" th:text="${product.brand}"></span>
@@ -140,21 +145,17 @@
 																				Category: <a href="#"><span
 																						th:text="${product.category.name}"></span></a>
 																			</p>
-																			<div class="aa-prod-quantity">
-																				<form action="">
-																					<select name="" id="">
-																						<option value="1" selected>1</option>
-																						<option value="2">2</option>
-																						<option value="3">3</option>
-																						<option value="4">4</option>
-																						<option value="5">5</option>
-																					</select>
-																					<button type="submit"
-																						class="aa-add-to-cart-btn"><span
-																							class="fa fa-shopping-cart"></span>Add
-																						To Cart</button>
-																				</form>
-																			</div>
+																			<div th:if="${product.quantity > 0}" class="aa-prod-quantity">
+                      															<form action="/shoppingCart/addItem">
+                      															<input type="hidden" id="product" name="product" th:value="${product.product_id}">
+                        														<select id="quantity" name="quantity">
+                        															<option th:if="${product.quantity > 10}" th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" th:selected="${i==1}"></option>
+                          															<option th:if="${product.quantity <= 10}" th:each="i : ${#numbers.sequence(1, product.quantity)}" th:value="${i}" th:text="${i}" th:selected="${i==1}"></option>
+                        														</select>
+                       	 														<button type="submit" class="aa-add-to-cart-btn">
+                          														<span class="fa fa-shopping-cart"></span>Add To Cart</button>
+                      															</form>
+                   															</div>
 																			<div class="aa-prod-view-bottom">
 																				<a th:href="@{/productdetail/id={id}(id = ${product.product_id})}"
 																					class="aa-add-to-cart-btn">View

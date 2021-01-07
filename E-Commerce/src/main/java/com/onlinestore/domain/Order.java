@@ -40,10 +40,10 @@ public class Order {
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<OrderItem> orderitems  = new HashSet<>();
 	
-	public void setOrderID(int order_id) {
+	public void setOrder_id(int order_id) {
 		this.order_id=order_id;
 	}
-	public int getOrderID() {
+	public int getOrder_id() {
 		return order_id;
 	}
 	public void setUser(User user) {

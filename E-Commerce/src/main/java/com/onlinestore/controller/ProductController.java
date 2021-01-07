@@ -23,9 +23,11 @@ public class ProductController {
 	UserService userService;
 	
 	@RequestMapping("/productdetail/id={id}")
-	public String productDetail(Model model, @PathVariable("id") String id) {
+	public String productDetail(Model model, @PathVariable("id") int id) {
 		Product product = productService.findByID(id);
-		model.addAttribute("product", product);
+		model.addAttribute("productdetail", product);
+		List<Product> products = productService.randomProduct(product.getCategory(), 4);
+		model.addAttribute("products",products);
 		return "product-detail";
 	}
 	

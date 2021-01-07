@@ -11,7 +11,7 @@ import com.onlinestore.domain.Product;
 public interface ProductRepository extends CrudRepository<Product,Long> {
 	List<Product> findByCategory (Category category);
 	@Query(value = "SELECT * FROM products p WHERE p.product_id = ?1", nativeQuery = true)
-	Product findByProduct_id (String product_id);
+	Product findByProduct_id (int product_id);
 	@Query(value = "SELECT * FROM products p WHERE p.categoryid IN (select categoryid from categories where biggroup = ?1)", nativeQuery = true)
 	List<Product> findByBigGroup (String bigGroup);
 	
