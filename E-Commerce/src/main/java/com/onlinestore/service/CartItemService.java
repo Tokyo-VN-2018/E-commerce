@@ -8,8 +8,9 @@ import com.onlinestore.domain.User;
 
 public interface CartItemService {
 	List<CartItem> findByUser(User user);
+	CartItem findByID(int cartitem_id);
 	CartItem updateCartItem(CartItem cartItem);
-	
+	void updateQuantity(CartItem cartItem, int quantity);
 	CartItem addProductToCartItem(Product product, User user, int quantity);
-	
+	void deleteItem(CartItem cartItem);
 }

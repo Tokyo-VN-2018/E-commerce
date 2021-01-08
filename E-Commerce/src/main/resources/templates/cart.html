@@ -87,7 +87,7 @@
            <div class="cart-view-table">
            
            	 <div th:if="${notEnoughStock}" class="alert alert-warning">
-                          	Oops, some of the products don't have enough stock. Please update product quantity.
+                          	Oops, some of the products don't have enough stock.
                           </div>
                           <div th:if="${emptyCart}" class="alert alert-warning">
                           	Oops, your cart is empty. See if you can find what you like and add them to cart.
@@ -102,17 +102,17 @@
        				<form th:action="@{/shoppingCart/updateCartItem}" method="post">
        					<hr/>
        					<div class="col-xs-2">
-       						<a th:href="@{/productDetail(id=${cartItem.product.product_id})}">
-       							<img/>
+       						<a th:href="@{/productdetail/id={id}(id=${cartItem.product.product_id})}">
+       							<img width="125px" height="150px" th:src="@{'upload/' + ${cartItem.product.product_id}} + '.jpg'" onerror="this.src='/img/man/t-shirt-1.png';">
        						</a>
        					</div>
        					<div class="col-xs-6">
        						<div style="margin-left:50px;">
        						<h4 th:text="${cartItem.product.product_name}"><a href="#"></a></h4>
-       						<p th:if="${cartItem.product.quantity&gt;10}" style="color:green;">In Stock</p>
-       						<p th:if="${cartItem.product.quantity&lt;10 and cartItem.product.quantity&gt;0}" style="color:green;">Only <span th:text="${cartItem.product.quantity}"></span> In Stock</p>
-       						<p th:if="${cartItem.product.quantity==0}" style="color:darkred;">Product unavailable</p>
-       						<a href="#">detete</a>
+       						<p th:if="${cartItem.product.quantity&gt;10}" style="color:#2eb82e;">In Stock</p>
+       						<p th:if="${cartItem.product.quantity&lt;10 and cartItem.product.quantity&gt;0}" style="color:#2eb82e;">Only <span th:text="${cartItem.product.quantity}"></span> In Stock</p>
+       						<p th:if="${cartItem.product.quantity==0}" style="color:#ff6666;">Soul out!</p>
+       						<a th:href="@{/shoppingCart/delete(id=${cartItem.cartitem_id})}"><span style="color: #db3208;" class="fa fa-trash fa-2x"></span></a>
        						</div>
        					</div>
        					
@@ -121,10 +121,10 @@
        					</div>
        					
        					<div class="col-xs-2">
-       						<input hidden="hidden" name="cartitem_id" th:value="${cartItem.cartitem_id}"/>
-       						<input th:id="${cartItem.cartitem_id}" th:name="quantity" th:disabled="${cartItem.product.quantity==0}"
+       						<input hidden="hidden" id="cartitem_id" name="cartitem_id" th:value="${cartItem.cartitem_id}"/>
+       						<input type="number" min="0" id="quantity" name="quantity" th:disabled="${cartItem.product.quantity==0}"
        						class="form-control" th:value="${cartItem.quantity}">
-       						<button style="display:none;" th:id="'update-item-'+${cartItem.cartitem_id}" type="submit" class="btn btn-warning btn-xs">Update</button>
+       						<button type="submit" class="btn btn-warning btn-xs">Update</button>
        					</div>
        					
        				</form>
@@ -141,7 +141,7 @@
                    </tr>
                  </tbody>
                </table>
-               <a th:href="@{/checkout(id=${user.username})}" class="aa-cart-view-btn">Proced to Checkout</a>
+               <a th:unless="${emptyCart}" th:href="@{/checkout}" class="aa-cart-view-btn">Proced to Checkout</a>
              </div>
            </div>
          </div>

@@ -86,9 +86,9 @@
 											<li data-th-each="product : ${phones}">
 												<figure>
 													<a class="aa-product-img" th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><img width="250px" height="300px" th:src="@{'upload/' + ${product.product_id}} + '.jpg'" onerror="this.src='/img/man/t-shirt-1.png';"></a>
-													<form class="aa-add-card-btn" action="/shoppingCart/addItem">
+													<form th:if="${product.quantity > 0}" class="aa-add-card-btn" action="/shoppingCart/addItem">
                       									<input type="hidden" id="product" name="product" th:value="${product.product_id}">
-                        								<input type="hidden" id="quantity" name="quantity" value="10">
+                        								<input type="hidden" id="quantity" name="quantity" value="1">
                        	 								<button type="submit" style="border: 0;background: none;box-shadow: none;border-radius: 0px;">
                           								<span class="fa fa-shopping-cart"></span>Add To Cart</button>
                       								</form>

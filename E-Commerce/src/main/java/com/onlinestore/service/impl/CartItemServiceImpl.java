@@ -23,15 +23,27 @@ public class CartItemServiceImpl implements CartItemService {
 	public List<CartItem> findByUser(User user){
 		return cartItemRepository.findByUser(user);
 	}
+	
+	public CartItem findByID(int cartitem_id) {
+		return cartItemRepository.findByID(cartitem_id);
+	}
+	
+	public void updateQuantity(CartItem cartItem, int quantity) {
+		if(quantity == 0) {
+			System.out.println("Hello there");
+			cartItemRepository.deleteByID(cartItem.getCartitem_id());
+			return;
+		}
+		cartItem.setQuantity(quantity);
+		cartItem.setSubtotal(new BigDecimal(cartItem.getProduct().getPrice()).multiply(new BigDecimal(quantity)));
+		cartItem = cartItemRepository.save(cartItem);
+	}
 
 	public CartItem updateCartItem(CartItem cartItem) {
 		BigDecimal bigDecimal= new BigDecimal(cartItem.getProduct().getPrice()).multiply(new BigDecimal(cartItem.getQuantity()));
-
 		bigDecimal = bigDecimal.setScale(2, RoundingMode.CEILING);
 		cartItem.setSubtotal(bigDecimal);
-
 		cartItemRepository.save(cartItem);
-
 		return cartItem;
 	}
 	
@@ -40,9 +52,11 @@ public class CartItemServiceImpl implements CartItemService {
 		
 		for(CartItem cartItem : cartItemList) {
 			if (product.getProduct_id() == cartItem.getProduct().getProduct_id()) {
-				cartItem.setQuantity(cartItem.getQuantity()+quantity);
-				cartItem.setSubtotal(new BigDecimal(product.getPrice()).multiply(new BigDecimal(quantity)));
-				cartItemRepository.save(cartItem);
+				if(cartItem.getQuantity() == 0) {
+					cartItem.setQuantity(quantity);
+					cartItem.setSubtotal(new BigDecimal(product.getPrice()).multiply(new BigDecimal(quantity)));
+					cartItem = cartItemRepository.save(cartItem);
+				}
 				return cartItem;
 			}
 		}
@@ -57,5 +71,7 @@ public class CartItemServiceImpl implements CartItemService {
 		return cartItem;
 
 	}
-
+	public void deleteItem(CartItem cartItem) {
+		cartItemRepository.deleteByID(cartItem.getCartitem_id());
+	}
 }

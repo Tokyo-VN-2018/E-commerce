@@ -1,6 +1,6 @@
 package com.onlinestore.domain;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,14 +28,14 @@ public class Order {
 	@ManyToOne
 	@JoinColumn(nullable = false, name = "username")
 	private User user;
-	
-	private Date orderdate;
+	private Date orderdate = new Date();
 	@Column(nullable=false, columnDefinition = "bit default 0")
 	private boolean status;
 	private double amount;
 	private String customer;
 	private String phone;
 	private String address;
+	private String email;
 	
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<OrderItem> orderitems  = new HashSet<>();
@@ -88,5 +88,11 @@ public class Order {
 	}
 	public String getAddress() {
 		return address;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getEmail() {
+		return email;
 	}
 }

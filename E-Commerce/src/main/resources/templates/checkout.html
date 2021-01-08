@@ -84,49 +84,13 @@
  <section id="checkout">
    <div class="container">
      <div class="row">
-       <div class="col-md-12">
+       <div>
         <div class="checkout-area">
-          <form th:action="@{/checkout}" method="post">
+          <form th:action="@{/process}" method="post">
             <div class="row">
-              <div class="col-md-8">
+              <div>
                 <div class="checkout-left">
                   <div class="panel-group" id="accordion">
-                    <!-- Coupon section -->
-                    <div class="panel panel-default aa-checkout-coupon">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                            Have a Coupon?
-                          </a>
-                        </h4>
-                      </div>
-                      <div id="collapseOne" class="panel-collapse collapse in">
-                        <div class="panel-body">
-                          <input type="text" placeholder="Coupon Code" class="aa-coupon-code">
-                          <input type="submit" value="Apply Coupon" class="aa-browse-btn">
-                        </div>
-                      </div>
-                    </div>
-                    <!-- Login section -->
-                    <div class="panel panel-default aa-checkout-login">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                            Client Login 
-                          </a>
-                        </h4>
-                      </div>
-                      <div id="collapseTwo" class="panel-collapse collapse">
-                        <div class="panel-body">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat voluptatibus modi pariatur qui reprehenderit asperiores fugiat deleniti praesentium enim incidunt.</p>
-                          <input type="text" placeholder="Username or email">
-                          <input type="password" placeholder="Password">
-                          <button type="submit" class="aa-browse-btn">Login</button>
-                          <label for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
-                          <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
-                        </div>
-                      </div>
-                    </div>
                     <!-- Shipping Address -->
                     <div class="panel panel-default aa-checkout-billaddress">
                       <div class="panel-heading">
@@ -136,85 +100,71 @@
                           </a>
                         </h4>
                       </div>
-                      <div id="collapseFour" class="panel-collapse collapse">
+                      <div id="collapseFour" class="panel-collapse collapse in">
                         <div class="panel-body">
                          <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <input type="text" placeholder="Full Name*" th:value="${order.fullname}">
+                                <input type="text" placeholder="Full Name*" id="customer" name="customer" th:value="${user.fullname}" required = "required" class="form-control">
                               </div>                             
                             </div>
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="email" placeholder="Email Address*">
-                              </div>                             
-                            </div>
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="tel" placeholder="Phone*">
-                              </div>
-                            </div>
-                          </div> 
-                          <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <textarea cols="8" rows="3">Address*</textarea>
+                                <input type="email" placeholder="Email Address*" id="email" name="email" th:value="${user.email}" required = "required" class="form-control">
                               </div>                             
-                            </div>                            
-                          </div>   
+                            </div>
+                            <div class="col-md-12">
+                              <div class="aa-checkout-single-bill">
+                                <input type="tel" pattern="^[0-9\-\+]{9,15}$" placeholder="Phone*" id="phone" name="phone" th:value="${user.phone}" required = "required" class="form-control">
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="aa-checkout-single-bill">
+                                <input type="text" placeholder="Address*" id="address" name="address" th:value="${user.address}" required = "required" class="form-control">
+                              </div>
+                            </div> 
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div>
                 <div class="checkout-right">
                   <h4>Order Summary</h4>
                   <div class="aa-order-summary-area">
-                    <table class="table table-responsive">
+                    <table class="table table-bordered table-hover table-striped" style="width:90%;margin-left: auto;margin-right: auto;">
                       <thead>
                         <tr>
                           <th>Product</th>
+                          <th>Quantity</th>
                           <th>Total</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>T-Shirt <strong> x  1</strong></td>
-                          <td>$150</td>
-                        </tr>
-                        <tr>
-                          <td>Polo T-Shirt <strong> x  1</strong></td>
-                          <td>$250</td>
-                        </tr>
-                        <tr>
-                          <td>Shoes <strong> x  1</strong></td>
-                          <td>$350</td>
-                        </tr>
+                        <tr th:each="cart: ${cartItems}">
+                          <td><span th:text="${cart.product.product_name}"></span></td>
+                          <td><span th:text="${cart.quantity}"></span></td>
+                          <td><span th:text="${cart.subtotal}"></span></td>
                       </tbody>
                       <tfoot>
                         <tr>
-                          <th>Subtotal</th>
+                          <th colspan="2">Subtotal</th>
                           <td>$<span th:text="${user.GrandTotal}"></span></td>
                         </tr>
                          <tr>
-                          <th>Tax</th>
-                          <td>$<span th:with="tax=${user.GrandTotal*0.05}" th:text="${#numbers.formatDecimal(tax, 0, 2)"></span></td>
+                          <th colspan="2">Tax</th>
+                          <td>$<span th:with="tax=${user.GrandTotal*0.05}" th:text="${#numbers.formatDecimal(tax, 0, 2)}"></span></td>
                         </tr>
                          <tr>
-                          <th>Total</th>
-                          <td>$<span th:with="total=${user.GrandTotal + user.GrandTotal*0.05}" th:text="${#numbers.formatDecimal(total, 0, 2)"></span></td>
+                          <th colspan="2">Total</th>
+                          <td>$<span th:with="total=${user.GrandTotal + user.GrandTotal*0.05}" th:text="${#numbers.formatDecimal(total, 0, 2)}"></span></td>
                         </tr>
                       </tfoot>
                     </table>
                   </div>
-                  <h4>Payment Method</h4>
-                  <div class="aa-payment-method">                    
-                    <label for="cashdelivery"><input type="radio" id="cashdelivery" name="optionsRadios"> Cash on Delivery </label>
-                    <label for="paypal"><input type="radio" id="paypal" name="optionsRadios" checked> Via Paypal </label>
-                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark">    
+                  <div class="aa-payment-method">
+                  	<input type="hidden" th:value="${user.GrandTotal + user.GrandTotal*0.05}" name="amount" id=amount>                 
                     <input type="submit" value="Place Order" class="aa-browse-btn">
                     <p>By placing your order, you agree to TokyoVN2018 <a href="#">privacy</a> notice and <a href="#">conditions</a> of use.</p>              
                   </div>
