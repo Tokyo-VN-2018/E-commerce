@@ -91,9 +91,9 @@ public class ShoppingCartController {
 	}
 	
 	@RequestMapping("/delete")
-	public String delete(@RequestParam("id") int cartitem_id) {
+	public String delete(@RequestParam("id") int cartitem_id, HttpServletRequest request) {
 		CartItem cartItem = cartItemService.findByID(cartitem_id);
 		cartItemService.deleteItem(cartItem);
-		return "redirect:/shoppingCart/cart";
+		return "redirect:"+request.getHeader("Referer");
 	}
 }

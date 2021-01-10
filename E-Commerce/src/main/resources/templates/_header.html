@@ -136,36 +136,29 @@
 								</div>
 								<!-- / logo  -->
 								<!-- cart box -->
-								<div class="aa-cartbox">
+								<div sec:authorize="isAuthenticated()" class="aa-cartbox">
 									<a class="aa-cart-link" href="/shoppingCart/cart"> <span
 										class="fa fa-shopping-basket"></span> <span
-										class="aa-cart-title">SHOPPING CART</span> <span
-										class="aa-cart-notify">2</span>
+										class="aa-cart-title">SHOPPING CART</span> <span th:unless="${isCartHeaderEmpty}"
+										class="aa-cart-notify" th:text="${cartHeaderNumber}"></span>
 									</a>
 									<div class="aa-cartbox-summary">
+										<div class="alert alert-warning" th:if="${isCartHeaderEmpty}">Oops, your cart is empty. See if you can find what you like and add them to cart.</div>
 										<ul>
-											<li><a class="aa-cartbox-img" href="#"><img
-													src="/img/woman-small-2.jpg" alt="img"></a>
+											<li th:each="cartItem : ${cartHeaderItems}">
+												<a class="aa-cartbox-img" th:href="@{/productdetail/id={id}(id=${cartItem.product.product_id})}">
+													<img width="125px" height="150px" th:src="@{'upload/' + ${cartItem.product.product_id}} + '.jpg'" onerror="this.src='/img/man/t-shirt-1.png';"></a>
 												<div class="aa-cartbox-info">
 													<h4>
-														<a href="#">Product Name</a>
+														<a th:href="@{/productdetail/id={id}(id=${cartItem.product.product_id})}"><span th:text="${cartItem.product.product_name}"></span></a>
 													</h4>
-													<p>1 x $250</p>
-												</div> <a class="aa-remove-product" href="#"><span
+													<p><span th:text="${cartItem.quantity}"></span><span> X $</span><span th:text="${cartItem.product.price}"></span></p>
+												</div> <a class="aa-remove-product" th:href="@{/shoppingCart/delete(id=${cartItem.cartitem_id})}"><span
 													class="fa fa-times"></span></a></li>
-											<li><a class="aa-cartbox-img" href="#"><img
-													src="/img/woman-small-1.jpg" alt="img"></a>
-												<div class="aa-cartbox-info">
-													<h4>
-														<a href="#">Product Name</a>
-													</h4>
-													<p>1 x $250</p>
-												</div> <a class="aa-remove-product" href="#"><span
-													class="fa fa-times"></span></a></li>
-											<li><span class="aa-cartbox-total-title"> Total </span>
-												<span class="aa-cartbox-total-price"> $500 </span></li>
+											<li><span class="aa-cartbox-total-title">Total</span>
+												<span class="aa-cartbox-total-price" th:text="${'$'+cartHeaderTotal}"></span></li>
 										</ul>
-										<a class="aa-cartbox-checkout aa-primary-btn" href="#">Checkout</a>
+										<a th:unless="${isCartHeaderEmpty}" class="aa-cartbox-checkout aa-primary-btn" href="/checkout">Checkout</a>
 									</div>
 								</div>
 								<!-- / cart box -->
