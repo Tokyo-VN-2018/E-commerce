@@ -2,6 +2,9 @@ package com.onlinestore.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.onlinestore.domain.Category;
 import com.onlinestore.domain.Product;
 
@@ -18,5 +21,9 @@ public interface ProductService {
 	List<Product> randomProduct(String bigGroup, int number);
 	
 	List<Product> blurrySearch(String keyword);
+	
+	Page<Product> findPaginated(Pageable pageable);
+	Page<Product> findByBigGroupPaginated(String bigGroup, Pageable pageable);
+	Page<Product> blurrySearchPaginated(String keyword, Pageable pageable);
 	
 }
