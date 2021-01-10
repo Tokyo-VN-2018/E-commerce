@@ -73,6 +73,8 @@ public class HomeController {
 	
 	@RequestMapping({"/","/index","/home"})
 	public String index(Model model) {
+		List<Product> phones = productService.randomProduct("Phone", 8);
+		model.addAttribute("phones", phones);
 		return "home";
 	}
 	
@@ -192,10 +194,4 @@ public class HomeController {
 		return "redirect:/myprofile";
 	}
 	
-	@RequestMapping("/product")
-	public String product(Model model) {
-		List<Product> productList = productService.findAll();
-		model.addAttribute("productList", productList);
-		return "product";
-	}
 }

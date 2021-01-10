@@ -103,10 +103,8 @@
 										<li><a sec:authorize="isAuthenticated()"
 											th:href="@{/myprofile}"
 											th:text="${#authentication.getPrincipal().getUsername()}"></a></li>
-										<li sec:authorize="isAuthenticated()" class="hidden-xs"><a
-											href="cart.html">My Cart</a></li>
-										<li sec:authorize="isAuthenticated()" class="hidden-xs"><a
-											href="checkout.html">Checkout</a></li>
+										<li sec:authorize="isAuthenticated()"><a
+											href="/shoppingCart/cart">My Cart</a></li>
 										<li><a th:href="@{/login}" sec:authorize="isAnonymous()">Login</a></li>
 										<li><a sec:authorize="isAuthenticated()"
 											th:href="@{/logout}">Logout</a></li>
@@ -128,7 +126,7 @@
 								<!-- logo  -->
 								<div class="aa-logo">
 									<!-- Text based logo -->
-									<a href="index"> <span class="fa fa-shopping-cart"></span>
+									<a href="/index"> <span class="fa fa-shopping-cart"></span>
 										<p>
 											VN2018<strong>Tokyo</strong> <span>Your Shopping Partner</span>
 										</p>
@@ -139,7 +137,7 @@
 								<!-- / logo  -->
 								<!-- cart box -->
 								<div class="aa-cartbox">
-									<a class="aa-cart-link" href="#"> <span
+									<a class="aa-cart-link" href="/shoppingCart/cart"> <span
 										class="fa fa-shopping-basket"></span> <span
 										class="aa-cart-title">SHOPPING CART</span> <span
 										class="aa-cart-notify">2</span>
@@ -173,9 +171,9 @@
 								<!-- / cart box -->
 								<!-- search box -->
 								<div class="aa-search-box">
-									<form action="">
-										<input type="text" name="" id=""
-											placeholder="Search here ex. 'man' ">
+									<form th:action="@{/searchProduct}" method="post">
+										<input type="text" name="keyword" id="keyword"
+											placeholder="Search here ex. 'Apple' ">
 										<button type="submit">
 											<span class="fa fa-search"></span>
 										</button>

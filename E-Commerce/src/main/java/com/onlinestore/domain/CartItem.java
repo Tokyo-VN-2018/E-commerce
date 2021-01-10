@@ -37,10 +37,10 @@ public class CartItem {
 	public void setSubtotal(BigDecimal subtotal) {
 		this.subtotal = subtotal;
 	}
-	public void setCartItemID (int cartitem_id) {
+	public void setCartitem_id (int cartitem_id) {
 		this.cartitem_id = cartitem_id;
 	}
-	public int getCartItemID () {
+	public int getCartitem_id () {
 		return cartitem_id;
 	}
 	public void setProduct(Product product) {

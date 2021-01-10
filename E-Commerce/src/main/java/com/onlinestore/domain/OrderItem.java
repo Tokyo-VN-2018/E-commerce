@@ -26,10 +26,10 @@ public class OrderItem {
 	@Column(nullable=false)
 	private double price;
 	
-	public void setOrderItemID (int orderitem_id) {
+	public void setOrderitem_id (int orderitem_id) {
 		this.orderitem_id = orderitem_id;
 	}
-	public int getOrderItemID () {
+	public int getOrderitem_id () {
 		return orderitem_id;
 	}
 	public void setProduct(Product product) {

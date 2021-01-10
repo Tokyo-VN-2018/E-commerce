@@ -8,7 +8,7 @@ import com.onlinestore.domain.User;
 public interface CategoryService {
 	
 	Category findByCategoryID(String categoryID);
-	public Category save(Category product);
+	public Category save(Category category);
 	
 	public List<Category> findAll();
 }

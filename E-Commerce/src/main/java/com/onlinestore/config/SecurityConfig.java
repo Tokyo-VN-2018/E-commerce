@@ -39,7 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/newUser",
 			"/forgetPassword",
 			"/login",
-			"upload/**"
+			"upload/**",
+			"/searchByCategory",
+			"/searchProduct"
 	};
 	
 	@Override
@@ -49,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(PUBLIC_MATCHERS)
 			.permitAll();
 		http.authorizeRequests().antMatchers("/myprofile","/updateUserInfo").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
-		http.authorizeRequests().antMatchers("/shoppingCart/**").access("hasAnyRole('ROLE_USER')");
+		http.authorizeRequests().antMatchers("/shoppingCart/**","/checkout","/process").access("hasAnyRole('ROLE_USER')");
 		http.authorizeRequests().antMatchers("/adminPortal","/productList","/addproduct","/uploadFile/**").access("hasAnyRole('ROLE_ADMIN')");
 		http
 			.csrf().disable().cors().disable()
