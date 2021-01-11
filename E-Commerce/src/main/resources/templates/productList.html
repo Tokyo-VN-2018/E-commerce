@@ -75,7 +75,9 @@
 						<th>Quantity</th>
 						<th>Brand</th>
 						<th>Category</th>
-						<th>Operation</th>
+						<th>Upload</th>
+						<th>Edit</th>
+						<th>Delete</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -94,6 +96,14 @@
     							<input type="submit" value="Submit" />
   							</form>
  						</td>
+ 						<td><form method="post" th:action="@{/editproduct(id=${product.product_id})}">
+    							<input type="submit" value="Edit" />
+  							</form>
+  						</td>
+ 						<td><form method="post" th:action="@{/deleteproduct(id=${product.product_id})}">
+    							<input type="submit" value="Delete" />
+  							</form>
+  						</td>
 					</tr>
 				</tbody>
 			</table>

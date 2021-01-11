@@ -11,7 +11,7 @@ import com.onlinestore.domain.Product;
 public interface ProductService {
 
 	Product save(Product product);
-	
+	void delete(Product product);
 	List<Product> findAll();
 	Product findByID(int product_id);
 	List<Product> findByCategory(Category category);

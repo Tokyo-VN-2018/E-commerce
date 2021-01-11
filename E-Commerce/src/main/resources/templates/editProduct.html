@@ -63,11 +63,11 @@
 
 	<div class="container">
 		<div class="row">
-			<form class="form-horizontal" th:action="@{/addproduct}"
+			<form class="form-horizontal" th:action="@{/posteditproduct}"
 				method="post">
 				<br>
-				<h3 class="center-block">
-					New Product Information<span style="font-size: small"> * is
+				<input type="hidden" name="product_id" id="product_id" th:value="${product.product_id}">
+				<h3 class="center-block">Product Information: <span th:text="${product.product_id}"></span><span style="font-size: small"> * is
 						required field</span>
 				</h3>
 				<!-- id -->
@@ -78,7 +78,7 @@
 						name</label>
 					<div class="col-md-8">
 						<select id="categoryID" name="categoryID" class="form-control">
-							<option data-th-each="category : ${categoryList}" th:value="${category.categoryID}" th:text="${category.name}"></option>
+							<option data-th-each="category : ${categoryList}" th:value="${category.categoryID}" th:text="${category.name}" th:selected="${product.category == category}"></option>
 						</select>
 						<span class="help-block"> Category of the product</span>
 					</div>
@@ -91,7 +91,7 @@
 					<div class="col-md-8">
 						<input type="text" class="form-control" id="product_name"
 							name="product_name"
-							required="required" placeholder="Product Name" /> <span
+							required="required" placeholder="Product Name" th:value="${product.product_name}"/> <span
 							class="help-block"> Name of the product</span>
 					</div>
 				</div>
@@ -101,7 +101,7 @@
 					<label class="col-md-2 control-label" for="brand">Brand</label>
 					<div class="col-md-8">
 						<input type="text" name="brand" class="form-control" id="brand" required="required"
-							placeholder="Brand" /> <span class="help-block"> Brand of
+							placeholder="Brand" th:value="${product.brand}"/> <span class="help-block"> Brand of
 							the product</span>
 					</div>
 				</div>
@@ -112,7 +112,7 @@
 						price</label>
 					<div class="col-md-8">
 						<input type="number" step="0.01" min="0" class="form-control" id="price" name="price" required="required"
-							placeholder="Product Name" /> <span class="help-block">
+							placeholder="Price" th:value="${product.price}"/> <span class="help-block">
 							Price of the product</span>
 					</div>
 				</div>
@@ -123,7 +123,7 @@
 					<div class="col-md-8">
 						<input type="number" min="0" class="form-control" id="quantity"
 							name="quantity"
-							required="required" placeholder="Product Name" /> <span
+							required="required" placeholder="Quantity" th:value="${product.quantity}"/> <span
 							class="help-block"> Quantity of the product</span>
 					</div>
 				</div>
@@ -135,7 +135,7 @@
 					<div class="col-md-8">
 						<textarea class="form-control" id="description" name="description"
 							rows="5" required="required"
-							placeholder="Product Name"></textarea>
+							placeholder="Description" th:text="${product.description}"></textarea>
 						<span class="help-block"> Description of the product</span>
 					</div>
 				</div>

@@ -30,12 +30,13 @@ public class ProductServiceImpl implements ProductService {
 	public Product save(Product product) {
 		return productRepository.save(product);
 	}
-	
+	public void delete(Product product) {
+		productRepository.deleteByID(product.getProduct_id());
+	}
 	public List<Product> findAll(){
 		return (List<Product>) productRepository.findAll();
 		
 	}
-	
 	public Product findByID(int product_id) {
 		return productRepository.findByProduct_id(product_id);
 	}

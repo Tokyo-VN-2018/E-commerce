@@ -11,14 +11,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.onlinestore.domain.Category;
 import com.onlinestore.domain.Product;
 import com.onlinestore.domain.User;
+import com.onlinestore.service.CategoryService;
 import com.onlinestore.service.ProductService;
 import com.onlinestore.service.UserService;
 
@@ -29,6 +32,9 @@ public class ProductController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	CategoryService categoryService;
 	
 	@RequestMapping("/productdetail/id={id}")
 	public String productDetail(Model model, @PathVariable("id") int id) {
@@ -73,5 +79,26 @@ public class ProductController {
 		return "product";
 	}
 	
+	@RequestMapping("/editproduct")
+	public String editProduct(@RequestParam("id") int id, Model model) {
+		List<Category> categoryList = categoryService.findAll();
+		model.addAttribute("categoryList", categoryList);
+		Product product = productService.findByID(id);
+		model.addAttribute("product", product);
+		return "editProduct";
+	}
 	
+	@RequestMapping("/posteditproduct")
+	public String postEdit(Model model, @ModelAttribute("product") Product product, @ModelAttribute("categoryID") String categoryID) {
+		product.setCategory(categoryService.findByCategoryID(categoryID));
+		product = productService.save(product);
+		return "redirect:/productList";
+	}
+	
+	@RequestMapping("/deleteproduct")
+	public String deleteProduct(@RequestParam("id") int id, Model model) {
+		Product product = productService.findByID(id);
+		productService.delete(product);
+		return "redirect:/productList";
+	}
 }
