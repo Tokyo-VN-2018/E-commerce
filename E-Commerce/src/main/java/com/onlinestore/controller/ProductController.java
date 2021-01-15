@@ -41,8 +41,8 @@ public class ProductController {
 		return "product-detail";
 	}
 	
-	/* @RequestMapping(value = "/product", method = RequestMethod.GET) */
-	@RequestMapping("/product")
+	/* @RequestMapping(value = "/product", method = RequestMethod.POST) */
+	@RequestMapping("/product") 
 	public String product(
 			Model model,
 			Principal principal,

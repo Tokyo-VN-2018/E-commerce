@@ -22,4 +22,7 @@ public interface PaginationRepository extends PagingAndSortingRepository<Product
 	
 	@Query(value = "SELECT * FROM products p WHERE p.categoryid = ?1", nativeQuery = true)
 	Page<Product> findByCategoryPaginated (String category, Pageable pageable);
+	
+	@Query(value = "SELECT * FROM products", nativeQuery = true)
+	Page<Product> findPaginated(Pageable pageable);
 }
