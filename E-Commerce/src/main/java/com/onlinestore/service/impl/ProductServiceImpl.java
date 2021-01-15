@@ -99,6 +99,12 @@ public class ProductServiceImpl implements ProductService {
 	public Page<Product> blurrySearchPaginated(String keyword, Pageable pageable) {
 		return paginationRepository.blurrySearchPaginated(keyword, pageable);
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Product> findByCategoryPaginated(String category, Pageable pageable) {
+		return paginationRepository.findByCategoryPaginated(category, pageable);
+	}
 	
 	
 	

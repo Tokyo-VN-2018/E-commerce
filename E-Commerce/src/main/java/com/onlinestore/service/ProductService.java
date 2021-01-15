@@ -25,5 +25,6 @@ public interface ProductService {
 	Page<Product> findPaginated(Pageable pageable);
 	Page<Product> findByBigGroupPaginated(String bigGroup, Pageable pageable);
 	Page<Product> blurrySearchPaginated(String keyword, Pageable pageable);
+	Page<Product> findByCategoryPaginated(String category, Pageable pageable);
 	
 }

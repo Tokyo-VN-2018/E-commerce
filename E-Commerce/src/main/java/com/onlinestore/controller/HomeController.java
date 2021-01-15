@@ -194,4 +194,9 @@ public class HomeController {
 		return "redirect:/myprofile";
 	}
 	
+	@RequestMapping("/contact")
+	public String contact() {
+		return "contact";
+	}
+	
 }

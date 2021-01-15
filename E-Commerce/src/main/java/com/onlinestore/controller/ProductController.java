@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,11 +41,13 @@ public class ProductController {
 		return "product-detail";
 	}
 	
-	@RequestMapping(value = "/product", method = RequestMethod.GET)
+	/* @RequestMapping(value = "/product", method = RequestMethod.GET) */
+	@RequestMapping("/product")
 	public String product(
 			Model model,
 			Principal principal,
-			@RequestParam(name = "page", defaultValue = "0") int page
+			@RequestParam(name = "page", defaultValue = "0") int page,
+			@ModelAttribute("sorttype") String sorttype
 			) {
 		if (principal != null) {
 			String username = principal.getName();
@@ -51,7 +55,25 @@ public class ProductController {
 			model.addAttribute("user", user);
 		}
 		
-		Pageable pageRequest = PageRequest.of(page, 12);
+		String optionActiveSort;
+		Pageable pageRequest;
+		if (sorttype.equalsIgnoreCase("3")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("price").descending());
+			optionActiveSort = "t3";
+		}else if (sorttype.equalsIgnoreCase("2")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("price").ascending());
+			optionActiveSort = "t2";
+		}else if (sorttype.equalsIgnoreCase("4")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("product_name").ascending());
+			optionActiveSort = "t4";
+		}else if (sorttype.equalsIgnoreCase("5")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("product_name").descending());
+			optionActiveSort = "t5";
+		}else {
+			pageRequest = PageRequest.of(page, 12);
+			optionActiveSort = "t1";
+		}
+		model.addAttribute(optionActiveSort, true);
 		
 		Page<Product> productList = productService.findPaginated(pageRequest);
 		int totalPage = productList.getTotalPages();
@@ -63,7 +85,6 @@ public class ProductController {
 			pages.add(i);
 			}
 		}
-		System.out.println(pages);
 		
 		/* List<Product> productList = productService.findPaginated(pageable); */
 		model.addAttribute("productList", productList);

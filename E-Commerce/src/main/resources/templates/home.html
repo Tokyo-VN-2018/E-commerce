@@ -174,7 +174,8 @@
 											</li>
 										</ul>
 										<p align="center">
-											<a class="aa-browse-btn" href="#">Browse all Product <span
+											<a class="aa-browse-btn" th:href="@{/product(category='all')}"
+									th:classappend="${activeAll}? 'active'">Browse all Product <span
 													class="fa fa-long-arrow-right"></span></a>
 										</p>
 
