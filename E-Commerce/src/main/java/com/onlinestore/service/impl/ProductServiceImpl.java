@@ -6,10 +6,15 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.onlinestore.domain.Category;
 import com.onlinestore.domain.Product;
+import com.onlinestore.repository.PaginationRepository;
 import com.onlinestore.repository.ProductRepository;
 import com.onlinestore.service.ProductService;
 
@@ -18,16 +23,20 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private PaginationRepository paginationRepository;
 
 	public Product save(Product product) {
 		return productRepository.save(product);
 	}
-	
+	public void delete(Product product) {
+		productRepository.deleteByID(product.getProduct_id());
+	}
 	public List<Product> findAll(){
 		return (List<Product>) productRepository.findAll();
 		
 	}
-	
 	public Product findByID(int product_id) {
 		return productRepository.findByProduct_id(product_id);
 	}
@@ -73,5 +82,25 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findByproduct_nameContaining(keyword);
 		
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Product> findPaginated(Pageable pageable) {
+		return paginationRepository.findAll(pageable);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Product> findByBigGroupPaginated(String bigGroup, Pageable pageable) {
+		return paginationRepository.findByBigGroupPaginated(bigGroup, pageable);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Product> blurrySearchPaginated(String keyword, Pageable pageable) {
+		return paginationRepository.blurrySearchPaginated(keyword, pageable);
+	}
+	
+	
 	
 }

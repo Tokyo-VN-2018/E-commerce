@@ -91,9 +91,9 @@ public class HomeController {
 
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-    	boolean hasUserRole = authentication.getAuthorities().stream()
+    	boolean hasAdminRole = authentication.getAuthorities().stream()
     	          .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
-        if(hasUserRole){
+        if(hasAdminRole){
         	return "redirect:/adminPortal";                            
          }
          else {

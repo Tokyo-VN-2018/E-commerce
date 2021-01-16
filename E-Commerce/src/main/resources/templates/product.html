@@ -73,10 +73,10 @@
 		<div class="aa-catg-head-banner-area">
 			<div class="container">
 				<div class="aa-catg-head-banner-content">
-					<h2>Fashion</h2>
+					<h2>Electronic devices</h2>
 					<ol class="breadcrumb">
 						<li><a href="index.html">Home</a></li>
-						<li class="active">Women</li>
+						<li class="active">Product</li>
 					</ol>
 				</div>
 			</div>
@@ -113,43 +113,44 @@
 									id="list-catg" href="#"><span class="fa fa-list"></span></a>
 							</div>
 						</div>
-						<!-- <table id = "productList"> -->
+						<table id = "productList">
+						<thead><tr><th><th></tr></thead>
+						<tbody>
+						<tr>
+						<td>
 						<div class="aa-product-catg-body">
 							<ul class="aa-product-catg">
 								<!-- start single product item -->
-								<li data-th-each="product : ${productList}">
-									<figure>
-										<a class="aa-product-img" th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><img width="250px" height="300px" th:src="@{'upload/' + ${product.product_id}} + '.jpg'" onerror="this.src='/img/man/t-shirt-1.png';"></a>
-										<a class="aa-add-card-btn" href="#"><span
-											class="fa fa-shopping-cart"></span>Add To Cart</a>
-										<figcaption>
-											<h4 class="aa-product-title">
-												<a th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><span th:text="${product.product_name}"></span></a>
-											</h4>
-											<span class="aa-product-price" th:text="${product.price}"></span><span class="fa fa-usd"></span>
-											<!-- <span class="aa-product-price"><del>$<span th:with="total=${product.price + product.price*0.1}" th:text="${#numbers.formatDecimal(total, 0, 'COMMA' ,2 ,'POINT')">10.00</span></del></span> -->
-											<p class="aa-product-descrip" th:text="${product.description}"></p>
-										</figcaption>
-									</figure>
-									<div class="aa-product-hvr-content">
-										<a href="#" data-toggle2="tooltip" data-placement="top"
-											title="Quick View" data-toggle="modal"
-											data-target="#quick-view-modal"><span
-											class="fa fa-search"></span></a>
-									</div> <!-- product badge -->
-									<span class="aa-badge aa-sold-out" th:if="${product.quantity == 0}">Sold Out!</span>
-									
-									<!-- quick view modal -->
-							<div class="modal fade" id="quick-view-modal" tabindex="-1"
-								role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-body">
-											<button type="button" class="close" data-dismiss="modal"
-												aria-hidden="true">&times;</button>
-											<div class="row">
-												<!-- Modal view slider -->
-												<div class="col-md-6 col-sm-6 col-xs-12">
+										<li data-th-each="product : ${productList}">
+												<figure>
+													<a class="aa-product-img" th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><img width="250px" height="300px" th:src="@{'upload/' + ${product.product_id}} + '.jpg'" onerror="this.src='/img/man/t-shirt-1.png';"></a>
+													<form th:if="${product.quantity > 0}" class="aa-add-card-btn" action="/shoppingCart/addItem">
+                      									<input type="hidden" id="product" name="product" th:value="${product.product_id}">
+                        								<input type="hidden" id="quantity" name="quantity" value="1">
+                       	 								<button type="submit" style="border: 0;background: none;box-shadow: none;border-radius: 0px;">
+                          								<span class="fa fa-shopping-cart"></span>Add To Cart</button>
+                      								</form>
+													<figcaption>
+														<h4 class="aa-product-title">
+															<a th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><span th:text="${product.product_name}"></span></a>
+														</h4>
+														<span class="aa-product-price" th:text="${product.price}"></span><span class="fa fa-usd"></span>
+													</figcaption>
+												</figure>
+												<div class="aa-product-hvr-content">
+													<a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" th:data-target="@{'#quick-view-' + ${product.product_id}}">
+														<span class="fa fa-search"></span></a>
+												</div> <!-- product badge -->
+												<span class="aa-badge aa-sold-out" th:if="${product.quantity == 0}">Sold Out!</span>
+												<!-- quick view modal -->
+												<div class="modal fade" th:id="@{'quick-view-' + ${product.product_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-body">
+																<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+																<div class="row">
+																	<!-- Modal view slider -->
+																	<div class="col-md-6 col-sm-6 col-xs-12">
 																		<div class="aa-product-view-slider">
 																			<div class="simpleLens-gallery-container"
 																				id="demo-1">
@@ -161,76 +162,71 @@
 																			</div>
 																		</div>
 																	</div>
-												<!-- Modal view content -->
-												<div class="col-md-6 col-sm-6 col-xs-12" id="">
-													<div class="aa-product-view-content">
-														<!-- <div th:if="${product != null}"> -->
-															<h3 th:text="${product.product_name}"></h3>
-															<div class="aa-price-block">
-																<p class="aa-product-view-price">Price:
+																	<!-- Modal view content -->
+																	<div class="col-md-6 col-sm-6 col-xs-12">
+																		<div class="aa-product-view-content">
+																			<h3>
+																				<span th:text="${product.product_name}"></span>
+																			</h3>
+																			<div class="aa-price-block">
+																				<p class="aa-product-view-price">Price:
 																					<span style="color: #ff6666;" th:text="${product.price}"></span>
 																					<span class="fa fa-usd"></span>
-																</p>
-																<p class="aa-product-avilability">Avilability: <span th:if="${product.quantity > 0}" th:text="${product.quantity}"></span>
-																					<span th:if="${product.quantity == 0}" th:text="Sold out!"></span>
-																</p>
-															</div>
-															<p class="aa-prod-category">Brand: <span style="color: #ff6666;" th:text="${product.brand}"></span></p>
-															<p th:text="${product.description}"></p>
-															<p class="aa-prod-category">
+																				</p>
+																				<p class="aa-product-avilability">Avilability: <span style="color: #2eb82e;" th:if="${product.quantity > 0}">In stock</span>
+																				<span style="color: #ff6666;" th:if="${product.quantity == 0}">Sold out!</span>
+																				</p>
+																			</div>
+																			<p class="aa-prod-category">Brand: <span style="color: #ff6666;" th:text="${product.brand}"></span>
+																			</p>
+																			<p class="aa-prod-category">
 																				Category: <a href="#"><span
 																						th:text="${product.category.name}"></span></a>
-																</p>
-															<div class="aa-prod-quantity">
-																<form action="">
-																	<select name="" id="">
-																		<option value="0" selected="1">1</option>
-																		<option value="1">2</option>
-																		<option value="2">3</option>
-																		<option value="3">4</option>
-																		<option value="4">5</option>
-																		<option value="5">6</option>
-																	</select>
-																	<button type="submit"
-																						class="aa-add-to-cart-btn"><span
-																							class="fa fa-shopping-cart"></span>Add
-																						To Cart</button>
-																</form>
-																
-															</div>
-															<div class="aa-prod-view-bottom">
+																			</p>
+																			<div th:if="${product.quantity > 0}" class="aa-prod-quantity">
+                      															<form action="/shoppingCart/addItem">
+                      															<input type="hidden" id="product" name="product" th:value="${product.product_id}">
+                        														<select id="quantity" name="quantity">
+                        															<option th:if="${product.quantity > 10}" th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" th:selected="${i==1}"></option>
+                          															<option th:if="${product.quantity <= 10}" th:each="i : ${#numbers.sequence(1, product.quantity)}" th:value="${i}" th:text="${i}" th:selected="${i==1}"></option>
+                        														</select>
+                       	 														<button type="submit" class="aa-add-to-cart-btn">
+                          														<span class="fa fa-shopping-cart"></span>Add To Cart</button>
+                      															</form>
+                   															</div>
+																			<div class="aa-prod-view-bottom">
 																				<a th:href="@{/productdetail/id={id}(id = ${product.product_id})}"
 																					class="aa-add-to-cart-btn">View
 																					Details</a>
+																			</div>
+																		</div>
+																	</div>
+																</div>
 															</div>
-														<!-- </div> -->
+														</div>
+														<!-- /.modal-content -->
 													</div>
+													<!-- /.modal-dialog -->
 												</div>
-											</div>
-										</div>
-									</div>
-									<!-- /.modal-content -->
-								</div>
-								<!-- /.modal-dialog -->
-							</div>
-							<!-- / quick view modal -->
-									
-								</li>
+												<!-- / quick view modal -->
+											</li>
 							</ul>
 							
 						</div>
-						<!-- </table> -->
+						</td>
+						</tr>
+						</tbody>
+						</table>
 						<div class="aa-product-catg-pagination">
 							<nav>
 								<ul class="pagination">
 									<li><a href="#" aria-label="Previous"> <span
 											aria-hidden="true">&laquo;</span>
 									</a></li>
-									<li><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">5</a></li>
+									<li th:each="pagenumber : ${pages}" ><a th:unless="category!='all'" th:href="@{?page={number}(number = ${pagenumber})}" th:text="${pagenumber}"></a></li>
+									<li th:each="pagenumber : ${pages}" ><a th:unless="category!='all'" th:href="@{__${#httpServletRequest.getContextPath()}__&page={number}(number = ${pagenumber})}" th:text="${pagenumber}"></a></li>
+									<li th:each="pagenumber : ${pages}" ><a th:unless="category=='all'" th:href="@{__${#request.requestURI}__?page={number}(number = ${pagenumber})}" th:text="${pagenumber}"></a></li>
+									
 									<li><a href="#" aria-label="Next"> <span
 											aria-hidden="true">&raquo;</span>
 									</a></li>
@@ -258,9 +254,14 @@
 						<div class="aa-sidebar-widget">
 							<h3>Tags</h3>
 							<div class="tag-cloud">
-								<a href="#">Fashion</a> <a href="#">Ecommerce</a> <a href="#">Shop</a>
-								<a href="#">Hand Bag</a> <a href="#">Laptop</a> <a href="#">Head
-									Phone</a> <a href="#">Pen Drive</a>
+								<a href="#">Smartphone</a> <a href="#">Laptop</a> <a href="#">Monitor</a>
+								<a href="#">Mouse</a> <a href="#">Speaker</a> <a href="#">Headphone</a> <a href="#">Keyboard</a>
+								<a href="#">Camera</a>
+								<a href="#">Console</a>
+								<a href="#">Desktop</a>
+								<a href="#">Tablet</a>
+								<a href="#">Microphone</a>
+								
 							</div>
 						</div>
 						<!-- single sidebar -->
@@ -352,176 +353,11 @@
 	<!-- / product category -->
 
 
-	<!-- Subscribe section -->
-	<section id="aa-subscribe">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="aa-subscribe-area">
-						<h3>Subscribe our newsletter</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							Ex, velit!</p>
-						<form action="" class="aa-subscribe-form">
-							<input type="email" name="" id="" placeholder="Enter your Email">
-							<input type="submit" value="Subscribe">
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- / Subscribe section -->
-
-	<!-- footer -->
-	<footer id="aa-footer">
-		<!-- footer bottom -->
-		<div class="aa-footer-top">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="aa-footer-top-area">
-							<div class="row">
-								<div class="col-md-3 col-sm-6">
-									<div class="aa-footer-widget">
-										<h3>Main Menu</h3>
-										<ul class="aa-footer-nav">
-											<li><a href="#">Home</a></li>
-											<li><a href="#">Our Services</a></li>
-											<li><a href="#">Our Products</a></li>
-											<li><a href="#">About Us</a></li>
-											<li><a href="#">Contact Us</a></li>
-										</ul>
-									</div>
-								</div>
-								<div class="col-md-3 col-sm-6">
-									<div class="aa-footer-widget">
-										<div class="aa-footer-widget">
-											<h3>Knowledge Base</h3>
-											<ul class="aa-footer-nav">
-												<li><a href="#">Delivery</a></li>
-												<li><a href="#">Returns</a></li>
-												<li><a href="#">Services</a></li>
-												<li><a href="#">Discount</a></li>
-												<li><a href="#">Special Offer</a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-3 col-sm-6">
-									<div class="aa-footer-widget">
-										<div class="aa-footer-widget">
-											<h3>Useful Links</h3>
-											<ul class="aa-footer-nav">
-												<li><a href="#">Site Map</a></li>
-												<li><a href="#">Search</a></li>
-												<li><a href="#">Advanced Search</a></li>
-												<li><a href="#">Suppliers</a></li>
-												<li><a href="#">FAQ</a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-3 col-sm-6">
-									<div class="aa-footer-widget">
-										<div class="aa-footer-widget">
-											<h3>Contact Us</h3>
-											<address>
-												<p>25 Astor Pl, NY 10003, USA</p>
-												<p>
-													<span class="fa fa-phone"></span>+1 212-982-4589
-												</p>
-												<p>
-													<span class="fa fa-envelope"></span>dailyshop@gmail.com
-												</p>
-											</address>
-											<div class="aa-footer-social">
-												<a href="#"><span class="fa fa-facebook"></span></a> <a
-													href="#"><span class="fa fa-twitter"></span></a> <a
-													href="#"><span class="fa fa-google-plus"></span></a> <a
-													href="#"><span class="fa fa-youtube"></span></a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- footer-bottom -->
-		<div class="aa-footer-bottom">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="aa-footer-bottom-area">
-							<p>
-								Designed by <a href="http://www.markups.io/">MarkUps.io</a>
-							</p>
-							<div class="aa-footer-payment">
-								<span class="fa fa-cc-mastercard"></span> <span
-									class="fa fa-cc-visa"></span> <span class="fa fa-paypal"></span>
-								<span class="fa fa-cc-discover"></span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
-	<!-- / footer -->
-	<!-- Login Modal -->
-	<div class="modal fade" id="login-modal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
-					<h4>Login or Register</h4>
-					<form class="aa-login-form" action="">
-						<label for="">Username or Email address<span>*</span></label> <input
-							type="text" placeholder="Username or email"> <label
-							for="">Password<span>*</span></label> <input type="password"
-							placeholder="Password">
-						<button class="aa-browse-btn" type="submit">Login</button>
-						<label for="rememberme" class="rememberme"><input
-							type="checkbox" id="rememberme"> Remember me </label>
-						<p class="aa-lost-password">
-							<a href="#">Lost your password?</a>
-						</p>
-						<div class="aa-register-now">
-							Don't have an account?<a href="account.html">Register now!</a>
-						</div>
-					</form>
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
-
-	<!-- <script>
-		/* $(document).ready(function(){
-			$('#productList').dataTable({
-				"lengthMenu":[[5,10,15,20,-1],[5,10,15,20,"All"]],
-				"ordering":false,
-				stateSave:true
-			}); */
-			/* $('#productList').on('page.dt', function(){
-				$('html, body').animate({
-					scrollTop: $('productList').offset().top
-				}, 200)
-				
-			}); */
-		/* }); */
-		
-	</script> -->
-
+	<div lang="en" th:insert="_footer::footer"></div>
+	<div lang="en" th:insert="_modal::modal"></div>
 
 	<!-- jQuery library -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="js/bootstrap.js"></script>
 	<!-- SmartMenus jQuery plugin -->
@@ -541,6 +377,6 @@
 	<!-- Custom js -->
 	<script src="js/custom.js"></script>
 
-
 </body>
+
 </html>

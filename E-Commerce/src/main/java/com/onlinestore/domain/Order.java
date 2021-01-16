@@ -1,5 +1,7 @@
 package com.onlinestore.domain;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -52,12 +54,19 @@ public class Order {
 	public User getUser() {
 		return user;
 	}
-	public void setOrderDate(Date orderdate) {
+	public void setOrderdate(Date orderdate) {
 		this.orderdate = orderdate;
 	}
-	public Date getOrderDate() {
+	public Date getOrderdate() {
 		return orderdate;
 	}
+	
+	public String getStringorderdate() {
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
+		String strDate = dateFormat.format(orderdate);
+		return strDate;
+	}
+	
 	@Type(type = "numberic_boolean")
 	public boolean getStatus() {
 		return status;
