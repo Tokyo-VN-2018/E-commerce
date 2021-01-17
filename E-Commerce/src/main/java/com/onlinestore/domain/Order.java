@@ -2,8 +2,10 @@ package com.onlinestore.domain;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -42,6 +44,9 @@ public class Order {
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<OrderItem> orderitems  = new HashSet<>();
 	
+	public List<OrderItem> getOrderitems() {
+		return new ArrayList<>(orderitems);
+	}
 	public void setOrder_id(int order_id) {
 		this.order_id=order_id;
 	}
