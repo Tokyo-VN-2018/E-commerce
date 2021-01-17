@@ -61,7 +61,8 @@ public class CheckoutController {
 		order.setUser(user);
 		order = orderService.save(order);
 		orderItemService.saveFromCart(cartItemList, order);
-		return "redirect:/thankyou";
+		//return "redirect:/thankyou";
+		return "redirect:/";
 	}
 	
 	@RequestMapping("/thankyou")
