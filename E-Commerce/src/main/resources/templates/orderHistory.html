@@ -90,7 +90,41 @@
   							<div sec:authorize="hasAuthority('ROLE_USER')" th:unless="${order.status}"><span class="fa fa-truck" style="color: red;"></span><span style="font-weight: bold;">Delivering...</span></div>
   							<div th:if="${order.status}"><span class="fa fa-check" style="color: green;"></span><span style="font-weight: bold;">Delivered</span></div>
 						</td>
-						<td></td>
+						<td>
+							<button class="aa-add-to-cart-btn" data-toggle="modal" th:data-target="@{'#order-' + ${order.order_id}}">Detail</button>
+							<div class="modal fade" th:id="@{'order-' + ${order.order_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog" style="overflow-y: initial;">
+									<div class="modal-content">
+										<div class="modal-body" style="overflow-y: auto;">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+											<div>
+												<h3>Order Detail</h3>
+												<p><b>Customer: </b><span th:text="${order.customer}"></span></p>
+												<p><b>Phone: </b><span th:text="${order.phone}"></span></p>
+												<p><b>Email: </b><span th:text="${order.email}"></span></p>
+												<p><b>Address: </b><span th:text="${order.address}"></span></p>
+												<p><b>Order date: </b><span th:text="${order.stringorderdate}"></span></p>
+												<br>
+												<table style="border: 0px; width: 100%;">
+													<tbody>
+														<tr data-th-each="orderitem : ${order.orderitems}">
+															<td th:text="${orderitem.product.product_name}"></td>
+															<td th:text="${orderitem.quantity}"></td>
+															<td nowrap="nowrap">X $<span th:text="${orderitem.price}"></span></td>
+															<td nowrap="nowrap">$<span th:with="total=${orderitem.quantity*orderitem.price}" th:text="${#numbers.formatDecimal(total, 0, 2)}"></span></td>
+														</tr>
+													</tbody>
+												</table>
+												<br>
+												<div style="clear: both;"><b style="float: left;">Total: </b><span style="float: right;" th:text="${order.amount}"></span></div>
+											</div>
+										</div>
+									</div>
+						<!-- /.modal-content -->
+								</div>
+						<!-- /.modal-dialog -->
+							</div>
+						</td>
 					</tr>
 				</tbody>
 			</table>

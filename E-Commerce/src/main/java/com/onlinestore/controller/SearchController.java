@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -33,11 +35,13 @@ public class SearchController {
 	@Autowired
 	CategoryService categoryService;
 
-	@RequestMapping("/searchByCategory")
+	@RequestMapping("/searchByCategory/{category}")
 	public String searchByCategory(
-			@RequestParam("category") String category,
+			@PathVariable String category,
 			Model model, Principal principal,
-			@RequestParam(name = "page", defaultValue = "0") int page
+			@RequestParam(name = "page", defaultValue = "0") int page,
+			@ModelAttribute("sorttype") String sorttype
+	/* @ModelAttribute("showtype") String showtype */
 			) {
 		
 		if (principal!=null) {
@@ -51,12 +55,30 @@ public class SearchController {
 		classActiveCategory = classActiveCategory.replaceAll("&", "");
 		model.addAttribute(classActiveCategory, true);
 		
-		/*Category cat = categoryService.findByCategoryID(category);
+		/*
+		 * int num; if (showtype.equals("")) { showtype = "12"; num =
+		 * Integer.parseInt(showtype); }else { num = Integer.parseInt(showtype); }
+		 */
 		
-		List<Product> productList = productService.findByCategory(cat);*/
-		/* List<Product> productList = productService.findByBigGroup(category); */
-		
-		Pageable pageRequest = PageRequest.of(page, 12);
+		String optionActiveSort;
+		Pageable pageRequest;
+		if (sorttype.equalsIgnoreCase("3")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("price").descending());
+			optionActiveSort = "t3";
+		}else if (sorttype.equalsIgnoreCase("2")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("price").ascending());
+			optionActiveSort = "t2";
+		}else if (sorttype.equalsIgnoreCase("4")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("product_name").ascending());
+			optionActiveSort = "t4";
+		}else if (sorttype.equalsIgnoreCase("5")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("product_name").descending());
+			optionActiveSort = "t5";
+		}else {
+			pageRequest = PageRequest.of(page, 12);
+			optionActiveSort = "t1";
+		}
+		model.addAttribute(optionActiveSort, true);
 		
 		Page<Product> productList = productService.findByBigGroupPaginated(category, pageRequest);
 		int totalPage = productList.getTotalPages();
@@ -81,11 +103,12 @@ public class SearchController {
 		
 	}
 	
-	@RequestMapping("/searchProduct")
-	public String searchProduct(
-			@ModelAttribute("keyword") String keyword,
-			Principal principal, Model model,
-			@RequestParam(name = "page", defaultValue = "0") int page
+	@RequestMapping("/searchByGroup/{group}")
+	public String searchByGroup(
+			@PathVariable String group,
+			Model model, Principal principal,
+			@RequestParam(name = "page", defaultValue = "0") int page,
+			@ModelAttribute("sorttype") String sorttype
 			) {
 		
 		if (principal!=null) {
@@ -94,7 +117,88 @@ public class SearchController {
 			model.addAttribute("user", user);
 		}
 		
-		Pageable pageRequest = PageRequest.of(page, 12);
+		String classActiveGroup = "activeSMA";
+		/*
+		 * classActiveGroup = classActiveGroup.replaceAll("\\s+", ""); classActiveGroup
+		 * = classActiveGroup.replaceAll("&", "");
+		 */
+		model.addAttribute(classActiveGroup, true);
+		
+		String optionActiveSort;
+		Pageable pageRequest;
+		if (sorttype.equalsIgnoreCase("3")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("price").descending());
+			optionActiveSort = "t3";
+		}else if (sorttype.equalsIgnoreCase("2")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("price").ascending());
+			optionActiveSort = "t2";
+		}else if (sorttype.equalsIgnoreCase("4")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("product_name").ascending());
+			optionActiveSort = "t4";
+		}else if (sorttype.equalsIgnoreCase("5")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("product_name").descending());
+			optionActiveSort = "t5";
+		}else {
+			pageRequest = PageRequest.of(page, 12);
+			optionActiveSort = "t1";
+		}
+		model.addAttribute(optionActiveSort, true);
+		
+		Page<Product> productList = productService.findByCategoryPaginated(group, pageRequest);
+		int totalPage = productList.getTotalPages();
+		List<Integer> pages = new ArrayList<Integer>();
+		if (totalPage==0) {
+			pages.add(0);
+		}else {
+		for (int i = 0; i <totalPage ; i++) {
+			pages.add(i);
+			}
+		}
+		
+		if (productList.isEmpty()) {
+			model.addAttribute("emptyList", true);
+			return "product";
+		}
+		
+		model.addAttribute("productList", productList);
+		model.addAttribute("pages", pages);
+		
+		return "product";
+	}
+	
+	@RequestMapping("/searchProduct")
+	public String searchProduct(
+			@ModelAttribute("keyword") String keyword,
+			Principal principal, Model model,
+			@RequestParam(name = "page", defaultValue = "0") int page,
+			@ModelAttribute("sorttype") String sorttype
+			) {
+		
+		if (principal!=null) {
+			String username = principal.getName();
+			User user = userService.findByUsername(username);
+			model.addAttribute("user", user);
+		}
+		
+		String optionActiveSort;
+		Pageable pageRequest;
+		if (sorttype.equalsIgnoreCase("3")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("price").descending());
+			optionActiveSort = "t3";
+		}else if (sorttype.equalsIgnoreCase("2")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("price").ascending());
+			optionActiveSort = "t2";
+		}else if (sorttype.equalsIgnoreCase("4")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("product_name").ascending());
+			optionActiveSort = "t4";
+		}else if (sorttype.equalsIgnoreCase("5")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("product_name").descending());
+			optionActiveSort = "t5";
+		}else {
+			pageRequest = PageRequest.of(page, 12);
+			optionActiveSort = "t1";
+		}
+		model.addAttribute(optionActiveSort, true);
 		
 		Page<Product> productList = productService.blurrySearchPaginated(keyword, pageRequest);
 		int totalPage = productList.getTotalPages();

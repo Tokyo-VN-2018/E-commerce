@@ -8,26 +8,26 @@
 <title>Daily Shop</title>
 
 <!-- Font awesome -->
-<link href="css/font-awesome.css" rel="stylesheet">
+<link href="/css/font-awesome.css" rel="stylesheet">
 <!-- Bootstrap -->
-<link href="css/bootstrap.css" rel="stylesheet">
+<link href="/css/bootstrap.css" rel="stylesheet">
 <!-- SmartMenus jQuery Bootstrap Addon CSS -->
-<link href="css/jquery.smartmenus.bootstrap.css" rel="stylesheet">
+<link href="/css/jquery.smartmenus.bootstrap.css" rel="stylesheet">
 <!-- Product view slider -->
-<link rel="stylesheet" type="text/css" href="css/jquery.simpleLens.css">
+<link rel="stylesheet" type="text/css" href="/css/jquery.simpleLens.css">
 <!-- slick slider -->
-<link rel="stylesheet" type="text/css" href="css/slick.css">
+<link rel="stylesheet" type="text/css" href="/css/slick.css">
 <!-- price picker slider -->
-<link rel="stylesheet" type="text/css" href="css/nouislider.css">
+<link rel="stylesheet" type="text/css" href="/css/nouislider.css">
 <!-- Theme color -->
-<link id="switcher" href="css/theme-color/default-theme.css"
+<link id="switcher" href="/css/theme-color/default-theme.css"
 	rel="stylesheet">
 <!-- Top Slider CSS -->
-<link href="css/sequence-theme.modern-slide-in.css" rel="stylesheet"
+<link href="/css/sequence-theme.modern-slide-in.css" rel="stylesheet"
 	media="all">
 
 <!-- Main style sheet -->
-<link href="css/style.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 
 <!-- Google Font -->
 <link href='https://fonts.googleapis.com/css?family=Lato'
@@ -69,7 +69,7 @@
 
 	<!-- catg header banner section -->
 	<section id="aa-catg-head-banner">
-		<img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+		<img src="/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
 		<div class="aa-catg-head-banner-area">
 			<div class="container">
 				<div class="aa-catg-head-banner-content">
@@ -88,134 +88,175 @@
 	<section id="aa-product-category">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-9 col-md-9 col-sm-8 col-md-push-3">
+				<div class="col-lg-9 col-md-9 col-sm-8 col-md-push-3" style="padding-right: 10px;">
 					<div class="aa-product-catg-content">
 						<div class="aa-product-catg-head">
 							<div class="aa-product-catg-head-left">
-								<form action="" class="aa-sort-form">
-									<label for="">Sort by</label> <select name="">
-										<option value="1" selected="Default">Default</option>
-										<option value="2">Name</option>
-										<option value="3">Price</option>
-										<option value="4">Date</option>
+								<form th:action="@{__${#httpServletRequest.requestURI}__}" class="aa-sort-form" method="post">
+									<label for="sorttype">Sort by</label> 
+									<select name="sorttype" id="sorttype" onchange="this.form.submit()">
+										<option value="1" th:selected="${t1}">Default</option>
+										<option value="2" th:selected="${t2}">Price: Low to High</option>
+										<option value="3" th:selected="${t3}">Price: High to Low</option>
+										<option value="4" th:selected="${t4}">Name: A-Z</option>
+										<option value="5" th:selected="${t5}">Name: Z-A</option>
 									</select>
 								</form>
-								<form action="" class="aa-show-form">
-									<label for="">Show</label> <select name="">
-										<option value="1" selected="12">12</option>
-										<option value="2">24</option>
-										<option value="3">36</option>
+								<!-- <form th:action="@{__${#httpServletRequest.requestURI}__}" class="aa-show-form" method="post">
+									<label for="showtype">Show</label> <select name="showtype" id="showtype" onchange="this.form.submit()">
+										<option value="12">12</option>
+										<option value="24">24</option>
+										<option value="36">36</option>
 									</select>
-								</form>
+								</form> -->
 							</div>
 							<div class="aa-product-catg-head-right">
 								<a id="grid-catg" href="#"><span class="fa fa-th"></span></a> <a
 									id="list-catg" href="#"><span class="fa fa-list"></span></a>
 							</div>
 						</div>
-						<table id = "productList">
-						<thead><tr><th><th></tr></thead>
-						<tbody>
-						<tr>
-						<td>
-						<div class="aa-product-catg-body">
-							<ul class="aa-product-catg">
-								<!-- start single product item -->
-										<li data-th-each="product : ${productList}">
-												<figure>
-													<a class="aa-product-img" th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><img width="250px" height="300px" th:src="@{'upload/' + ${product.product_id}} + '.jpg'" onerror="this.src='/img/man/t-shirt-1.png';"></a>
-													<form th:if="${product.quantity > 0}" class="aa-add-card-btn" action="/shoppingCart/addItem">
-                      									<input type="hidden" id="product" name="product" th:value="${product.product_id}">
-                        								<input type="hidden" id="quantity" name="quantity" value="1">
-                       	 								<button type="submit" style="border: 0;background: none;box-shadow: none;border-radius: 0px;">
-                          								<span class="fa fa-shopping-cart"></span>Add To Cart</button>
-                      								</form>
-													<figcaption>
-														<h4 class="aa-product-title">
-															<a th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><span th:text="${product.product_name}"></span></a>
-														</h4>
-														<span class="aa-product-price" th:text="${product.price}"></span><span class="fa fa-usd"></span>
-													</figcaption>
-												</figure>
-												<div class="aa-product-hvr-content">
-													<a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" th:data-target="@{'#quick-view-' + ${product.product_id}}">
-														<span class="fa fa-search"></span></a>
-												</div> <!-- product badge -->
-												<span class="aa-badge aa-sold-out" th:if="${product.quantity == 0}">Sold Out!</span>
-												<!-- quick view modal -->
-												<div class="modal fade" th:id="@{'quick-view-' + ${product.product_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-													<div class="modal-dialog">
-														<div class="modal-content">
-															<div class="modal-body">
-																<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-																<div class="row">
-																	<!-- Modal view slider -->
-																	<div class="col-md-6 col-sm-6 col-xs-12">
-																		<div class="aa-product-view-slider">
-																			<div class="simpleLens-gallery-container"
-																				id="demo-1">
-																				<div class="simpleLens-container">
-																					<div class="simpleLens-big-image-container">
-																						<img width="250px" height="300px" th:src="@{'upload/' + ${product.product_id}} + '.jpg'" onerror="this.src='/img/man/t-shirt-1.png';">
+						<table id="productList">
+							<thead>
+								<tr>
+									<th>
+									<th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<div class="aa-product-catg-body">
+											<ul class="aa-product-catg">
+												<!-- start single product item -->
+												<li data-th-each="product : ${productList}">
+													<figure>
+														<a class="aa-product-img"
+															th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><img
+															width="250px" height="300px"
+															th:src="@{'/upload/' + ${product.product_id}} + '.jpg'"
+															onerror="this.src='/img/man/t-shirt-1.png';"></a>
+														<form th:if="${product.quantity > 0}"
+															class="aa-add-card-btn" action="/shoppingCart/addItem">
+															<input type="hidden" id="product" name="product"
+																th:value="${product.product_id}"> <input
+																type="hidden" id="quantity" name="quantity" value="1">
+															<button type="submit"
+																style="border: 0; background: none; box-shadow: none; border-radius: 0px;">
+																<span class="fa fa-shopping-cart"></span>Add To Cart
+															</button>
+														</form>
+														<figcaption>
+															<h4 class="aa-product-title">
+																<a
+																	th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><span
+																	th:text="${product.product_name}"></span></a>
+															</h4>
+															<span class="aa-product-price" th:text="${product.price}"></span><span
+																class="fa fa-usd"></span>
+														</figcaption>
+													</figure>
+													<div class="aa-product-hvr-content">
+														<a href="#" data-toggle2="tooltip" data-placement="top"
+															title="Quick View" data-toggle="modal"
+															th:data-target="@{'#quick-view-' + ${product.product_id}}">
+															<span class="fa fa-search"></span>
+														</a>
+													</div> <!-- product badge --> <span class="aa-badge aa-sold-out"
+													th:if="${product.quantity == 0}">Sold Out!</span> <!-- quick view modal -->
+													<div class="modal fade"
+														th:id="@{'quick-view-' + ${product.product_id}}"
+														tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+														aria-hidden="true">
+														<div class="modal-dialog">
+															<div class="modal-content">
+																<div class="modal-body">
+																	<button type="button" class="close"
+																		data-dismiss="modal" aria-hidden="true">&times;</button>
+																	<div class="row">
+																		<!-- Modal view slider -->
+																		<div class="col-md-6 col-sm-6 col-xs-12">
+																			<div class="aa-product-view-slider">
+																				<div class="simpleLens-gallery-container"
+																					id="demo-1">
+																					<div class="simpleLens-container">
+																						<div class="simpleLens-big-image-container">
+																							<img width="250px" height="300px"
+																								th:src="@{'/upload/' + ${product.product_id}} + '.jpg'"
+																								onerror="this.src='/img/man/t-shirt-1.png';">
+																						</div>
 																					</div>
 																				</div>
 																			</div>
 																		</div>
-																	</div>
-																	<!-- Modal view content -->
-																	<div class="col-md-6 col-sm-6 col-xs-12">
-																		<div class="aa-product-view-content">
-																			<h3>
-																				<span th:text="${product.product_name}"></span>
-																			</h3>
-																			<div class="aa-price-block">
-																				<p class="aa-product-view-price">Price:
-																					<span style="color: #ff6666;" th:text="${product.price}"></span>
-																					<span class="fa fa-usd"></span>
+																		<!-- Modal view content -->
+																		<div class="col-md-6 col-sm-6 col-xs-12">
+																			<div class="aa-product-view-content">
+																				<h3>
+																					<span th:text="${product.product_name}"></span>
+																				</h3>
+																				<div class="aa-price-block">
+																					<p class="aa-product-view-price">
+																						Price: <span style="color: #ff6666;"
+																							th:text="${product.price}"></span> <span
+																							class="fa fa-usd"></span>
+																					</p>
+																					<p class="aa-product-avilability">
+																						Avilability: <span style="color: #2eb82e;"
+																							th:if="${product.quantity > 0}">In stock</span> <span
+																							style="color: #ff6666;"
+																							th:if="${product.quantity == 0}">Sold out!</span>
+																					</p>
+																				</div>
+																				<p class="aa-prod-category">
+																					Brand: <span style="color: #ff6666;"
+																						th:text="${product.brand}"></span>
 																				</p>
-																				<p class="aa-product-avilability">Avilability: <span style="color: #2eb82e;" th:if="${product.quantity > 0}">In stock</span>
-																				<span style="color: #ff6666;" th:if="${product.quantity == 0}">Sold out!</span>
-																				</p>
-																			</div>
-																			<p class="aa-prod-category">Brand: <span style="color: #ff6666;" th:text="${product.brand}"></span>
-																			</p>
-																			<p class="aa-prod-category">
-																				Category: <a href="#"><span
+																				<p class="aa-prod-category">
+																					Category: <a href="#"><span
 																						th:text="${product.category.name}"></span></a>
-																			</p>
-																			<div th:if="${product.quantity > 0}" class="aa-prod-quantity">
-                      															<form action="/shoppingCart/addItem">
-                      															<input type="hidden" id="product" name="product" th:value="${product.product_id}">
-                        														<select id="quantity" name="quantity">
-                        															<option th:if="${product.quantity > 10}" th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" th:selected="${i==1}"></option>
-                          															<option th:if="${product.quantity <= 10}" th:each="i : ${#numbers.sequence(1, product.quantity)}" th:value="${i}" th:text="${i}" th:selected="${i==1}"></option>
-                        														</select>
-                       	 														<button type="submit" class="aa-add-to-cart-btn">
-                          														<span class="fa fa-shopping-cart"></span>Add To Cart</button>
-                      															</form>
-                   															</div>
-																			<div class="aa-prod-view-bottom">
-																				<a th:href="@{/productdetail/id={id}(id = ${product.product_id})}"
-																					class="aa-add-to-cart-btn">View
-																					Details</a>
+																				</p>
+																				<div th:if="${product.quantity > 0}"
+																					class="aa-prod-quantity">
+																					<form action="/shoppingCart/addItem">
+																						<input type="hidden" id="product" name="product"
+																							th:value="${product.product_id}"> <select
+																							id="quantity" name="quantity">
+																							<option th:if="${product.quantity > 10}"
+																								th:each="i : ${#numbers.sequence(1, 10)}"
+																								th:value="${i}" th:text="${i}"
+																								th:selected="${i==1}"></option>
+																							<option th:if="${product.quantity <= 10}"
+																								th:each="i : ${#numbers.sequence(1, product.quantity)}"
+																								th:value="${i}" th:text="${i}"
+																								th:selected="${i==1}"></option>
+																						</select>
+																						<button type="submit" class="aa-add-to-cart-btn">
+																							<span class="fa fa-shopping-cart"></span>Add To
+																							Cart
+																						</button>
+																					</form>
+																				</div>
+																				<div class="aa-prod-view-bottom">
+																					<a
+																						th:href="@{/productdetail/id={id}(id = ${product.product_id})}"
+																						class="aa-add-to-cart-btn">View Details</a>
+																				</div>
 																			</div>
 																		</div>
 																	</div>
 																</div>
 															</div>
+															<!-- /.modal-content -->
 														</div>
-														<!-- /.modal-content -->
-													</div>
-													<!-- /.modal-dialog -->
-												</div>
-												<!-- / quick view modal -->
-											</li>
-							</ul>
-							
-						</div>
-						</td>
-						</tr>
-						</tbody>
+														<!-- /.modal-dialog -->
+													</div> <!-- / quick view modal -->
+												</li>
+											</ul>
+
+										</div>
+									</td>
+								</tr>
+							</tbody>
 						</table>
 						<div class="aa-product-catg-pagination">
 							<nav>
@@ -223,10 +264,10 @@
 									<li><a href="#" aria-label="Previous"> <span
 											aria-hidden="true">&laquo;</span>
 									</a></li>
-									<li th:each="pagenumber : ${pages}" ><a th:unless="category!='all'" th:href="@{?page={number}(number = ${pagenumber})}" th:text="${pagenumber}"></a></li>
-									<li th:each="pagenumber : ${pages}" ><a th:unless="category!='all'" th:href="@{__${#httpServletRequest.getContextPath()}__&page={number}(number = ${pagenumber})}" th:text="${pagenumber}"></a></li>
-									<li th:each="pagenumber : ${pages}" ><a th:unless="category=='all'" th:href="@{__${#request.requestURI}__?page={number}(number = ${pagenumber})}" th:text="${pagenumber}"></a></li>
-									
+									<li th:each="pagenumber : ${pages}"><a
+										th:href="@{?page={number}(number = ${pagenumber})}"
+										th:text="${pagenumber}"></a></li>
+
 									<li><a href="#" aria-label="Next"> <span
 											aria-hidden="true">&raquo;</span>
 									</a></li>
@@ -242,11 +283,20 @@
 							<h3>Category</h3>
 							<!-- <ul class="aa-catg-nav"> -->
 							<ul class="aa-footer-nav">
-								<li><a th:href="@{/product(category='all')}" th:classappend="${activeAll}? 'active'" class="list-group-item">All</a></li>
-								<li><a th:href="@{/searchByCategory(category='Phone')}" th:classappend="${activePhone}? 'active'" class="list-group-item">Phone</a></li>
-								<li><a th:href="@{/searchByCategory(category='Computer')}" th:classappend="${activeComputer}? 'active'" class="list-group-item">Computer</a></li>
-								<li><a th:href="@{/searchByCategory(category='Accessories')}" th:classappend="${activeAccessories}? 'active'" class="list-group-item">Accessories</a></li>
-								<li><a th:href="@{/searchByCategory(category='Other')}" th:classappend="${activeOther}? 'active'" class="list-group-item">Others</a></li>
+								<li><a th:href="@{/product(category='all')}"
+									th:classappend="${activeAll}? 'active'" class="list-group-item">All</a></li>
+								<li><a th:href="@{/searchByCategory/Phone(page='0')}"
+									th:classappend="${activePhone}? 'active'"
+									class="list-group-item">Phone</a></li>
+								<li><a th:href="@{/searchByCategory/Computer(page='0')}"
+									th:classappend="${activeComputer}? 'active'"
+									class="list-group-item">Computer</a></li>
+								<li><a th:href="@{/searchByCategory/Accessories(page='0')}"
+									th:classappend="${activeAccessories}? 'active'"
+									class="list-group-item">Accessories</a></li>
+								<li><a th:href="@{/searchByCategory/Other(page='0')}"
+									th:classappend="${activeOther}? 'active'"
+									class="list-group-item">Others</a></li>
 								<!-- <li><a href="">Sports</a></li> -->
 							</ul>
 						</div>
@@ -254,14 +304,20 @@
 						<div class="aa-sidebar-widget">
 							<h3>Tags</h3>
 							<div class="tag-cloud">
-								<a href="#">Smartphone</a> <a href="#">Laptop</a> <a href="#">Monitor</a>
-								<a href="#">Mouse</a> <a href="#">Speaker</a> <a href="#">Headphone</a> <a href="#">Keyboard</a>
-								<a href="#">Camera</a>
-								<a href="#">Console</a>
-								<a href="#">Desktop</a>
-								<a href="#">Tablet</a>
-								<a href="#">Microphone</a>
-								
+								<a th:href="@{/searchByGroup/SMA(page='0')}" th:classappend="${activeSMA}? 'active'">Smartphone</a>
+								 <a	th:href="@{/searchByGroup/LAP(page='0')}">Laptop</a> <a
+									th:href="@{/searchByGroup/MON(page='0')}" class="active">Monitor</a> <a
+									th:href="@{/searchByGroup/MOU(page='0')}">Mouse</a> <a
+									th:href="@{/searchByGroup/SPE(page='0')}">Speaker</a> <a
+									th:href="@{/searchByGroup/HEA(page='0')}">Headphone</a> <a
+									th:href="@{/searchByGroup/KEY(page='0')}">Keyboard</a> <a
+									th:href="@{/searchByGroup/CAM(page='0')}">Camera</a> <a
+									th:href="@{/searchByGroup/CON(page='0')}">Console</a> <a
+									th:href="@{/searchByGroup/DES(page='0')}">Desktop</a> <a
+									th:href="@{/searchByGroup/TAB(page='0')}">Tablet</a> <a
+									th:href="@{/searchByGroup/MIC(page='0')}">Microphone</a>
+									<a th:href="@{/searchByGroup/BAS(page='0')}">Basic Mobile</a>
+								<!-- <a href="#">Pen Drive</a> -->
 							</div>
 						</div>
 						<!-- single sidebar -->
@@ -286,7 +342,7 @@
 							<div class="aa-recently-views">
 								<ul>
 									<li><a href="#" class="aa-cartbox-img"><img alt="img"
-											src="img/woman-small-2.jpg"></a>
+											src="/img/woman-small-2.jpg"></a>
 										<div class="aa-cartbox-info">
 											<h4>
 												<a href="#">Product Name</a>
@@ -294,7 +350,7 @@
 											<p>1 x $250</p>
 										</div></li>
 									<li><a href="#" class="aa-cartbox-img"><img alt="img"
-											src="img/woman-small-1.jpg"></a>
+											src="/img/woman-small-1.jpg"></a>
 										<div class="aa-cartbox-info">
 											<h4>
 												<a href="#">Product Name</a>
@@ -302,7 +358,7 @@
 											<p>1 x $250</p>
 										</div></li>
 									<li><a href="#" class="aa-cartbox-img"><img alt="img"
-											src="img/woman-small-2.jpg"></a>
+											src="/img/woman-small-2.jpg"></a>
 										<div class="aa-cartbox-info">
 											<h4>
 												<a href="#">Product Name</a>
@@ -318,7 +374,7 @@
 							<div class="aa-recently-views">
 								<ul>
 									<li><a href="#" class="aa-cartbox-img"><img alt="img"
-											src="img/woman-small-2.jpg"></a>
+											src="/img/woman-small-2.jpg"></a>
 										<div class="aa-cartbox-info">
 											<h4>
 												<a href="#">Product Name</a>
@@ -326,7 +382,7 @@
 											<p>1 x $250</p>
 										</div></li>
 									<li><a href="#" class="aa-cartbox-img"><img alt="img"
-											src="img/woman-small-1.jpg"></a>
+											src="/img/woman-small-1.jpg"></a>
 										<div class="aa-cartbox-info">
 											<h4>
 												<a href="#">Product Name</a>
@@ -334,7 +390,7 @@
 											<p>1 x $250</p>
 										</div></li>
 									<li><a href="#" class="aa-cartbox-img"><img alt="img"
-											src="img/woman-small-2.jpg"></a>
+											src="/img/woman-small-2.jpg"></a>
 										<div class="aa-cartbox-info">
 											<h4>
 												<a href="#">Product Name</a>
@@ -357,25 +413,26 @@
 	<div lang="en" th:insert="_modal::modal"></div>
 
 	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="js/bootstrap.js"></script>
+	<script src="/js/bootstrap.js"></script>
 	<!-- SmartMenus jQuery plugin -->
-	<script type="text/javascript" src="js/jquery.smartmenus.js"></script>
+	<script type="text/javascript" src="/js/jquery.smartmenus.js"></script>
 	<!-- SmartMenus jQuery Bootstrap Addon -->
-	<script type="text/javascript" src="js/jquery.smartmenus.bootstrap.js"></script>
+	<script type="text/javascript" src="/js/jquery.smartmenus.bootstrap.js"></script>
 	<!-- To Slider JS -->
-	<script src="js/sequence.js"></script>
-	<script src="js/sequence-theme.modern-slide-in.js"></script>
+	<script src="/js/sequence.js"></script>
+	<script src="/js/sequence-theme.modern-slide-in.js"></script>
 	<!-- Product view slider -->
-	<script type="text/javascript" src="js/jquery.simpleGallery.js"></script>
-	<script type="text/javascript" src="js/jquery.simpleLens.js"></script>
+	<script type="text/javascript" src="/js/jquery.simpleGallery.js"></script>
+	<script type="text/javascript" src="/js/jquery.simpleLens.js"></script>
 	<!-- slick slider -->
-	<script type="text/javascript" src="js/slick.js"></script>
+	<script type="text/javascript" src="/js/slick.js"></script>
 	<!-- Price picker slider -->
-	<script type="text/javascript" src="js/nouislider.js"></script>
+	<script type="text/javascript" src="/js/nouislider.js"></script>
 	<!-- Custom js -->
-	<script src="js/custom.js"></script>
+	<script src="/js/custom.js"></script>
 
 </body>
 
