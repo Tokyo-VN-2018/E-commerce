@@ -59,6 +59,7 @@ public class CheckoutController {
 		List<CartItem> cartItemList = cartItemService.findByUser(user);
 		order.setStatus(false);
 		order.setUser(user);
+		order.setAmount(user.getGrandTotal().doubleValue()*1.05);
 		order = orderService.save(order);
 		orderItemService.saveFromCart(cartItemList, order);
 		//return "redirect:/thankyou";

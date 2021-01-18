@@ -102,9 +102,9 @@
 										<label class="remember-me" for="remember-me"><input
 											type="checkbox" id="remember-me" name="remember-me">
 											Remember me </label>
-										<p class="aa-lost-password">
+										<!-- <p class="aa-lost-password">
 											<a href="#">Lost your password?</a>
-										</p>
+										</p> -->
 									</form>
 								</div>
 							</div>
@@ -117,13 +117,13 @@
 											th:if="${usernameExists}">Username already exists.
 												Choose a different one.</span></label> <input required="required"
 											type="text" class="form-control" placeholder="Username"
-											id="username" name="username"> <label for="email">Email<span>*</span>&nbsp<span
-											th:if="${emailExists}">Email already exists. Choose a
-												different one.</span></label> <input required="required" type="text"
+											id="username" name="username" pattern="^[A-Za-z0-9_.@-]{8,30}$"> <label for="email">Email<span>*</span>&nbsp<span
+											th:if="${emailExists}">Email already exists. Choose a different one.</span></label> <input required="required" type="email"
 											class="form-control" placeholder="Email" id="email"
 											name="email"> <label for="password">Password<span>*</span>&nbsp
 										</label> <input required="required" type="password"
-											class="form-control" id="password" name="password">
+											class="form-control" id="password" name="password" placeholder="Password" pattern="^[A-Za-z0-9_.@-]{8,30}$">
+										<label style="color: gray; font-size: 14px;">Username and password must have 8 to 30 characters with a mix of letters, numbers, underscores, hyphens, dots and at symbols.</label>
 										<button type="submit" class="aa-browse-btn">Register</button>
 									</form>
 								</div>

@@ -68,6 +68,70 @@
 	<div sec:authorize="isAnonymous()">
 		<div lang="en" th:insert="_header::header"></div>
 	</div>
+	<!-- slider -->
+	  <section id="aa-slider">
+    <div class="aa-slider-area">
+      <div id="sequence" class="seq">
+        <div class="seq-screen">
+          <ul class="seq-canvas">
+            <!-- single slide item -->
+            <li>
+              <div class="seq-model">
+                <img data-seq src="img/slider/1.jpg" alt="Men slide img" />
+              </div>
+              <div class="seq-title">
+               <span data-seq>Save Up to 75% Off</span>                
+                <h2 data-seq>Smartphone Collection</h2>                
+                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
+                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
+              </div>
+            </li>
+            <!-- single slide item -->
+            <li>
+              <div class="seq-model">
+                <img data-seq src="img/slider/2.jpg" alt="Wristwatch slide img" />
+              </div>
+              <div class="seq-title">
+                <span data-seq>Save Up to 40% Off</span>                
+                <h2 data-seq>Laptop Collection</h2>                
+                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
+                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
+              </div>
+            </li>
+            <!-- single slide item -->
+            <li>
+              <div class="seq-model">
+                <img data-seq src="img/slider/3.jpg" alt="Women Jeans slide img" />
+              </div>
+              <div class="seq-title">
+                <span data-seq>Save Up to 75% Off</span>                
+                <h2 data-seq>Monitor Collection</h2>                
+                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
+                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
+              </div>
+            </li>
+            <!-- single slide item -->           
+            <li>
+              <div class="seq-model">
+                <img data-seq src="img/slider/4.jpg" alt="Shoes slide img" />
+              </div>
+              <div class="seq-title">
+                <span data-seq>Save Up to 75% Off</span>                
+                <h2 data-seq>Camera Collection</h2>                
+                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
+                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- slider navigation btn -->
+        <fieldset class="seq-nav" aria-controls="sequence" aria-label="Slider buttons">
+          <a type="button" class="seq-prev" aria-label="Previous"><span class="fa fa-angle-left"></span></a>
+          <a type="button" class="seq-next" aria-label="Next"><span class="fa fa-angle-right"></span></a>
+        </fieldset>
+      </div>
+    </div>
+  </section>
 	<!-- Products section -->
 	<section id="aa-product">
 		<div class="container">
@@ -95,7 +159,7 @@
 														th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><img
 														width="250px" height="300px"
 														th:src="@{'upload/' + ${product.product_id}} + '.jpg'"
-														onerror="this.src='/img/man/t-shirt-1.png';"></a>
+														onerror="this.src='/img/error.png';"></a>
 													<form th:if="${product.quantity > 0}"
 														class="aa-add-card-btn" action="/shoppingCart/addItem">
 														<input type="hidden" id="product" name="product"
@@ -142,7 +206,7 @@
 																					<div class="simpleLens-big-image-container">
 																						<img width="250px" height="300px"
 																							th:src="@{'upload/' + ${product.product_id}} + '.jpg'"
-																							onerror="this.src='/img/man/t-shirt-1.png';">
+																							onerror="this.src='/img/error.png';">
 																					</div>
 																				</div>
 																			</div>
@@ -219,18 +283,384 @@
 									<!-- start computers product category -->
 									<div class="tab-pane fade" id="computers">
 										<ul class="aa-product-catg">
+											<li data-th-each="product : ${computers}">
+												<figure>
+													<a class="aa-product-img"
+														th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><img
+														width="250px" height="300px"
+														th:src="@{'upload/' + ${product.product_id}} + '.jpg'"
+														onerror="this.src='/img/error.png';"></a>
+													<form th:if="${product.quantity > 0}"
+														class="aa-add-card-btn" action="/shoppingCart/addItem">
+														<input type="hidden" id="product" name="product"
+															th:value="${product.product_id}"> <input
+															type="hidden" id="quantity" name="quantity" value="1">
+														<button type="submit"
+															style="border: 0; background: none; box-shadow: none; border-radius: 0px;">
+															<span class="fa fa-shopping-cart"></span>Add To Cart
+														</button>
+													</form>
+													<figcaption>
+														<h4 class="aa-product-title">
+															<a
+																th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><span
+																th:text="${product.product_name}"></span></a>
+														</h4>
+														<span class="aa-product-price" th:text="${product.price}"></span><span
+															class="fa fa-usd"></span>
+													</figcaption>
+												</figure>
+												<div class="aa-product-hvr-content">
+													<a href="#" data-toggle2="tooltip" data-placement="top"
+														title="Quick View" data-toggle="modal"
+														th:data-target="@{'#quick-view-' + ${product.product_id}}">
+														<span class="fa fa-search"></span>
+													</a>
+												</div> <!-- product badge --> <span class="aa-badge aa-sold-out"
+												th:if="${product.quantity == 0}">Sold Out!</span> <!-- quick view modal -->
+												<div class="modal fade"
+													th:id="@{'quick-view-' + ${product.product_id}}"
+													tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+													aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-body">
+																<button type="button" class="close" data-dismiss="modal"
+																	aria-hidden="true">&times;</button>
+																<div class="row">
+																	<!-- Modal view slider -->
+																	<div class="col-md-6 col-sm-6 col-xs-12">
+																		<div class="aa-product-view-slider">
+																			<div class="simpleLens-gallery-container" id="demo-1">
+																				<div class="simpleLens-container">
+																					<div class="simpleLens-big-image-container">
+																						<img width="250px" height="300px"
+																							th:src="@{'upload/' + ${product.product_id}} + '.jpg'"
+																							onerror="this.src='/img/error.png';">
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<!-- Modal view content -->
+																	<div class="col-md-6 col-sm-6 col-xs-12">
+																		<div class="aa-product-view-content">
+																			<h3>
+																				<span th:text="${product.product_name}"></span>
+																			</h3>
+																			<div class="aa-price-block">
+																				<p class="aa-product-view-price">
+																					Price: <span style="color: #ff6666;"
+																						th:text="${product.price}"></span> <span
+																						class="fa fa-usd"></span>
+																				</p>
+																				<p class="aa-product-avilability">
+																					Avilability: <span style="color: #2eb82e;"
+																						th:if="${product.quantity > 0}">In stock</span> <span
+																						style="color: #ff6666;"
+																						th:if="${product.quantity == 0}">Sold out!</span>
+																				</p>
+																			</div>
+																			<p class="aa-prod-category">
+																				Brand: <span style="color: #ff6666;"
+																					th:text="${product.brand}"></span>
+																			</p>
+																			<p class="aa-prod-category">
+																				Category: <a href="#"><span
+																					th:text="${product.category.name}"></span></a>
+																			</p>
+																			<div th:if="${product.quantity > 0}"
+																				class="aa-prod-quantity">
+																				<form action="/shoppingCart/addItem">
+																					<input type="hidden" id="product" name="product"
+																						th:value="${product.product_id}"> <select
+																						id="quantity" name="quantity">
+																						<option th:if="${product.quantity > 10}"
+																							th:each="i : ${#numbers.sequence(1, 10)}"
+																							th:value="${i}" th:text="${i}"
+																							th:selected="${i==1}"></option>
+																						<option th:if="${product.quantity <= 10}"
+																							th:each="i : ${#numbers.sequence(1, product.quantity)}"
+																							th:value="${i}" th:text="${i}"
+																							th:selected="${i==1}"></option>
+																					</select>
+																					<button type="submit" class="aa-add-to-cart-btn">
+																						<span class="fa fa-shopping-cart"></span>Add To
+																						Cart
+																					</button>
+																				</form>
+																			</div>
+																			<div class="aa-prod-view-bottom">
+																				<a
+																					th:href="@{/productdetail/id={id}(id = ${product.product_id})}"
+																					class="aa-add-to-cart-btn">View Details</a>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<!-- /.modal-content -->
+													</div>
+													<!-- /.modal-dialog -->
+												</div> <!-- / quick view modal -->
+											</li>
 										</ul>
 									</div>
 									<!-- / computers product category -->
 									<!-- start accessories product category -->
 									<div class="tab-pane fade" id="accessories">
 										<ul class="aa-product-catg">
+											<li data-th-each="product : ${accessories}">
+												<figure>
+													<a class="aa-product-img"
+														th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><img
+														width="250px" height="300px"
+														th:src="@{'upload/' + ${product.product_id}} + '.jpg'"
+														onerror="this.src='/img/error.png';"></a>
+													<form th:if="${product.quantity > 0}"
+														class="aa-add-card-btn" action="/shoppingCart/addItem">
+														<input type="hidden" id="product" name="product"
+															th:value="${product.product_id}"> <input
+															type="hidden" id="quantity" name="quantity" value="1">
+														<button type="submit"
+															style="border: 0; background: none; box-shadow: none; border-radius: 0px;">
+															<span class="fa fa-shopping-cart"></span>Add To Cart
+														</button>
+													</form>
+													<figcaption>
+														<h4 class="aa-product-title">
+															<a
+																th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><span
+																th:text="${product.product_name}"></span></a>
+														</h4>
+														<span class="aa-product-price" th:text="${product.price}"></span><span
+															class="fa fa-usd"></span>
+													</figcaption>
+												</figure>
+												<div class="aa-product-hvr-content">
+													<a href="#" data-toggle2="tooltip" data-placement="top"
+														title="Quick View" data-toggle="modal"
+														th:data-target="@{'#quick-view-' + ${product.product_id}}">
+														<span class="fa fa-search"></span>
+													</a>
+												</div> <!-- product badge --> <span class="aa-badge aa-sold-out"
+												th:if="${product.quantity == 0}">Sold Out!</span> <!-- quick view modal -->
+												<div class="modal fade"
+													th:id="@{'quick-view-' + ${product.product_id}}"
+													tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+													aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-body">
+																<button type="button" class="close" data-dismiss="modal"
+																	aria-hidden="true">&times;</button>
+																<div class="row">
+																	<!-- Modal view slider -->
+																	<div class="col-md-6 col-sm-6 col-xs-12">
+																		<div class="aa-product-view-slider">
+																			<div class="simpleLens-gallery-container" id="demo-1">
+																				<div class="simpleLens-container">
+																					<div class="simpleLens-big-image-container">
+																						<img width="250px" height="300px"
+																							th:src="@{'upload/' + ${product.product_id}} + '.jpg'"
+																							onerror="this.src='/img/error.png';">
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<!-- Modal view content -->
+																	<div class="col-md-6 col-sm-6 col-xs-12">
+																		<div class="aa-product-view-content">
+																			<h3>
+																				<span th:text="${product.product_name}"></span>
+																			</h3>
+																			<div class="aa-price-block">
+																				<p class="aa-product-view-price">
+																					Price: <span style="color: #ff6666;"
+																						th:text="${product.price}"></span> <span
+																						class="fa fa-usd"></span>
+																				</p>
+																				<p class="aa-product-avilability">
+																					Avilability: <span style="color: #2eb82e;"
+																						th:if="${product.quantity > 0}">In stock</span> <span
+																						style="color: #ff6666;"
+																						th:if="${product.quantity == 0}">Sold out!</span>
+																				</p>
+																			</div>
+																			<p class="aa-prod-category">
+																				Brand: <span style="color: #ff6666;"
+																					th:text="${product.brand}"></span>
+																			</p>
+																			<p class="aa-prod-category">
+																				Category: <a href="#"><span
+																					th:text="${product.category.name}"></span></a>
+																			</p>
+																			<div th:if="${product.quantity > 0}"
+																				class="aa-prod-quantity">
+																				<form action="/shoppingCart/addItem">
+																					<input type="hidden" id="product" name="product"
+																						th:value="${product.product_id}"> <select
+																						id="quantity" name="quantity">
+																						<option th:if="${product.quantity > 10}"
+																							th:each="i : ${#numbers.sequence(1, 10)}"
+																							th:value="${i}" th:text="${i}"
+																							th:selected="${i==1}"></option>
+																						<option th:if="${product.quantity <= 10}"
+																							th:each="i : ${#numbers.sequence(1, product.quantity)}"
+																							th:value="${i}" th:text="${i}"
+																							th:selected="${i==1}"></option>
+																					</select>
+																					<button type="submit" class="aa-add-to-cart-btn">
+																						<span class="fa fa-shopping-cart"></span>Add To
+																						Cart
+																					</button>
+																				</form>
+																			</div>
+																			<div class="aa-prod-view-bottom">
+																				<a
+																					th:href="@{/productdetail/id={id}(id = ${product.product_id})}"
+																					class="aa-add-to-cart-btn">View Details</a>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<!-- /.modal-content -->
+													</div>
+													<!-- /.modal-dialog -->
+												</div> <!-- / quick view modal -->
+											</li>
 										</ul>
 									</div>
 									<!-- / accessories product category -->
 									<!-- start others product category -->
 									<div class="tab-pane fade" id="others">
 										<ul class="aa-product-catg">
+											<li data-th-each="product : ${others}">
+												<figure>
+													<a class="aa-product-img"
+														th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><img
+														width="250px" height="300px"
+														th:src="@{'upload/' + ${product.product_id}} + '.jpg'"
+														onerror="this.src='/img/error.png';"></a>
+													<form th:if="${product.quantity > 0}"
+														class="aa-add-card-btn" action="/shoppingCart/addItem">
+														<input type="hidden" id="product" name="product"
+															th:value="${product.product_id}"> <input
+															type="hidden" id="quantity" name="quantity" value="1">
+														<button type="submit"
+															style="border: 0; background: none; box-shadow: none; border-radius: 0px;">
+															<span class="fa fa-shopping-cart"></span>Add To Cart
+														</button>
+													</form>
+													<figcaption>
+														<h4 class="aa-product-title">
+															<a
+																th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><span
+																th:text="${product.product_name}"></span></a>
+														</h4>
+														<span class="aa-product-price" th:text="${product.price}"></span><span
+															class="fa fa-usd"></span>
+													</figcaption>
+												</figure>
+												<div class="aa-product-hvr-content">
+													<a href="#" data-toggle2="tooltip" data-placement="top"
+														title="Quick View" data-toggle="modal"
+														th:data-target="@{'#quick-view-' + ${product.product_id}}">
+														<span class="fa fa-search"></span>
+													</a>
+												</div> <!-- product badge --> <span class="aa-badge aa-sold-out"
+												th:if="${product.quantity == 0}">Sold Out!</span> <!-- quick view modal -->
+												<div class="modal fade"
+													th:id="@{'quick-view-' + ${product.product_id}}"
+													tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+													aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-body">
+																<button type="button" class="close" data-dismiss="modal"
+																	aria-hidden="true">&times;</button>
+																<div class="row">
+																	<!-- Modal view slider -->
+																	<div class="col-md-6 col-sm-6 col-xs-12">
+																		<div class="aa-product-view-slider">
+																			<div class="simpleLens-gallery-container" id="demo-1">
+																				<div class="simpleLens-container">
+																					<div class="simpleLens-big-image-container">
+																						<img width="250px" height="300px"
+																							th:src="@{'upload/' + ${product.product_id}} + '.jpg'"
+																							onerror="this.src='/img/error.png';">
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<!-- Modal view content -->
+																	<div class="col-md-6 col-sm-6 col-xs-12">
+																		<div class="aa-product-view-content">
+																			<h3>
+																				<span th:text="${product.product_name}"></span>
+																			</h3>
+																			<div class="aa-price-block">
+																				<p class="aa-product-view-price">
+																					Price: <span style="color: #ff6666;"
+																						th:text="${product.price}"></span> <span
+																						class="fa fa-usd"></span>
+																				</p>
+																				<p class="aa-product-avilability">
+																					Avilability: <span style="color: #2eb82e;"
+																						th:if="${product.quantity > 0}">In stock</span> <span
+																						style="color: #ff6666;"
+																						th:if="${product.quantity == 0}">Sold out!</span>
+																				</p>
+																			</div>
+																			<p class="aa-prod-category">
+																				Brand: <span style="color: #ff6666;"
+																					th:text="${product.brand}"></span>
+																			</p>
+																			<p class="aa-prod-category">
+																				Category: <a href="#"><span
+																					th:text="${product.category.name}"></span></a>
+																			</p>
+																			<div th:if="${product.quantity > 0}"
+																				class="aa-prod-quantity">
+																				<form action="/shoppingCart/addItem">
+																					<input type="hidden" id="product" name="product"
+																						th:value="${product.product_id}"> <select
+																						id="quantity" name="quantity">
+																						<option th:if="${product.quantity > 10}"
+																							th:each="i : ${#numbers.sequence(1, 10)}"
+																							th:value="${i}" th:text="${i}"
+																							th:selected="${i==1}"></option>
+																						<option th:if="${product.quantity <= 10}"
+																							th:each="i : ${#numbers.sequence(1, product.quantity)}"
+																							th:value="${i}" th:text="${i}"
+																							th:selected="${i==1}"></option>
+																					</select>
+																					<button type="submit" class="aa-add-to-cart-btn">
+																						<span class="fa fa-shopping-cart"></span>Add To
+																						Cart
+																					</button>
+																				</form>
+																			</div>
+																			<div class="aa-prod-view-bottom">
+																				<a
+																					th:href="@{/productdetail/id={id}(id = ${product.product_id})}"
+																					class="aa-add-to-cart-btn">View Details</a>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<!-- /.modal-content -->
+													</div>
+													<!-- /.modal-dialog -->
+												</div> <!-- / quick view modal -->
+											</li>
 										</ul>
 									</div>
 									<p align="center">
