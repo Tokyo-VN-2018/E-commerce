@@ -103,7 +103,7 @@ public class ProductController {
 			pages.add(i);
 			}
 		}
-		
+		model.addAttribute("activeAll", true);
 		/* List<Product> productList = productService.findPaginated(pageable); */
 		model.addAttribute("productList", productList);
 		model.addAttribute("activeAll", true);

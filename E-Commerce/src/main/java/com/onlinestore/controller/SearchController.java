@@ -117,12 +117,14 @@ public class SearchController {
 			model.addAttribute("user", user);
 		}
 		
-		String classActiveGroup = "activeSMA";
+		String classActiveGroup = "active"+group;
+		classActiveGroup = classActiveGroup.replaceAll("\\s+", "");
+		classActiveGroup = classActiveGroup.replaceAll("&", "");
+		model.addAttribute(classActiveGroup, true);
 		/*
 		 * classActiveGroup = classActiveGroup.replaceAll("\\s+", ""); classActiveGroup
 		 * = classActiveGroup.replaceAll("&", "");
 		 */
-		model.addAttribute(classActiveGroup, true);
 		
 		String optionActiveSort;
 		Pageable pageRequest;
@@ -215,7 +217,7 @@ public class SearchController {
 			model.addAttribute("emptyList", true);
 			return "product";
 		}
-		
+		model.addAttribute("keyword", keyword);
 		model.addAttribute("productList", productList);
 		model.addAttribute("pages", pages);
 		

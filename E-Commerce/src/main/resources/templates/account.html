@@ -82,6 +82,7 @@
                 <div class="aa-myaccount-login">
                 <h4>Login</h4>
                  <form th:action="@{/login}" class="aa-login-form" method="post">
+                 <label style="color: rgb(224, 36, 94);" th:if="${loginError}">The username and password you entered did not match our records. Please double-check and try again.</label>
                   <label for="username">Username<span>*</span></label>
                    <input required = "required" type="text" class="form-control" placeholder="Enter your username here" id="username" name = "username"/>
                    <label for="password">Password<span>*</span></label>

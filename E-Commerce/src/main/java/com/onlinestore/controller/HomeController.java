@@ -90,6 +90,15 @@ public class HomeController {
 		return "account";
 	}
 	
+	@RequestMapping("/login-error")
+	public String loginerror(Model model) {
+		if(SecurityContextHolder.getContext().getAuthentication().getName()!="anonymousUser") {
+			return "redirect:/myprofile";
+		}
+		model.addAttribute("loginError", true);
+		return "account";
+	}
+	
     @RequestMapping("/success")
     public String loginPageRedirect(HttpServletRequest request, Principal principal) throws IOException, ServletException {
 
