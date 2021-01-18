@@ -91,6 +91,8 @@
                     <label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
                     <p class="aa-lost-password"><a href="#" data-toggle="modal" data-target="#lostpw-modal">Lost your password?</a></p>
                   </form>
+                  <div th:if="${emailNotExist}" class="alert alert-danger">Email doesn't exist</div>
+          <div th:if="${forgetPasswordEmailSent}" class="alert alert-success">Email sent</div>
                 </div>
               </div>
               <div class="col-md-6">
@@ -127,9 +129,9 @@
           <h4>Reset Password</h4>
           <form class="aa-login-form" th:action="@{/resetPassword}" method="post">
             <label for="username">Username<span>*</span></label>
-            <input type="text" placeholder="Username">
+            <input required = "required" type="text" class="form-control" placeholder="Username" id="username" name = "username">
             <label for="email">Email<span>*</span></label>
-            <input type="text" placeholder="Email">
+            <input required = "required" type="text" class="form-control" placeholder="Email" id="email" name = "email">
             <button class="aa-browse-btn" type="submit">Reset</button>
             <label for="rememberme" class="rememberme"></label>
             <p><br></p>

@@ -41,6 +41,7 @@ import com.onlinestore.domain.CartItem;
 import com.onlinestore.domain.Category;
 import com.onlinestore.domain.Product;
 import com.onlinestore.domain.User;
+import com.onlinestore.domain.security.PasswordResetToken;
 import com.onlinestore.service.CategoryService;
 import com.onlinestore.service.ProductService;
 import com.onlinestore.service.UserService;
@@ -210,6 +211,64 @@ public class HomeController {
 	@RequestMapping("/contact")
 	public String contact() {
 		return "contact";
+	}
+	
+	@RequestMapping("/newUser")
+	public String newUser(Locale locale,
+			@RequestParam("token") String token,
+			Model model)	 {
+		
+		PasswordResetToken passToken = userService.getPasswordResetToken(token);
+		
+		if(passToken == null) {
+			String message = "Invalid Token.";
+			model.addAttribute("message", message);
+			return "redirect:/badRequest";
+		}
+		
+		User user = passToken.getUser();
+		String username = user.getUsername();
+		
+		UserDetails userDetails = userSecurityService.loadUserByUsername(username);
+		Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
+		model.addAttribute("user",user);
+		
+		return "myProfile";
+	}
+	
+	@RequestMapping("/resetPassword")
+	public String resetPassword(
+			HttpServletRequest request,
+			@ModelAttribute("email") String email,
+			Model model
+			) {
+		User user = userService.findByEmail(email);
+		
+		if (user == null) {
+			model.addAttribute("emailNotExist", true);
+			
+			return "account";
+		}
+		
+		String password =  SecurityUtility.randomPassword();
+		String encryptedpassword = SecurityUtility.passwordEncoder().encode(password);
+		user.setPassword(encryptedpassword);
+		
+		userService.save(user);
+		
+		String token = UUID.randomUUID().toString();
+		userService.createPasswordResetTokenForUser(user, token);
+		
+		String appUrl = "http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath();
+		SimpleMailMessage newEmail = mailConstructor.constructResetTokenEmail(appUrl, request.getLocale(), token, user, password);
+		mailSender.send(newEmail);
+		
+		model.addAttribute("forgetPasswordEmailSent","true");
+		
+		
+		return "account";
 	}
 	
 }
