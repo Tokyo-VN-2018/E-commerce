@@ -79,7 +79,13 @@ public class HomeController {
     	if(hasAdminRole)
     		return "redirect:/adminPortal";
 		List<Product> phones = productService.randomProduct("Phone", 8);
+		List<Product> computers = productService.randomProduct("Computer", 8);
+		List<Product> accessories = productService.randomProduct("Accessories", 8);
+		List<Product> others = productService.randomProduct("Other", 8);
 		model.addAttribute("phones", phones);
+		model.addAttribute("computers", computers);
+		model.addAttribute("accessories", accessories);
+		model.addAttribute("others", others);
 		return "home";
 	}
 	

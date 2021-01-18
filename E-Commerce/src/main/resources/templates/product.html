@@ -75,7 +75,7 @@
 				<div class="aa-catg-head-banner-content">
 					<h2>Electronic devices</h2>
 					<ol class="breadcrumb">
-						<li><a href="index.html">Home</a></li>
+						<li><a href="/index">Home</a></li>
 						<li class="active">Product</li>
 					</ol>
 				</div>
@@ -126,7 +126,7 @@
 															th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><img
 															width="250px" height="300px"
 															th:src="@{'/upload/' + ${product.product_id}} + '.jpg'"
-															onerror="this.src='/img/man/t-shirt-1.png';"></a>
+															onerror="this.src='/img/error.png';"></a>
 														<form th:if="${product.quantity > 0}"
 															class="aa-add-card-btn" action="/shoppingCart/addItem">
 															<input type="hidden" id="product" name="product"
@@ -174,7 +174,7 @@
 																						<div class="simpleLens-big-image-container">
 																							<img width="250px" height="300px"
 																								th:src="@{'/upload/' + ${product.product_id}} + '.jpg'"
-																								onerror="this.src='/img/man/t-shirt-1.png';">
+																								onerror="this.src='/img/error.png';">
 																						</div>
 																					</div>
 																				</div>

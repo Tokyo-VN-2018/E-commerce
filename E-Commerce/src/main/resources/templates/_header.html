@@ -61,18 +61,9 @@
 									<!-- start language -->
 									<div class="aa-language">
 										<div class="dropdown">
-											<a class="btn dropdown-toggle" href="#" type="button"
-												id="dropdownMenu1" data-toggle="dropdown"
-												aria-haspopup="true" aria-expanded="true"> <img
+											<div class="btn dropdown-toggle"><img
 												src="/img/flag/english.jpg" alt="english flag">ENGLISH
-												<span class="caret"></span>
-											</a>
-											<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-												<li><a href="#"><img src="/img/flag/french.jpg"
-														alt="">FRENCH</a></li>
-												<li><a href="#"><img src="/img/flag/english.jpg"
-														alt="">ENGLISH</a></li>
-											</ul>
+											</div>
 										</div>
 									</div>
 									<!-- / language -->
@@ -80,22 +71,14 @@
 									<!-- start currency -->
 									<div class="aa-currency">
 										<div class="dropdown">
-											<a class="btn dropdown-toggle" href="#" type="button"
-												id="dropdownMenu1" data-toggle="dropdown"
-												aria-haspopup="true" aria-expanded="true"> <i
-												class="fa fa-usd"></i>USD <span class="caret"></span>
-											</a>
-											<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-												<li><a href="#"><i class="fa fa-euro"></i>EURO</a></li>
-												<li><a href="#"><i class="fa fa-jpy"></i>YEN</a></li>
-											</ul>
+											<span class="btn dropdown-toggle"><i class="fa fa-usd"></i>USD</span>
 										</div>
 									</div>
 									<!-- / currency -->
 									<!-- start cellphone -->
-									<div class="cellphone hidden-xs">
+									<div class="cellphone">
 										<p>
-											<span class="fa fa-phone"></span>00-62-658-658
+											<span class="fa fa-phone"></span>+84-123-456-789
 										</p>
 									</div>
 									<!-- / cellphone -->
@@ -220,21 +203,25 @@
 							<ul class="nav navbar-nav">
 								<li><a th:href="@{/}">Home</a></li>
 								<li><a th:href="@{/searchByCategory/Phone(page='0')}"
-									th:classappend="${activePhone}? 'active'">Moblie
-										Phones <span class="caret"></span>
+									th:classappend="${activePhone}? 'active'">Moblie Phones <span
+										class="caret"></span>
 								</a>
 									<ul class="dropdown-menu">
-										<li><a th:href="@{/searchByGroup/BAS(page='0')}">Basic Mobiles</a></li>
+										<li><a th:href="@{/searchByGroup/BAS(page='0')}">Basic
+												Mobiles</a></li>
 										<li><a th:href="@{/searchByGroup/SMA(page='0')}">Smartphones</a></li>
 									</ul></li>
 								<li><a th:href="@{/searchByCategory/Computer(page='0')}"
-									th:classappend="${activeComputer}? 'active'">Computes <span class="caret"></span></a>
+									th:classappend="${activeComputer}? 'active'">Computes <span
+										class="caret"></span></a>
 									<ul class="dropdown-menu">
 										<li><a th:href="@{/searchByGroup/LAP(page='0')}">Laptops</a></li>
 										<li><a th:href="@{/searchByGroup/DES(page='0')}">Desktops</a></li>
 									</ul></li>
 								<li><a th:href="@{/searchByCategory/Accessories(page='0')}"
-									th:classappend="${activeAccessories}? 'active'">Accessories <span class="caret"></span></a>
+									th:classappend="${activeAccessories}? 'active'">Accessories
+										<span class="caret"></span>
+								</a>
 									<ul class="dropdown-menu">
 										<li><a th:href="@{/searchByGroup/MON(page='0')}">Monitors</a></li>
 										<li><a th:href="@{/searchByGroup/HEA(page='0')}">Headphones</a></li>
@@ -244,25 +231,16 @@
 										<li><a th:href="@{/searchByGroup/SPE(page='0')}">Speakers</a></li>
 									</ul></li>
 								<li><a th:href="@{/searchByCategory/Other(page='0')}"
-									th:classappend="${activeOther}? 'active'">Others <span class="caret"></span></a>
+									th:classappend="${activeOther}? 'active'">Others <span
+										class="caret"></span></a>
 									<ul class="dropdown-menu">
 										<li><a th:href="@{/searchByGroup/CAM(page='0')}">Cameras</a></li>
 										<li><a th:href="@{/searchByGroup/CON(page='0')}">Consoles</a></li>
 										<li><a th:href="@{/searchByGroup/TAB(page='0')}">Tablets</a></li>
 									</ul></li>
-								<li><a href="blog-archive.html">Blog <span
-										class="caret"></span></a>
-									<ul class="dropdown-menu">
-										<li><a href="blog-archive.html">Blog Style 1</a></li>
-										<li><a href="blog-archive-2.html">Blog Style 2</a></li>
-										<li><a href="blog-single.html">Blog Single</a></li>
-									</ul></li>
-								<li><a th:href="@{/contact}">Contact</a></li>
-								<li><a href="#">Pages <span class="caret"></span></a>
-									<ul class="dropdown-menu">
-										<li><a th:href="@{/product(category='all')}">Shop Page</a></li>
-										<li><a href="404.html">404 Page</a></li>
-									</ul></li>
+								<li><a href="/product">All product</a>
+								<li><a href="/orderhistory">Order</a>
+								<li><a href="/contact">Contact</a></li>
 							</ul>
 						</div>
 						<!--/.nav-collapse -->
