@@ -73,6 +73,10 @@ public class HomeController {
 	
 	@RequestMapping({"/","/index","/home"})
 	public String index(Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	boolean hasAdminRole = authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+    	if(hasAdminRole)
+    		return "redirect:/adminPortal";
 		List<Product> phones = productService.randomProduct("Phone", 8);
 		model.addAttribute("phones", phones);
 		return "home";
@@ -83,6 +87,15 @@ public class HomeController {
 		if(SecurityContextHolder.getContext().getAuthentication().getName()!="anonymousUser") {
 			return "redirect:/myprofile";
 		}
+		return "account";
+	}
+	
+	@RequestMapping("/login-error")
+	public String loginerror(Model model) {
+		if(SecurityContextHolder.getContext().getAuthentication().getName()!="anonymousUser") {
+			return "redirect:/myprofile";
+		}
+		model.addAttribute("loginError", true);
 		return "account";
 	}
 	

@@ -102,6 +102,8 @@
 										<option value="5" th:selected="${t5}">Name: Z-A</option>
 									</select>
 								</form>
+								<span th:if="${keyword}" style="padding-left:20px;" th:text="${'Search by: '+keyword}"></span>
+								<a th:if="${keyword}" href="product"><span class="fa fa-times" style="color: red;"></span></a>
 								<!-- <form th:action="@{__${#httpServletRequest.requestURI}__}" class="aa-show-form" method="post">
 									<label for="showtype">Show</label> <select name="showtype" id="showtype" onchange="this.form.submit()">
 										<option value="12">12</option>
@@ -115,16 +117,6 @@
 									id="list-catg" href="#"><span class="fa fa-list"></span></a>
 							</div>
 						</div>
-						<table id="productList">
-							<thead>
-								<tr>
-									<th>
-									<th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>
 										<div class="aa-product-catg-body">
 											<ul class="aa-product-catg">
 												<!-- start single product item -->
@@ -254,10 +246,6 @@
 											</ul>
 
 										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
 						<div class="aa-product-catg-pagination">
 							<nav>
 								<ul class="pagination">
@@ -266,7 +254,7 @@
 									</a></li>
 									<li th:each="pagenumber : ${pages}"><a
 										th:href="@{?page={number}(number = ${pagenumber})}"
-										th:text="${pagenumber}"></a></li>
+										th:text="${pagenumber + 1}"></a></li>
 
 									<li><a href="#" aria-label="Next"> <span
 											aria-hidden="true">&raquo;</span>
@@ -303,101 +291,23 @@
 						<!-- single sidebar -->
 						<div class="aa-sidebar-widget">
 							<h3>Tags</h3>
+							<!--<div style="display: inline-block;font-size: 15px;margin-bottom: 10px;margin-right: 5px;padding: 5px 10px;transition: all 0.5s;">-->
 							<div class="tag-cloud">
-								<a th:href="@{/searchByGroup/SMA(page='0')}" th:classappend="${activeSMA}? 'active'">Smartphone</a>
-								 <a	th:href="@{/searchByGroup/LAP(page='0')}">Laptop</a> <a
-									th:href="@{/searchByGroup/MON(page='0')}" class="active">Monitor</a> <a
-									th:href="@{/searchByGroup/MOU(page='0')}">Mouse</a> <a
-									th:href="@{/searchByGroup/SPE(page='0')}">Speaker</a> <a
-									th:href="@{/searchByGroup/HEA(page='0')}">Headphone</a> <a
-									th:href="@{/searchByGroup/KEY(page='0')}">Keyboard</a> <a
-									th:href="@{/searchByGroup/CAM(page='0')}">Camera</a> <a
-									th:href="@{/searchByGroup/CON(page='0')}">Console</a> <a
-									th:href="@{/searchByGroup/DES(page='0')}">Desktop</a> <a
-									th:href="@{/searchByGroup/TAB(page='0')}">Tablet</a> <a
-									th:href="@{/searchByGroup/MIC(page='0')}">Microphone</a>
-									<a th:href="@{/searchByGroup/BAS(page='0')}">Basic Mobile</a>
+								<a th:href="@{/product}" th:style="${activeAll}? 'background-color: #337ab7;color: #fff;'">All</a>
+								<a th:href="@{/searchByGroup/SMA(page='0')}" th:style="${activeSMA}? 'background-color: #337ab7;color: #fff;'">Smartphone</a>
+								 <a	th:href="@{/searchByGroup/LAP(page='0')}"  th:style="${activeLAP}? 'background-color: #337ab7;color: #fff;'">Laptop</a> <a
+									th:href="@{/searchByGroup/MON(page='0')}" th:style="${activeMON}? 'background-color: #337ab7;color: #fff;'">Monitor</a> <a
+									th:href="@{/searchByGroup/MOU(page='0')}" th:style="${activeMOU}? 'background-color: #337ab7;color: #fff;'">Mouse</a> <a
+									th:href="@{/searchByGroup/SPE(page='0')}" th:style="${activeSPE}? 'background-color: #337ab7;color: #fff;'">Speaker</a> <a
+									th:href="@{/searchByGroup/HEA(page='0')}" th:style="${activeHEA}? 'background-color: #337ab7;color: #fff;'">Headphone</a> <a
+									th:href="@{/searchByGroup/KEY(page='0')}" th:style="${activeKEY}? 'background-color: #337ab7;color: #fff;'">Keyboard</a> <a
+									th:href="@{/searchByGroup/CAM(page='0')}" th:style="${activeCAM}? 'background-color: #337ab7;color: #fff;'">Camera</a> <a
+									th:href="@{/searchByGroup/CON(page='0')}" th:style="${activeCON}? 'background-color: #337ab7;color: #fff;'">Console</a> <a
+									th:href="@{/searchByGroup/DES(page='0')}" th:style="${activeDES}? 'background-color: #337ab7;color: #fff;'">Desktop</a> <a
+									th:href="@{/searchByGroup/TAB(page='0')}" th:style="${activeTAB}? 'background-color: #337ab7;color: #fff;'">Tablet</a> <a
+									th:href="@{/searchByGroup/MIC(page='0')}" th:style="${activeMIC}? 'background-color: #337ab7;color: #fff;'">Microphone</a>
+									<a th:href="@{/searchByGroup/BAS(page='0')}" th:style="${activeBAS}? 'background-color: #337ab7;color: #fff;'">Basic Mobile</a>
 								<!-- <a href="#">Pen Drive</a> -->
-							</div>
-						</div>
-						<!-- single sidebar -->
-						<div class="aa-sidebar-widget">
-							<h3>Shop By Price</h3>
-							<!-- price range -->
-							<div class="aa-sidebar-price-range">
-								<form action="">
-									<div id="skipstep"
-										class="noUi-target noUi-ltr noUi-horizontal noUi-background">
-									</div>
-									<span id="skip-value-lower" class="example-val">30.00</span> <span
-										id="skip-value-upper" class="example-val">100.00</span>
-									<button class="aa-filter-btn" type="submit">Filter</button>
-								</form>
-							</div>
-
-						</div>
-						<!-- single sidebar -->
-						<div class="aa-sidebar-widget">
-							<h3>Recently Views</h3>
-							<div class="aa-recently-views">
-								<ul>
-									<li><a href="#" class="aa-cartbox-img"><img alt="img"
-											src="/img/woman-small-2.jpg"></a>
-										<div class="aa-cartbox-info">
-											<h4>
-												<a href="#">Product Name</a>
-											</h4>
-											<p>1 x $250</p>
-										</div></li>
-									<li><a href="#" class="aa-cartbox-img"><img alt="img"
-											src="/img/woman-small-1.jpg"></a>
-										<div class="aa-cartbox-info">
-											<h4>
-												<a href="#">Product Name</a>
-											</h4>
-											<p>1 x $250</p>
-										</div></li>
-									<li><a href="#" class="aa-cartbox-img"><img alt="img"
-											src="/img/woman-small-2.jpg"></a>
-										<div class="aa-cartbox-info">
-											<h4>
-												<a href="#">Product Name</a>
-											</h4>
-											<p>1 x $250</p>
-										</div></li>
-								</ul>
-							</div>
-						</div>
-						<!-- single sidebar -->
-						<div class="aa-sidebar-widget">
-							<h3>Top Rated Products</h3>
-							<div class="aa-recently-views">
-								<ul>
-									<li><a href="#" class="aa-cartbox-img"><img alt="img"
-											src="/img/woman-small-2.jpg"></a>
-										<div class="aa-cartbox-info">
-											<h4>
-												<a href="#">Product Name</a>
-											</h4>
-											<p>1 x $250</p>
-										</div></li>
-									<li><a href="#" class="aa-cartbox-img"><img alt="img"
-											src="/img/woman-small-1.jpg"></a>
-										<div class="aa-cartbox-info">
-											<h4>
-												<a href="#">Product Name</a>
-											</h4>
-											<p>1 x $250</p>
-										</div></li>
-									<li><a href="#" class="aa-cartbox-img"><img alt="img"
-											src="/img/woman-small-2.jpg"></a>
-										<div class="aa-cartbox-info">
-											<h4>
-												<a href="#">Product Name</a>
-											</h4>
-											<p>1 x $250</p>
-										</div></li>
-								</ul>
 							</div>
 						</div>
 					</aside>

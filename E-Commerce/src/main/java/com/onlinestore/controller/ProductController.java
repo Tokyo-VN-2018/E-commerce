@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.onlinestore.domain.Category;
 import com.onlinestore.domain.Product;
@@ -38,7 +41,13 @@ public class ProductController {
 	CategoryService categoryService;
 	
 	@RequestMapping("/productdetail/id={id}")
-	public String productDetail(Model model, @PathVariable("id") int id) {
+	public String productDetail(Model model, @PathVariable("id") int id, RedirectAttributes redirectAttribute) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	boolean hasAdminRole = authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+    	if(hasAdminRole) {
+    		redirectAttribute.addAttribute("id", id);
+    		return "redirect:/editproduct";
+    	}
 		Product product = productService.findByID(id);
 		model.addAttribute("productdetail", product);
 		List<Product> products = productService.randomProduct(product.getCategory(), 4);
@@ -54,6 +63,10 @@ public class ProductController {
 			@RequestParam(name = "page", defaultValue = "0") int page,
 			@ModelAttribute("sorttype") String sorttype
 			) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	boolean hasAdminRole = authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+    	if(hasAdminRole)
+    		return "redirect:/adminPortal";
 		if (principal != null) {
 			String username = principal.getName();
 			User user = userService.findByUsername(username);
@@ -90,7 +103,7 @@ public class ProductController {
 			pages.add(i);
 			}
 		}
-		
+		model.addAttribute("activeAll", true);
 		/* List<Product> productList = productService.findPaginated(pageable); */
 		model.addAttribute("productList", productList);
 		model.addAttribute("activeAll", true);
