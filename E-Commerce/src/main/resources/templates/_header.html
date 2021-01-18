@@ -220,21 +220,25 @@
 							<ul class="nav navbar-nav">
 								<li><a th:href="@{/}">Home</a></li>
 								<li><a th:href="@{/searchByCategory/Phone(page='0')}"
-									th:classappend="${activePhone}? 'active'">Moblie
-										Phones <span class="caret"></span>
+									th:classappend="${activePhone}? 'active'">Moblie Phones <span
+										class="caret"></span>
 								</a>
 									<ul class="dropdown-menu">
-										<li><a th:href="@{/searchByGroup/BAS(page='0')}">Basic Mobiles</a></li>
+										<li><a th:href="@{/searchByGroup/BAS(page='0')}">Basic
+												Mobiles</a></li>
 										<li><a th:href="@{/searchByGroup/SMA(page='0')}">Smartphones</a></li>
 									</ul></li>
 								<li><a th:href="@{/searchByCategory/Computer(page='0')}"
-									th:classappend="${activeComputer}? 'active'">Computes <span class="caret"></span></a>
+									th:classappend="${activeComputer}? 'active'">Computes <span
+										class="caret"></span></a>
 									<ul class="dropdown-menu">
 										<li><a th:href="@{/searchByGroup/LAP(page='0')}">Laptops</a></li>
 										<li><a th:href="@{/searchByGroup/DES(page='0')}">Desktops</a></li>
 									</ul></li>
 								<li><a th:href="@{/searchByCategory/Accessories(page='0')}"
-									th:classappend="${activeAccessories}? 'active'">Accessories <span class="caret"></span></a>
+									th:classappend="${activeAccessories}? 'active'">Accessories
+										<span class="caret"></span>
+								</a>
 									<ul class="dropdown-menu">
 										<li><a th:href="@{/searchByGroup/MON(page='0')}">Monitors</a></li>
 										<li><a th:href="@{/searchByGroup/HEA(page='0')}">Headphones</a></li>
@@ -244,7 +248,8 @@
 										<li><a th:href="@{/searchByGroup/SPE(page='0')}">Speakers</a></li>
 									</ul></li>
 								<li><a th:href="@{/searchByCategory/Other(page='0')}"
-									th:classappend="${activeOther}? 'active'">Others <span class="caret"></span></a>
+									th:classappend="${activeOther}? 'active'">Others <span
+										class="caret"></span></a>
 									<ul class="dropdown-menu">
 										<li><a th:href="@{/searchByGroup/CAM(page='0')}">Cameras</a></li>
 										<li><a th:href="@{/searchByGroup/CON(page='0')}">Consoles</a></li>
@@ -260,7 +265,8 @@
 								<li><a href="contact.html">Contact</a></li>
 								<li><a href="#">Pages <span class="caret"></span></a>
 									<ul class="dropdown-menu">
-										<li><a th:href="@{/product(category='all')}">Shop Page</a></li>
+										<li><a th:href="@{/product(category='all')}">Shop
+												Page</a></li>
 										<li><a href="404.html">404 Page</a></li>
 									</ul></li>
 							</ul>
