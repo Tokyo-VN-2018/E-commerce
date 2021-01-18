@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -18,6 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -144,10 +149,53 @@ public class HomeController {
     	return "redirect:productList";
     }
     
+	/*
+	 * @RequestMapping("/productList") public String productList(Model model) {
+	 * List<Product> productList = productService.findAll();
+	 * model.addAttribute("productList", productList); return "productList"; }
+	 */
+    
     @RequestMapping("/productList")
-    public String productList(Model model) {
-		List<Product> productList = productService.findAll();
+    public String productList(
+    		Model model,
+			@RequestParam(name = "page", defaultValue = "0") int page,
+			@ModelAttribute("sorttype") String sorttype
+    		) {
+    	String optionActiveSort;
+		Pageable pageRequest;
+		if (sorttype.equalsIgnoreCase("3")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("price").descending());
+			optionActiveSort = "t3";
+		}else if (sorttype.equalsIgnoreCase("2")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("price").ascending());
+			optionActiveSort = "t2";
+		}else if (sorttype.equalsIgnoreCase("4")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("product_name").ascending());
+			optionActiveSort = "t4";
+		}else if (sorttype.equalsIgnoreCase("5")) {
+			pageRequest = PageRequest.of(page, 12, Sort.by("product_name").descending());
+			optionActiveSort = "t5";
+		}else {
+			pageRequest = PageRequest.of(page, 12);
+			optionActiveSort = "t1";
+		}
+		model.addAttribute(optionActiveSort, true);
+		
+		Page<Product> productList = productService.findPaginated(pageRequest);
+		int totalPage = productList.getTotalPages();
+		List<Integer> pages = new ArrayList<Integer>();
+		if (totalPage==0) {
+			pages.add(0);
+		}else {
+		for (int i = 0; i <totalPage ; i++) {
+			pages.add(i);
+			}
+		}
+		/* List<Product> productList = productService.findPaginated(pageable); */
 		model.addAttribute("productList", productList);
+		model.addAttribute("pages", pages);
+		
+		
     	return "productList";
     }
     
