@@ -40,10 +40,10 @@ public class OrderController {
 		String optionActiveSort;
 		Pageable pageRequest;
 		if (sorttype.equalsIgnoreCase("2")) {
-			pageRequest = PageRequest.of(page, 12, Sort.by("orderdate").descending());
+			pageRequest = PageRequest.of(page, 12, Sort.by("order_id").descending());
 			optionActiveSort = "t2";
 		} else if (sorttype.equalsIgnoreCase("3")) {
-			pageRequest = PageRequest.of(page, 12, Sort.by("orderdate").ascending());
+			pageRequest = PageRequest.of(page, 12, Sort.by("order_id").ascending());
 			optionActiveSort = "t3";
 		} else if (sorttype.equalsIgnoreCase("4")) {
 			pageRequest = PageRequest.of(page, 12, Sort.by("status").descending());

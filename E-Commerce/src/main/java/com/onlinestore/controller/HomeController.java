@@ -41,6 +41,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.onlinestore.domain.CartItem;
 import com.onlinestore.domain.Category;
@@ -244,17 +245,18 @@ public class HomeController {
 	public String newUserPost(HttpServletRequest request,
 			@ModelAttribute("user") User userUpdate,
 			@ModelAttribute("currentPassword") String curPass,
+			RedirectAttributes redirectAttribute,
 			Model model, Principal principal) throws Exception {
 		User user = userService.findByUsername(principal.getName());
 		BCryptPasswordEncoder encoded = new BCryptPasswordEncoder();
 		boolean matches = encoded.matches(curPass, user.getPassword());
 		if(!matches) {
-			model.addAttribute("wrongPassword", true);
+			redirectAttribute.addFlashAttribute("wrongPassword", true);
 			return "redirect:/myprofile";
 		}
 		if(user.getEmail().compareTo(userUpdate.getEmail()) != 0) {
 			if (userService.findByEmail(userUpdate.getEmail()) != null) {
-				model.addAttribute("emailExists", true);
+				redirectAttribute.addFlashAttribute("emailExists", true);
 				return "redirect:/myprofile";
 			}
 		}
