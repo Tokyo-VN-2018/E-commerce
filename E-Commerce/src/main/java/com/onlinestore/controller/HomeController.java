@@ -298,14 +298,15 @@ public class HomeController {
 	public String resetPassword(
 			HttpServletRequest request,
 			@ModelAttribute("email") String email,
-			Model model
+			Model model,
+			RedirectAttributes redirectAttribute
 			) {
 		User user = userService.findByEmail(email);
 		
 		if (user == null) {
-			model.addAttribute("emailNotExist", true);
+			redirectAttribute.addFlashAttribute("emailNotExist", true);
 			
-			return "account";
+			return "redirect:/login";
 		}
 		
 		String password =  SecurityUtility.randomPassword();
@@ -321,10 +322,30 @@ public class HomeController {
 		SimpleMailMessage newEmail = mailConstructor.constructResetTokenEmail(appUrl, request.getLocale(), token, user, password);
 		mailSender.send(newEmail);
 		
-		model.addAttribute("forgetPasswordEmailSent","true");
+		redirectAttribute.addFlashAttribute("forgetPasswordEmailSent","true");
 		
 		
-		return "account";
+		return "redirect:/login";
+	}
+	
+	@RequestMapping("/changePassword")
+	public String changePassword(
+			@ModelAttribute("curpassword") String curpassword,
+			@ModelAttribute("newpassword") String newpassword,
+			Model model, Principal principal,
+			RedirectAttributes redirectAttribute
+			) {
+		
+		User user = userService.findByUsername(principal.getName());
+		BCryptPasswordEncoder encoded = new BCryptPasswordEncoder();
+		boolean matches = encoded.matches(curpassword, user.getPassword());
+		if(!matches) {
+			redirectAttribute.addFlashAttribute("passwordIncorrect", true);
+			return "redirect:/myprofile";
+		}
+		userService.changePassword(user, newpassword);
+		redirectAttribute.addFlashAttribute("successchange", true);
+		return "redirect:/myprofile";
 	}
 	
 }

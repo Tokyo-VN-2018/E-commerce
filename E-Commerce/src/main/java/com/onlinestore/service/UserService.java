@@ -17,4 +17,6 @@ public interface UserService {
 	void updateInfo(User user, User userUpdate) throws Exception;
 	
 	User save(User user);
+	
+	void changePassword(User user, String newpassword);
 }

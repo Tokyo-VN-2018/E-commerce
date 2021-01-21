@@ -12,6 +12,7 @@ import com.onlinestore.domain.security.PasswordResetToken;
 import com.onlinestore.repository.PasswordResetTokenRepository;
 import com.onlinestore.repository.UserRepository;
 import com.onlinestore.service.UserService;
+import com.onlinestore.utility.SecurityUtility;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -72,6 +73,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User save(User user) {
 		return userRepository.save(user);
+	}
+
+	@Override
+	public void changePassword(User user, String newpassword) {
+	
+		String encryptedpassword = SecurityUtility.passwordEncoder().encode(newpassword);
+		user.setPassword(encryptedpassword);
+		userRepository.save(user);
 	}
 	
 }
