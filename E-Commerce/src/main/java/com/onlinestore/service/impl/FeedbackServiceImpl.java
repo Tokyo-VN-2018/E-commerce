@@ -3,7 +3,10 @@ package com.onlinestore.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.onlinestore.domain.Feedback;
 import com.onlinestore.repository.FeedbackRepository;
@@ -21,5 +24,11 @@ public class FeedbackServiceImpl implements FeedbackService {
 	
 	public List<Feedback> selectAll(){
 		return (List<Feedback>) feedbackRepository.findAll();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Feedback> findAllPaginated(Pageable pageable) {
+		return feedbackRepository.findAllPaginated(pageable);
 	};
 }

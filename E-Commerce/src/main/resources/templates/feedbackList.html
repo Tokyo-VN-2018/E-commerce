@@ -66,6 +66,20 @@
 		<div>
 			<h2 style="text-align:center;">Portal</h2>
 			
+			<div class="aa-product-catg-head-left" style="width:90%;margin-left: auto;margin-right: auto;">
+								<form th:action="@{__${#httpServletRequest.requestURI}__}" class="aa-sort-form" method="post">
+									<label for="sorttype">Sort by</label> 
+									<select name="sorttype" id="sorttype" onchange="this.form.submit()">
+										<option value="1" th:selected="${t1}">Default</option>
+										<option value="2" th:selected="${t2}">Name: A-Z</option>
+										<option value="3" th:selected="${t3}">Name: Z-A</option>
+										<option value="4" th:selected="${t4}">Date: Ascending</option>
+										<option value="5" th:selected="${t5}">Date: Descending</option>
+									</select>
+								</form>
+								<div><br></div>
+			</div>
+			
 			<table id="feedbackListTable" class="table table-bordered table-hover table-striped" style="width:90%;margin-left: auto;margin-right: auto;">
 				<thead>
 					<tr>

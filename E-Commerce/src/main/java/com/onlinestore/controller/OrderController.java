@@ -34,7 +34,6 @@ public class OrderController {
 	@RequestMapping("/orderhistory")
 	public String orderHistory(Model model, Principal principal,
 			@RequestParam(name = "page", defaultValue = "0") int page, @ModelAttribute("sorttype") String sorttype) {
-		/* List<Order> orders = new ArrayList<>(); */
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 		String optionActiveSort;
