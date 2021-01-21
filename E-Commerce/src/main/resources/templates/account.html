@@ -98,7 +98,7 @@
 											class="form-control"
 											placeholder="Enter the password that accompanies your username"
 											id="password" name="password" />
-										<label><input type="checkbox" onclick="showPassword()">Show Password</label>
+										<label><input type="checkbox" onclick="showPassword()"> Show Password</label>
 										<p><button type="submit" class="aa-browse-btn">Login</button>
 										<label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label></p>
                     					<p class="aa-lost-password">
@@ -107,7 +107,7 @@
 											<a href="#">Lost your password?</a>
 										</p> -->
 									</form>
-									<div th:if="${emailNotExist}" class="alert alert-danger">Email doesn't exist</div>
+									<div th:if="${emailNotExist}" class="alert alert-danger">User or Email you entered is incorrect.</div>
           							<div th:if="${forgetPasswordEmailSent}" class="alert alert-success">Email sent</div>
 								</div>
 							</div>
@@ -123,10 +123,12 @@
 											id="username" name="username" pattern="^[A-Za-z0-9_.@-]{8,30}$"> <label for="email">Email<span>*</span>&nbsp<span
 											th:if="${emailExists}">Email already exists. Choose a different one.</span></label> <input required="required" type="email"
 											class="form-control" placeholder="Email" id="email"
-											name="email"> <label for="password">Password<span>*</span>&nbsp
-										</label> <input required="required" type="password"
+											name="email"> 
+											<label for="password">Password<span>*</span>&nbsp</label> <input required="required" type="password"
 											class="form-control" id="register-password" name="password" placeholder="Password" pattern="^[A-Za-z0-9_.@-]{8,30}$">
-											<label><input type="checkbox" onclick="showregister_Password()">Show Password</label>
+											<label for="password">Confirm Password<span>*</span></label>
+            <input pattern="^[A-Za-z0-9_.@-]{8,30}$" required = "required" placeholder="Confirm Password" type="password" class="form-control"id="conpassword" name = "conpassword">
+											<label><input type="checkbox" onclick="showregister_Password()"> Show Password</label>
 										<label style="color: gray; font-size: 14px;">Username and password must have 8 to 30 characters with a mix of letters, numbers, underscores, hyphens, dots and at symbols.</label>
 										<button type="submit" class="aa-browse-btn">Register</button>
 									</form>
@@ -203,7 +205,30 @@
   		} else {
     		x.type = "password";
   		}
+  		var x = document.getElementById("conpassword");
+  		if (x.type === "password") {
+    		x.type = "text";
+  		} else {
+    		x.type = "password";
+  		}
 		}
 	</script>
+	
+	<script>
+		var password = document.getElementById("register-password"), confirm_password = document
+				.getElementById("conpassword");
+
+		function validatePassword() {
+			if (password.value != confirm_password.value) {
+				confirm_password.setCustomValidity("Passwords Don't Match");
+			} else {
+				confirm_password.setCustomValidity('');
+			}
+		}
+
+		password.onchange = validatePassword;
+		confirm_password.onkeyup = validatePassword;
+	</script>
+	
 </body>
 </html>

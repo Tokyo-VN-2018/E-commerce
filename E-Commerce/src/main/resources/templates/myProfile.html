@@ -119,13 +119,15 @@
                     						<input type="text" th:value="${user.address}" class="form-control" id="address" name = "address">
                     						<label for="password">Password<span>*</span><span th:if="${wrongPassword}">Wrong Password</span></label>
                     						<input required = "required" type="password" class="form-control" th:value="${currentPassword}" id="password" name = "currentPassword">
-                    						<label style="color: rgb(224, 36, 94);" th:if="${passwordChanged}">Your password has been changed.</label> 
-                    						<p><label><input type="checkbox" onclick="showPassword()">Show Password</label></p>
+                    						<!-- <label style="color: rgb(224, 36, 94);" th:if="${passwordChanged}"><strong>Success!</strong><br>Your password has been changed!</label>  -->
+                    						<p><label><input type="checkbox" onclick="showPassword()"> Show Password</label></p>
                     						<button type="submit" class="aa-browse-btn">Update User</button>
                     						               
                   					</form>
                   					<p> </p>
                   					<button data-toggle="modal" data-target="#changepw-modal" class="aa-browse-btn" style="font-size: 14px;padding: 8px 20px;margin-right: 5px;margin-top: 10px;">Change password</button>  
+                  					<div class="alert alert-danger" th:if="${passwordIncorrect}" style="margin-top:8px;">Password Incorrect</div>
+                  					<div class="alert alert-success" th:if="${passwordChanged}" style="margin-top:8px;"><strong>Success!</strong> Your password has been changed!</div>
 									</div>
 								</div>
 								<div class="col-md-4">
@@ -161,12 +163,15 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           <h4>Reset Password</h4>
           <form class="aa-login-form" th:action="@{/changePassword}" method="post">
+            <label for="password">Current Password<span>*</span></label>
+            <input required = "required" type="password" class="form-control" id="old-password" name = "oldPassword">
             <label for="password">New Password<span>*</span></label>
             <input pattern="^[A-Za-z0-9_.@-]{8,30}$" required = "required" type="password" class="form-control"id="new-password" name = "newPassword">
-            <label for="password">Old Password<span>*</span></label>
-            <input required = "required" type="password" class="form-control" id="old-password" name = "oldPassword">
-            <label><input type="checkbox" onclick="showmodal_Password()">Show Password</label>
-            <button class="aa-browse-btn" type="submit">Reset</button>
+            <label for="password">Confirm Password<span>*</span></label>
+            <input pattern="^[A-Za-z0-9_.@-]{8,30}$" required = "required" type="password" class="form-control"id="conpassword" name = "conpassword">
+            <label><input type="checkbox" onclick="showmodal_Password()" class="rememberme"> Show Password</label>
+            <label style="color: gray; font-size: 14px;">Password must have 8 to 30 characters with a mix of letters, numbers, underscores, hyphens, dots and at symbols.</label>
+            <button class="aa-browse-btn" type="submit">Change Password</button>
             <label for="rememberme" class="rememberme"></label>
             <p><br></p>
           </form>
@@ -177,6 +182,23 @@
 	
 	<div lang="en" th:insert="_footer::footer"></div>
 	<div lang="en" th:insert="_modal::modal"></div>
+	
+	<script>
+		var password = document.getElementById("new-password"), confirm_password = document
+				.getElementById("conpassword");
+
+		function validatePassword() {
+			if (password.value != confirm_password.value) {
+				confirm_password.setCustomValidity("Passwords Don't Match");
+			} else {
+				confirm_password.setCustomValidity('');
+			}
+		}
+
+		password.onchange = validatePassword;
+		confirm_password.onkeyup = validatePassword;
+	</script>
+	
 
 	<!-- jQuery library -->
 	<script
@@ -218,6 +240,12 @@
     		x.type = "password";
   		}
   		var x = document.getElementById("new-password");
+  		if (x.type === "password") {
+    		x.type = "text";
+  		} else {
+    		x.type = "password";
+  		}
+  		var x = document.getElementById("conpassword");
   		if (x.type === "password") {
     		x.type = "text";
   		} else {
