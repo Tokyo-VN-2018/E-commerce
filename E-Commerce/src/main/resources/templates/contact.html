@@ -91,8 +91,7 @@
 					<div class="aa-contact-area">
 						<div class="aa-contact-top">
 							<h2>We are wating to assist you..</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-								Quasi, quos.</p>
+							<p>If you have any feedback, feel free to contact us.</p>
 						</div>
 						<!-- contact map -->
 						<div class="aa-contact-map">
@@ -106,17 +105,12 @@
 							<div class="row">
 								<div class="col-md-8">
 									<div class="aa-contact-address-left">
-										<form class="comments-form contact-form" action="">
+										<form class="comments-form contact-form" action="/feedback">
+											<label th:if="${feedbacked}">Your feedback has been recorded.</label>
 											<div class="row">
-												<div class="col-md-6">
+												<div class="col-md-12">
 													<div class="form-group">
-														<input type="text" placeholder="Your Name"
-															class="form-control">
-													</div>
-												</div>
-												<div class="col-md-6">
-													<div class="form-group">
-														<input type="email" placeholder="Email"
+														<input type="text" placeholder="Your Name" name="name" required
 															class="form-control">
 													</div>
 												</div>
@@ -124,23 +118,23 @@
 											<div class="row">
 												<div class="col-md-6">
 													<div class="form-group">
-														<input type="text" placeholder="Phone"
+														<input type="tel" pattern="^[0-9\-\+]{9,15}$" placeholder="Phone" name="phone" required
 															class="form-control">
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
-														<input type="text" placeholder="Company"
+														<input type="email" placeholder="Email" name="email" required
 															class="form-control">
 													</div>
 												</div>
 											</div>
 
 											<div class="form-group">
-												<textarea class="form-control" rows="3"
+												<textarea class="form-control" rows="3" name="message" required
 													placeholder="Message"></textarea>
 											</div>
-											<button class="aa-secondary-btn">Send</button>
+											<button class="aa-secondary-btn" type="submit">Send</button>
 										</form>
 									</div>
 								</div>
