@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.onlinestore.domain.CartItem;
 import com.onlinestore.domain.Order;
@@ -44,9 +45,13 @@ public class CheckoutController {
 	private OrderItemService orderItemService;
 	
 	@RequestMapping("/checkout")
-	public String checkout(Model model, Principal principal) {
+	public String checkout(Model model, Principal principal, RedirectAttributes redirectAttribute) {
 		User user = userService.findByUsername(principal.getName());
 		List<CartItem> cartItemList = cartItemService.findByUser(user);
+		if(!cartItemService.checkQuantity(cartItemList)) {
+			redirectAttribute.addFlashAttribute("notEnoughStock",true);
+			return "redirect:/shoppingCart/cart";
+		}
 		userCartService.updateUserCart(user);
 		model.addAttribute("cartItems", cartItemList);
 		model.addAttribute("user", user);
@@ -54,9 +59,13 @@ public class CheckoutController {
 	}
 	
 	@RequestMapping("/process")
-	public String process(@ModelAttribute("order") Order order, Principal principal) {
+	public String process(@ModelAttribute("order") Order order, Principal principal, RedirectAttributes redirectAttribute) {
 		User user = userService.findByUsername(principal.getName());
 		List<CartItem> cartItemList = cartItemService.findByUser(user);
+		if(!cartItemService.checkQuantity(cartItemList)) {
+			redirectAttribute.addFlashAttribute("notEnoughStock",true);
+			return "redirect:/shoppingCart/cart";
+		}
 		order.setStatus(false);
 		order.setUser(user);
 		order.setAmount(user.getGrandTotal().doubleValue()*1.05);

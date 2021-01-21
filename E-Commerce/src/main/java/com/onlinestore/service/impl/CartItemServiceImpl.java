@@ -74,4 +74,13 @@ public class CartItemServiceImpl implements CartItemService {
 	public void deleteItem(CartItem cartItem) {
 		cartItemRepository.deleteByID(cartItem.getCartitem_id());
 	}
+	
+	public boolean checkQuantity(List<CartItem> cartItems) {
+		for(CartItem cartitem : cartItems) {
+			if(cartitem.getQuantity() > cartitem.getProduct().getQuantity()) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

@@ -102,6 +102,7 @@
 								<div class="col-md-8">
 									<div class="aa-contact-address-left">
 										<form th:action="@{/updateUserInfo}" class="aa-login-form" method="post">
+
                     						<label for="fullname">Fullname<span>*</span></label>
                     						<input type="text" th:value="${user.fullname}" required class="form-control" id="fullname" name = "fullname">
                     						<label for="email">Email<span>*</span><span th:if="${emailExists}">Email already exists. Choose a different one.</span></label>
@@ -118,8 +119,13 @@
                     						<input type="text" th:value="${user.address}" class="form-control" id="address" name = "address">
                     						<label for="password">Password<span>*</span><span th:if="${wrongPassword}">Wrong Password</span></label>
                     						<input required = "required" type="password" class="form-control" th:value="${currentPassword}" id="password" name = "currentPassword">
-                    						<button type="submit" class="aa-browse-btn">Update User</button>                    
+                    						<label style="color: rgb(224, 36, 94);" th:if="${passwordChanged}">Your password has been changed.</label> 
+                    						<p><label><input type="checkbox" onclick="showPassword()">Show Password</label></p>
+                    						<button type="submit" class="aa-browse-btn">Update User</button>
+                    						               
                   					</form>
+                  					<p> </p>
+                  					<button data-toggle="modal" data-target="#changepw-modal" class="aa-browse-btn" style="font-size: 14px;padding: 8px 20px;margin-right: 5px;margin-top: 10px;">Change password</button>  
 									</div>
 								</div>
 								<div class="col-md-4">
@@ -147,6 +153,28 @@
 			</div>
 		</div>
 	</section>
+	
+	<div class="modal fade" id="changepw-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">                      
+        <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4>Reset Password</h4>
+          <form class="aa-login-form" th:action="@{/changePassword}" method="post">
+            <label for="password">New Password<span>*</span></label>
+            <input pattern="^[A-Za-z0-9_.@-]{8,30}$" required = "required" type="password" class="form-control"id="new-password" name = "newPassword">
+            <label for="password">Old Password<span>*</span></label>
+            <input required = "required" type="password" class="form-control" id="old-password" name = "oldPassword">
+            <label><input type="checkbox" onclick="showmodal_Password()">Show Password</label>
+            <button class="aa-browse-btn" type="submit">Reset</button>
+            <label for="rememberme" class="rememberme"></label>
+            <p><br></p>
+          </form>
+        </div>                        
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div> 
+	
 	<div lang="en" th:insert="_footer::footer"></div>
 	<div lang="en" th:insert="_modal::modal"></div>
 
@@ -171,7 +199,32 @@
 	<script type="text/javascript" src="js/nouislider.js"></script>
 	<!-- Custom js -->
 	<script src="js/custom.js"></script>
-
+<script>
+		function showPassword() {
+  		var x = document.getElementById("password");
+  		if (x.type === "password") {
+    		x.type = "text";
+  		} else {
+    		x.type = "password";
+  		}
+		}
+	</script>
+	<script>
+		function showmodal_Password() {
+  		var x = document.getElementById("old-password");
+  		if (x.type === "password") {
+    		x.type = "text";
+  		} else {
+    		x.type = "password";
+  		}
+  		var x = document.getElementById("new-password");
+  		if (x.type === "password") {
+    		x.type = "text";
+  		} else {
+    		x.type = "password";
+  		}
+		}
+	</script>
 
 </body>
 </html>

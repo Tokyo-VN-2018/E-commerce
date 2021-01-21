@@ -124,7 +124,7 @@
        						<input hidden="hidden" id="cartitem_id" name="cartitem_id" th:value="${cartItem.cartitem_id}"/>
        						<input type="number" min="0" id="quantity" name="quantity" th:disabled="${cartItem.product.quantity==0}"
        						class="form-control" th:value="${cartItem.quantity}">
-       						<button type="submit" class="btn btn-warning btn-xs">Update</button>
+       						<button th:disabled="${cartItem.product.quantity==0}" type="submit" class="btn btn-warning btn-xs">Update</button>
        					</div>
        					
        				</form>

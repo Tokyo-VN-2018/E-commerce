@@ -98,9 +98,11 @@
 											class="form-control"
 											placeholder="Enter the password that accompanies your username"
 											id="password" name="password" />
-										<button type="submit" class="aa-browse-btn">Login</button>
-										<label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
-                    <p class="aa-lost-password"><a href="#" data-toggle="modal" data-target="#lostpw-modal">Lost your password?</a></p>
+										<label><input type="checkbox" onclick="showPassword()">Show Password</label>
+										<p><button type="submit" class="aa-browse-btn">Login</button>
+										<label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label></p>
+                    					<p class="aa-lost-password">
+                    					<a href="#" data-toggle="modal" data-target="#lostpw-modal">Lost your password?</a></p>
 										<!-- <p class="aa-lost-password">
 											<a href="#">Lost your password?</a>
 										</p> -->
@@ -123,7 +125,8 @@
 											class="form-control" placeholder="Email" id="email"
 											name="email"> <label for="password">Password<span>*</span>&nbsp
 										</label> <input required="required" type="password"
-											class="form-control" id="password" name="password" placeholder="Password" pattern="^[A-Za-z0-9_.@-]{8,30}$">
+											class="form-control" id="register-password" name="password" placeholder="Password" pattern="^[A-Za-z0-9_.@-]{8,30}$">
+											<label><input type="checkbox" onclick="showregister_Password()">Show Password</label>
 										<label style="color: gray; font-size: 14px;">Username and password must have 8 to 30 characters with a mix of letters, numbers, underscores, hyphens, dots and at symbols.</label>
 										<button type="submit" class="aa-browse-btn">Register</button>
 									</form>
@@ -151,7 +154,7 @@
             <label for="username">Username<span>*</span></label>
             <input required = "required" type="text" class="form-control" placeholder="Username" id="username" name = "username">
             <label for="email">Email<span>*</span></label>
-            <input required = "required" type="text" class="form-control" placeholder="Email" id="email" name = "email">
+            <input required = "required" type="email" class="form-control" placeholder="Email" id="email" name = "email">
             <button class="aa-browse-btn" type="submit">Reset</button>
             <label for="rememberme" class="rememberme"></label>
             <p><br></p>
@@ -182,7 +185,25 @@
 	<script type="text/javascript" src="js/nouislider.js"></script>
 	<!-- Custom js -->
 	<script src="js/custom.js"></script>
-
-
+	<script>
+		function showPassword() {
+  		var x = document.getElementById("password");
+  		if (x.type === "password") {
+    		x.type = "text";
+  		} else {
+    		x.type = "password";
+  		}
+		}
+	</script>
+	<script>
+		function showregister_Password() {
+  		var x = document.getElementById("register-password");
+  		if (x.type === "password") {
+    		x.type = "text";
+  		} else {
+    		x.type = "password";
+  		}
+		}
+	</script>
 </body>
 </html>

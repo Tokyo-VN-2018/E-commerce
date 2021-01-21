@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers(PUBLIC_MATCHERS)
 			.permitAll();
-		http.authorizeRequests().antMatchers("/myprofile","/updateUserInfo","/orderhistory").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+		http.authorizeRequests().antMatchers("/myprofile","/updateUserInfo","/orderhistory","/changePassword").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
 		http.authorizeRequests().antMatchers("/shoppingCart/**","/checkout","/process").access("hasAnyRole('ROLE_USER')");
 		http.authorizeRequests().antMatchers("/adminPortal","/productList","/addproduct","/uploadFile/**","/changeStatus").access("hasAnyRole('ROLE_ADMIN')");
 		http

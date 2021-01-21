@@ -327,4 +327,24 @@ public class HomeController {
 		return "account";
 	}
 	
+	@RequestMapping("/changePassword")
+	public String changePw(
+			@ModelAttribute("oldPassword") String oldpassword,
+			@ModelAttribute("newPassword") String newpassword,
+			RedirectAttributes redirectAttribute,
+			Model model, Principal principal) {
+		User user = userService.findByUsername(principal.getName());
+		System.out.println(oldpassword);
+		BCryptPasswordEncoder encoded = new BCryptPasswordEncoder();
+		boolean matches = encoded.matches(oldpassword, user.getPassword());
+		if(!matches) {
+			redirectAttribute.addFlashAttribute("wrongPassword", true);
+			return "redirect:/myprofile";
+		}
+		String encryptedpassword = SecurityUtility.passwordEncoder().encode(newpassword);
+		user.setPassword(encryptedpassword);
+		userService.save(user);
+		redirectAttribute.addFlashAttribute("passwordChanged", true);
+		return "redirect:/myprofile";
+	}
 }

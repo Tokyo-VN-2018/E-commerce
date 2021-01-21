@@ -13,4 +13,5 @@ public interface CartItemService {
 	void updateQuantity(CartItem cartItem, int quantity);
 	CartItem addProductToCartItem(Product product, User user, int quantity);
 	void deleteItem(CartItem cartItem);
+	boolean checkQuantity(List<CartItem> cartItems);
 }
