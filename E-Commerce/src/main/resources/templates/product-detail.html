@@ -65,7 +65,7 @@
  
   <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
-   <img src="/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+   <img src="/img/product.png" alt="fashion img">
    <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
@@ -93,7 +93,7 @@
                 <div class="col-md-5 col-sm-5 col-xs-12">                              
                   <div class="aa-product-view-slider">                                
                     <div id="demo-1" class="simpleLens-gallery-container">
-                      <img width="250px" height="300px" th:src="@{'upload/' + ${productdetail.product_id}} + '.jpg'" onerror="this.src='/img/man/t-shirt-1.png';">
+                      <img width="250px" height="300px" th:src="@{'/upload/' + ${productdetail.product_id}} + '.jpg'" onerror="this.src='/img/error.png';">
                     </div>
                   </div>
                 </div>
@@ -153,7 +153,7 @@
                 <!-- start single product item -->
                 <li data-th-each="product : ${products}">
 												<figure>
-													<a class="aa-product-img" th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><img width="250px" height="300px" th:src="@{'upload/' + ${product.product_id}} + '.jpg'" onerror="this.src='/img/man/t-shirt-1.png';"></a>
+													<a class="aa-product-img" th:href="@{/productdetail/id={id}(id = ${product.product_id})}"><img width="250px" height="300px" th:src="@{'/upload/' + ${product.product_id}} + '.jpg'" onerror="this.src='/img/error.png';"></a>
 													<form th:if="${product.quantity > 0}" class="aa-add-card-btn" action="/shoppingCart/addItem">
                       									<input type="hidden" id="product" name="product" th:value="${product.product_id}">
                         								<input type="hidden" id="quantity" name="quantity" value="1">
@@ -186,7 +186,7 @@
 																				id="demo-1">
 																				<div class="simpleLens-container">
 																					<div class="simpleLens-big-image-container">
-																						<img width="250px" height="300px" th:src="@{'upload/' + ${product.product_id}} + '.jpg'" onerror="this.src='/img/man/t-shirt-1.png';">
+																						<img width="250px" height="300px" th:src="@{'/upload/' + ${product.product_id}} + '.jpg'" onerror="this.src='/img/error.png';">
 																					</div>
 																				</div>
 																			</div>

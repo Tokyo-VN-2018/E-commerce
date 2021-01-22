@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">    
-    <title>Daily Shop | Home</title>
+    <title>Daily Shop | Cart</title>
     
     <!-- Font awesome -->
     <link href="/css/font-awesome.css" rel="stylesheet">
@@ -63,7 +63,7 @@
 	</div>
   <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
-   <img src="/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+   <img src="/img/cart.png" alt="fashion img">
    <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
@@ -103,7 +103,7 @@
        					<hr/>
        					<div class="col-xs-2">
        						<a th:href="@{/productdetail/id={id}(id=${cartItem.product.product_id})}">
-       							<img width="125px" height="150px" th:src="@{'upload/' + ${cartItem.product.product_id}} + '.jpg'" onerror="this.src='/img/man/t-shirt-1.png';">
+       							<img width="125px" height="150px" th:src="@{'/upload/' + ${cartItem.product.product_id}} + '.jpg'" onerror="this.src='/img/man/t-shirt-1.png';">
        						</a>
        					</div>
        					<div class="col-xs-6">
@@ -124,7 +124,7 @@
        						<input hidden="hidden" id="cartitem_id" name="cartitem_id" th:value="${cartItem.cartitem_id}"/>
        						<input type="number" min="0" id="quantity" name="quantity" th:disabled="${cartItem.product.quantity==0}"
        						class="form-control" th:value="${cartItem.quantity}">
-       						<button type="submit" class="btn btn-warning btn-xs">Update</button>
+       						<button th:disabled="${cartItem.product.quantity==0}" type="submit" class="btn btn-warning btn-xs">Update</button>
        					</div>
        					
        				</form>

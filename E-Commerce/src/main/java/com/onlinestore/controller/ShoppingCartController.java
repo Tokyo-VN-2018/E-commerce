@@ -83,7 +83,7 @@ public class ShoppingCartController {
 			Model model, Principal principal) {
 		CartItem cartItem = cartItemService.findByID(cartitem_id);
 		if (quantity > cartItem.getProduct().getQuantity()) {
-			redirectAttribute.addAttribute("notEnoughStock", true);
+			redirectAttribute.addFlashAttribute("notEnoughStock", true);
 			return "redirect:/shoppingCart/cart";
 		}
 		cartItemService.updateQuantity(cartItem, quantity);

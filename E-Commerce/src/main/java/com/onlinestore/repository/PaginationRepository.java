@@ -9,7 +9,9 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import com.onlinestore.domain.Category;
+import com.onlinestore.domain.Order;
 import com.onlinestore.domain.Product;
+import com.onlinestore.domain.User;
 
 @Repository
 public interface PaginationRepository extends PagingAndSortingRepository<Product, Long> {
@@ -25,4 +27,5 @@ public interface PaginationRepository extends PagingAndSortingRepository<Product
 	
 	@Query(value = "SELECT * FROM products", nativeQuery = true)
 	Page<Product> findPaginated(Pageable pageable);
+	
 }

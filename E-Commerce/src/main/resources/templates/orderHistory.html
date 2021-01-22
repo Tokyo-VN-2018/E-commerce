@@ -59,12 +59,37 @@
 	<!-- END SCROLL TOP BUTTON -->
 
 
-	<div lang="en" th:insert="_adminheader::adminheader"></div>
+	<div sec:authorize="hasAuthority('ROLE_ADMIN')">
+		<div lang="en" th:insert="_adminheader::adminheader"></div>
+	</div>
+	<div sec:authorize="hasAuthority('ROLE_USER')">
+		<div lang="en" th:insert="_header::header"></div>
+	</div>
+	<div sec:authorize="isAnonymous()">
+		<div lang="en" th:insert="_header::header"></div>
+	</div>
 
 	<!-- <h1>Hello</h1> -->
 	<section>
 		<div>
-			<div style="text-align:center;">Product List</div>
+			<h2 style="text-align:center;">Order List</h2>
+			
+			<div class="aa-product-catg-head-left" style="width:90%;margin-left: auto;margin-right: auto;">
+								<form th:action="@{__${#httpServletRequest.requestURI}__}" class="aa-sort-form" method="post">
+									<label for="sorttype">Sort by</label> 
+									<select name="sorttype" id="sorttype" onchange="this.form.submit()">
+										<option value="1" th:selected="${t1}">Default</option>
+										<option value="2" th:selected="${t2}">Order date: Descending</option>
+										<option value="3" th:selected="${t3}">Order date: Ascending</option>
+										<option value="4" th:selected="${t4}">Status: Delivered First</option>
+										<option value="5" th:selected="${t5}">Status: Delivering First</option>
+										<option value="6" th:selected="${t6}">Total: Descending</option>
+										<option value="7" th:selected="${t7}">Total: Ascending</option>
+									</select>
+								</form>
+								<div><br></div>
+			</div>
+							
 			<table id="productListTable" class="table table-bordered table-hover table-striped" style="width:90%;margin-left: auto;margin-right: auto;">
 				<thead>
 					<tr>
@@ -128,6 +153,22 @@
 					</tr>
 				</tbody>
 			</table>
+			<div class="aa-product-catg-pagination" style="text-align:center;">
+							<nav>
+								<ul class="pagination">
+									<li><a href="#" aria-label="Previous"> <span
+											aria-hidden="true">&laquo;</span>
+									</a></li>
+									<li th:each="pagenumber : ${pages}"><a
+										th:href="@{?page={number}(number = ${pagenumber})}"
+										th:text="${pagenumber + 1}"></a></li>
+
+									<li><a href="#" aria-label="Next"> <span
+											aria-hidden="true">&raquo;</span>
+									</a></li>
+								</ul>
+							</nav>
+						</div>
 		</div>
 	</section>
 
