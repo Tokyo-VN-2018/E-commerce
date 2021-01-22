@@ -54,13 +54,35 @@ VALUES
 ('LAP','Acer Predator Triton 500 PT515-52-73L3','Acer','Intel i7-10750H, NVIDIA GeForce RTX 2070 SUPER, 15.6" FHD NVIDIA G-SYNC Display, 300Hz, 16GB Dual-Channel DDR4, 512GB NVMe SSD, RGB Backlit KB',20,1659.99),
 ('LAP','Acer Predator Triton 500 Thin & Light','Acer',' Intel Core i7-9750H, GeForce RTX 2060 with 6GB, 15.6" Full HD 144Hz 3ms IPS Display, 16GB DDR4, 512GB PCIe NVMe SSD, RGB Keyboard',20,1628.99),
 ('LAP','ZenBook 15','ASUS','15.6” UHD 4K NanoEdge Display, Intel Core i7-10510U, GeForce GTX 1650, 16GB, 512GB PCIe SSD, ScreenPad 2.0, Amazon Alexa Compatible, Windows 10, Icicle Silver',20,1148.59),
-('LAP','Apple MacBook Pro','Apple','16-inch, 16GB RAM, 512GB Storage',20,2249.00)
+('LAP','Apple MacBook Pro','Apple','16-inch, 16GB RAM, 512GB Storage',20,2249.00),
 --smartphone
+('SMA','iPhone 12 Pro Max 512GB','Apple','6.7-inch Super Retina XDR display, Pro 12MP camera system: Ultra Wide, Wide, and Telephoto cameras',20,1099),
+('SMA','iPhone 12 256GB','Apple','5G speed. A14 Bionic, the fastest chip in a smartphone. An edge-to-edge OLED display. Ceramic Shield with four times better drop performance. And Night mode on every camera. iPhone 12 has it all — in two perfect sizes.',20,799),
+('SMA','iPhone SE','Apple','iPhone SE packs our powerful A13 Bionic chip into our most popular size at our most affordable price. It’s just what you’ve been waiting for.',20,399),
+('SMA','iPhone 12 128GB','Apple','6.1-inch (diagonal) all-screen LCD Multi-Touch display with IPS technology',20,599),
+('SMA','Galaxy S21 Ultra 5G,'Samsung','The real metal finish on the main camera adds unity to the design and accentuates the luxury of the haze texture. It’s a bold new camera design in a category of its own.',20,1199),
+('SMA','Galaxy Z Fold2 5G','Samsung','A mind-bending glass screen that folds like a book. A hands-free camera that shoots when you wave. A precision crafted hinge that transforms a cutting-edge smartphone into something much more.',20,999),
+('SMA','Galaxy A71 5G','Samsung','A smartphone that delivers all of the incredible features and performance you want from a Galaxy device, at an amazing value. With blazing 5G speed, a long-lasting battery, and an impressive quad camera, it’s time to see why the A71 5G gives you so much more than you bargained for.',20,449),
+('SMA','Vsmart Joy 4','Vsmart','Surpassing popular screen standards, Joy 4 offers an impeccable visual experience thanks to the 6.53 inch borderless screen and trendy hole-punch camera design. Leading the segment with high-end FHD+ 1080x2340 resolution, Joy 4 makes every frame sharp and vivid beyond expectation.',20,120),
+('SMA','Vsmart ARIS','Vsmart','The birth of Vsmart Aris Series marks the pioneering position of Vietnamese technology in the smartphone arena. Successfully launching Camera Under Display and Quantum Physics Security, Vsmart is taking the leap to reinvent smartphone experiences, and provides users front row seats to try world’s breakthrough technologies.',20,280),
+('SMA','Hoawei Mate 40 Pro','Huawei','See beyond the horizon, explore the unknown, and leap boldly into the future, with unprecedented power, speed and imagination. Embrace the intelligence and live an intimate life with innovative technology on the HUAWEI Mate 40 Pro.',20,1429),
 --mouse
+('MOU','Razer DeathAdder V2 Pro','Razer','With over 10 million Razer DeathAdders sold, the most successful gaming mouse of all time sheds its cord for comfort without limits. All hail the Razer DeathAdder V2 Pro—a wireless ergonomic gaming mouse that ushers in a new reign of dominance through total freedom of movement and control.',20,129),
+('MOU','Razer Naga X','Razer','Whether you’re a tank, healer or DPS, always be ready to raid with the Razer Naga X—an ergonomic MMO gaming mouse with 16 programmable buttons. Made lighter and armed with other best-in-slot features, it’s time you got geared up to top the logs.',20,79),
+('MOU','Logitech Pebble M350','Logitech','Make any space minimalist, modern, and silent with Logitech Pebble – the portable mouse that fits your curated lifestyle and goes wherever life takes you.',20,29),
+('MOU','Logitech MX Vertical','Logitech','MX Vertical is an advanced ergonomic mouse that combines science-driven design with the elevated performance of Logitech’s MX series.',20,99),
+('MOU','Logitech ERGO M575','Logitech','Minimize movement and maximize comfort with ERGO M575 – a wireless trackball with a sculpted ergonomic shape. With no need to move your arm around to move the cursor, your hand and arm stay relaxed.',20,49),
 --speaker
+('SPE','TAMPROAD Portable Bluetooth Speakers','TAMPROAD','Bluetooth Speaker Support Bluetooth connection, Support FM radio, TF Card music playback, AUX input, U-disk music playback, intelligent remote contrl and digital display. Powerful features, multiple choices to enrich your life.',20,45),
+('SPE','The Bose SoundLink Revolve','Bose','Deep, loud and immersive sound, with true 360 degree coverage, Built-in mic for speakerphone to take clear conference or personal calls out loud with a wireless range of approximately 30 feet.',20,199),
 --headphone
+('HEA','Apple AirPods Pro','Apple','InEar, Active noise cancellation for immersive sound, Transparency mode for hearing and connecting with the world around you',20,150),
+('HEA','Sony Noise Cancelling Headphones WHCH710N','Sony','Noise cancellation automatically senses your environment with Dual Noise Sensor Technology, Long-lasting listening with up to 35 hours of battery and quick charging',20,98),
+('HEA','Sony ZX Series Wired On-Ear Headphones','Sony','Connectivity Technology: Wired, 30mm drivers for rich, full frequency response',20,20),
 --microphone
-('MIC','Microphone Saramonic WM4C-M1','Saramonic',
+('MIC','USB Condenser Recording Microphone for Computer','DSCHLZY','Upgraded Functions Ever Seen. Professional Sound Quality. Plug and Play. Simple and easy to use.',20, 33),
+('MIC','Blue Snowball iCE USB Mic','Blue','Custom condenser capsule offers crystal clear audio for Skype, Messages and FaceTime. Add crystal clear audio to recordings for YouTube. Frequency Response: 40 –18 kHz.',20, 85),
+('MIC','Blue Yeti Nano Professional','Blue','Perfect for podcasting, game streaming, Skype calls, YouTube or music. No-latency headphone output, headphone volume and mic mute.',20, 100),
 --basicphone
 ('BAS','Nokia 215 4G','Nokia','SUPERFAST 4G. DURABILITY & LONG-LASTING BATTERY LIFE. ENTERTAINMENT. ERGONOMIC DESIGN',20,40),
 ('BAS','Nokia 5310','Nokia','The return of a classic. Music in its blood. Stay connected 24/7',20,46.5)
