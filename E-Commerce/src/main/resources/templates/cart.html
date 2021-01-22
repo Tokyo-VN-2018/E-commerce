@@ -103,7 +103,7 @@
        					<hr/>
        					<div class="col-xs-2">
        						<a th:href="@{/productdetail/id={id}(id=${cartItem.product.product_id})}">
-       							<img width="125px" height="150px" th:src="@{'upload/' + ${cartItem.product.product_id}} + '.jpg'" onerror="this.src='/img/man/t-shirt-1.png';">
+       							<img width="125px" height="150px" th:src="@{'/upload/' + ${cartItem.product.product_id}} + '.jpg'" onerror="this.src='/img/man/t-shirt-1.png';">
        						</a>
        					</div>
        					<div class="col-xs-6">

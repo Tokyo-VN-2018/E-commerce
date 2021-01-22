@@ -138,7 +138,7 @@
 												class="aa-cartbox-img"
 												th:href="@{/productdetail/id={id}(id=${cartItem.product.product_id})}">
 													<img width="125px" height="150px"
-													th:src="@{'upload/' + ${cartItem.product.product_id}} + '.jpg'"
+													th:src="@{'/upload/' + ${cartItem.product.product_id}} + '.jpg'"
 													onerror="this.src='/img/man/t-shirt-1.png';">
 											</a>
 												<div class="aa-cartbox-info">
