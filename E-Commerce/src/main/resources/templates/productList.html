@@ -134,14 +134,14 @@
 			<div class="aa-product-catg-pagination" style="text-align:center;">
 							<nav>
 								<ul class="pagination">
-									<li><a href="#" aria-label="Previous"> <span
+									<li><a th:unless="${curpage} == 0" th:href="@{?page={number}(number = ${curpage-1})}" aria-label="Previous"> <span
 											aria-hidden="true">&laquo;</span>
 									</a></li>
 									<li th:each="pagenumber : ${pages}"><a
 										th:href="@{?page={number}(number = ${pagenumber})}"
 										th:text="${pagenumber + 1}"></a></li>
 
-									<li><a href="#" aria-label="Next"> <span
+									<li><a th:unless="${curpage == totalpage}" th:href="@{?page={number}(number = ${curpage+1})}" aria-label="Next"> <span
 											aria-hidden="true">&raquo;</span>
 									</a></li>
 								</ul>

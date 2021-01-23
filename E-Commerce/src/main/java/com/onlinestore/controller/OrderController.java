@@ -82,7 +82,8 @@ public class OrderController {
 			}
 		}
 		model.addAttribute("pages", pages);
-
+		model.addAttribute("totalpage", totalPage-1);
+		model.addAttribute("curpage", page);
 		model.addAttribute("orders", orders);
 
 		return "orderHistory";

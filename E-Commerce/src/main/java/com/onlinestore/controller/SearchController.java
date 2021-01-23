@@ -98,6 +98,8 @@ public class SearchController {
 		
 		model.addAttribute("productList", productList);
 		model.addAttribute("pages", pages);
+		model.addAttribute("totalpage", totalPage-1);
+		model.addAttribute("curpage", page);
 		
 		return "product";
 		
@@ -164,6 +166,8 @@ public class SearchController {
 		
 		model.addAttribute("productList", productList);
 		model.addAttribute("pages", pages);
+		model.addAttribute("totalpage", totalPage-1);
+		model.addAttribute("curpage", page);
 		
 		return "product";
 	}
@@ -220,6 +224,8 @@ public class SearchController {
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("productList", productList);
 		model.addAttribute("pages", pages);
+		model.addAttribute("totalpage", totalPage-1);
+		model.addAttribute("curpage", page);
 		
 		return "product";
 		

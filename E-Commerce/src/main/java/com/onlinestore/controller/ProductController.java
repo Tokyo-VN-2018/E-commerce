@@ -108,6 +108,8 @@ public class ProductController {
 		model.addAttribute("productList", productList);
 		model.addAttribute("activeAll", true);
 		model.addAttribute("pages", pages);
+		model.addAttribute("totalpage", totalPage-1);
+		model.addAttribute("curpage", page);
 		
 		return "product";
 	}

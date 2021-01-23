@@ -66,8 +66,8 @@ public class FeedbackController {
 			pages.add(i);
 			}
 		}
-		
-		
+		model.addAttribute("totalpage", totalPage-1);
+		model.addAttribute("curpage", page);
 		model.addAttribute("pages", pages);
 		model.addAttribute("feedbacks", feedbacks);
 		return "feedbackList";
