@@ -111,7 +111,7 @@
 									</a></li>
 									<li th:each="pagenumber : ${pages}"><a
 										th:href="@{?page={number}(number = ${pagenumber})}"
-										th:text="${pagenumber + 1}"></a></li>
+										th:text="${pagenumber + 1}" th:style="${curpage==pagenumber}? 'background-color: #ff6666;color: #fff;'"></a></li>
 
 									<li><a th:unless="${curpage >= totalpage}" th:href="@{?page={number}(number = ${curpage+1})}" aria-label="Next"> <span
 											aria-hidden="true">&raquo;</span>
